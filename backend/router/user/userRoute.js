@@ -45,8 +45,12 @@ router.post('/new', async (req, res) => {
     })
 
     try {
-        const newUser = await user.save();
-        res.status(201).send({ response: 'User created', newUser });
+        await user.save();
+        const token = jwt.sign({
+            userEmail: userEmail,
+            socialRefferarId: socialRefferarId
+        }, process.env.JWT_SECRET)
+        res.status(201).send({ response: 'User created', userId: userId, userEmail: userEmail, token: token });
     } catch (err) {
         res.status(400).send({ response: 'User not created', err });
     }

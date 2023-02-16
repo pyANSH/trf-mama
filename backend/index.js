@@ -9,7 +9,7 @@ app.post('/', (req, res) => {
     res.sendStatus(200);
 })
 
-app.use('/user', userRoute);
+
 function checkKey(req, res, next) {
     if (req.headers.key === process.env.API_KEY) {
         next();
@@ -17,6 +17,8 @@ function checkKey(req, res, next) {
         res.sendStatus(401);
     }
 }
+
+app.use('/user', userRoute);
 app.use(checkKey);
 app.listen(8000, () => {
     console.log('Server is running on port 3000');
