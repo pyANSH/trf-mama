@@ -27,29 +27,34 @@ router.post('/login', (req, res) => {
 router.post('/new', async (req, res) => {
     const { userId, userEmail, interests, userFullName, socialRefferarId } = req.body;
 
-    await userModal.find({ userEmail: userEmail }).then((user) => {
-        if (user.length > 0) {
-            return res.status(400).send('User already exist');
-        }
+    if (!userId || !userEmail || !interests || !userFullName || !socialRefferarId) {
+        return res.status(400).send('Please fill all the fields');
+    }
+    //check email already exists in db userModal
+    let userExists = await userModal.findOne({ userEmail: userEmail });
+    if (userExists) {
+        return res.status(400).send('User already registered.');
+    }
+
+    const user = new userModal({
+        userId: userId,
+        userEmail: userEmail,
+        interests: interests,
+        userFullName: userFullName,
+        socialRefferarId: socialRefferarId,
     })
 
-    const newUser = new userModal({
-        userId,
-        userEmail,
-        interests,
-        userFullName,
-        socialRefferarId
-    })
-    const token = jwt.sign({
-        userEmail: userEmail,
-        socialRefferarId: socialRefferarId
-    }, process.env.JWT_SECRET)
-    await newUser.save().then(() => res.status(200).send({ response: 'User created', accessToken: token })).catch(err => res.status(400).send(err.message));
-}
-)
+    try {
+        const newUser = await user.save();
+        res.status(201).send({ response: 'User created', newUser });
+    } catch (err) {
+        res.status(400).send({ response: 'User not created', err });
+    }
+})
+
 
 router.post('/*', (req, res) => {
-    res.sendStatus(421);
+    res.sendStatus(421).send('Invalid place');
 })
 
 

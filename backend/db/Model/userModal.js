@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema({
     socialRefferarId: {
         type: String,
     },
+    meetings: {
+        type: [Object],
+        default: [],
+    },
 });
 
 module.exports = mongoose.model('user', userSchema);
