@@ -11,11 +11,11 @@
   userEmail: string,
   interests: string[],
   userFullName: string,
-  socialRefferarId: string,
+  socialRefererId: string,
   } => {JWT: string}
 
   /user/login => POST, login:{
-  socialRefferarId: string,
+  socialRefererId: string,
   email: string,
   } => {JWT: string}
 

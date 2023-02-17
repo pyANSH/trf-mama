@@ -5,15 +5,15 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 router.post('/login', (req, res) => {
-    const { userEmail, socialRefferarId } = req.body;
-    if (!userEmail || !socialRefferarId) {
+    const { userEmail, socialRefererId } = req.body;
+    if (!userEmail || !socialRefererId) {
         return res.status(400).send('Please fill all the fields');
     }
-    userModal.find({ userEmail: userEmail, socialRefferarId }).then((user) => {
+    userModal.find({ userEmail: userEmail, socialRefererId }).then((user) => {
         if (user.length > 0) {
             const token = jwt.sign({
                 userEmail: userEmail,
-                socialRefferarId: socialRefferarId
+                socialRefererId: socialRefererId
             }, process.env.JWT_SECRET)
             return res.status(200).send({ response: 'User logged in', accessToken: token });
         }
@@ -25,9 +25,9 @@ router.post('/login', (req, res) => {
 
 
 router.post('/new', async (req, res) => {
-    const { userId, userEmail, interests, userFullName, socialRefferarId } = req.body;
+    const { userId, userEmail, interests, userFullName, socialRefererId } = req.body;
 
-    if (!userId || !userEmail || !interests || !userFullName || !socialRefferarId) {
+    if (!userId || !userEmail || !interests || !userFullName || !socialRefererId) {
         return res.status(400).send('Please fill all the fields');
     }
     //check email already exists in db userModal
@@ -41,14 +41,14 @@ router.post('/new', async (req, res) => {
         userEmail: userEmail,
         interests: interests,
         userFullName: userFullName,
-        socialRefferarId: socialRefferarId,
+        socialRefererId: socialRefererId,
     })
 
     try {
         await user.save();
         const token = jwt.sign({
             userEmail: userEmail,
-            socialRefferarId: socialRefferarId
+            socialRefererId: socialRefererId
         }, process.env.JWT_SECRET)
         res.status(201).send({ response: 'User created', userId: userId, userEmail: userEmail, token: token });
     } catch (err) {

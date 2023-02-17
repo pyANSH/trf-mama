@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    socialRefferarId: {
+    socialRefererId: {
         type: String,
     },
     meetings: {
