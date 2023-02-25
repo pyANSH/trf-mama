@@ -29,12 +29,14 @@ justify-content: center;
 
 const Header =styled.div`
   padding:56px 0 0 95px;
-
+width:fit-content;
 `;
 
 const Logo =styled.div(({theme})=>({
 	...appTypography.h5.bold,
-	color:theme.app.typography['900']
+	color:theme.app.typography['900'],
+	width:'fit-content',
+	cursor:'pointer'
 }));
 
 const MainContent =styled.div`
@@ -107,11 +109,16 @@ function SignUp() {
 		}
 		
 	}
+
+	function handleHomeRoute() {
+		navigate('/');
+		
+	}
 	return (
 		<Container>
 			<LeftContainer>
 				<Header>
-					<Logo>mama.</Logo>
+					<Logo onClick={handleHomeRoute}>mama.</Logo>
 				</Header>
 
 				<MainContent>
