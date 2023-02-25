@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { appTypography } from '../../config/styles';
-
+import { _onBoard } from '../../Store/Thunk/Onboard';
+import {useDispatch} from 'react-redux';
 const Container = styled.div`
 height:100vh;
 width:100%;
@@ -58,7 +59,7 @@ width:80%;
 `;
 
 function SignUp() {
-
+	const dispatch:any = useDispatch();
 	function decodeJwtResponse(token: string) {
 		const base64Url = token.split('.')[1];
 		const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -83,7 +84,13 @@ function SignUp() {
 		const responsePayload = decodeJwtResponse(response.credential);
 		console.log('Encoded JWT ID token: ' + responsePayload);
 		console.log(responsePayload.name,responsePayload.sub,responsePayload.email,);
-		
+		const body ={
+			fullname:responsePayload.name,
+			reffererId:responsePayload.sub,
+			email:responsePayload.email,
+			'interests': []
+		};
+		dispatch(_onBoard({body}));
 	}
 	return (
 		<Container>
