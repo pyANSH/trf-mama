@@ -1,4 +1,8 @@
-export const landingPageRoutes = [{
+import LandingPage from "../pages/landingPage/LandingPage";
+
+export const landingPageRoutes = [
+  {
     path: "/",
-    element: <div>Hello world!</div>,
-  }]
+    element: <LandingPage />,
+  },
+];
