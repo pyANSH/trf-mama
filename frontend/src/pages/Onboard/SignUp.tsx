@@ -4,7 +4,7 @@ import { appTypography } from '../../config/styles';
 import { _onBoard } from '../../Store/Thunk/Onboard';
 import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
-
+import billiBKL from '../../assets/billiBC.svg';
 
 const Container = styled.div`
 height:100vh;
@@ -57,8 +57,13 @@ const LoginText =styled.p(({theme})=>({
 const CatContainer =styled.div`
 background: #FFF8E1;
 border-radius: 300px;	
-height:200px;
+height:280px;
 width:80%;
+`;
+
+const CatImage =styled.img`
+width:100%;
+height:100%;	
 `;
 
 function SignUp() {
@@ -116,7 +121,7 @@ function SignUp() {
 			</LeftContainer>
 			<RightContainer>
 				<CatContainer>
-
+					<CatImage src={billiBKL}/>
 				</CatContainer>
 
 			</RightContainer>
