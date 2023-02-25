@@ -58,9 +58,19 @@ width:80%;
 `;
 
 function SignUp() {
+
+	function decodeJwtResponse(token: string) {
+		const base64Url = token.split('.')[1];
+		const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+		const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+			return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+		}).join(''));
+		return JSON.parse(jsonPayload);
+	}
+
 	useEffect(() => {
 		window.google.accounts.id.initialize({
-			client_id: '255367876867-qeq3elau6i4ds3h3691k2p9qqccmqart.apps.googleusercontent.com',
+			client_id: '6951006710-td58cqht8oke2isd8fl5c9uv2t1r7bka.apps.googleusercontent.com',
 			callback: handleCredentialResponse
 		});
 		window.google.accounts.id.renderButton(
@@ -69,7 +79,11 @@ function SignUp() {
 		);
 	}, []);
 	function handleCredentialResponse(response: { credential: string; }) {
-		console.log('Encoded JWT ID token: ' + response.credential);
+		
+		const responsePayload = decodeJwtResponse(response.credential);
+		console.log('Encoded JWT ID token: ' + responsePayload);
+		console.log(responsePayload.name,responsePayload.sub,responsePayload.email,);
+		
 	}
 	return (
 		<Container>
