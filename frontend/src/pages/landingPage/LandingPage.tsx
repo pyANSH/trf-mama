@@ -23,21 +23,48 @@ const LogoText = styled.h1`
   font-weight: 700;
   font-size: 23px;
   line-height: 27px;
+
+  cursor: pointer;
 `;
 
-const Nav = styled.div`
+const NavContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  max-width: 483px;
-  max-height: 56px;
-  font-weight: 400;
-  font-size: 16px;
+  justify-content: center;
+  max-width: 484px;
+  /* max-height: 56px; */ //? why do we need this?
+
   width: 100%;
-  background-color: #fff;
-  padding: 20px;
+  background-color: aqua;
+  padding: 18px 48px;
   border-radius: 30px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
+
+const NavOptionsContainer = styled.div`
+display: flex;
+align-items: center;
+justify-content: space-between;
+width: 100%;
+padding: 0px;
+gap: 44px;
+`;
+
+const NavItem = styled.div`
+  cursor: pointer;
+`;
+
+const NavText = styled.p(() => ({
+	fontStyle: 'normal', 
+	fontWeight: '400',
+	fontSize: '16px',
+	lineHeight: '20px',
+	color: '#000',
+}));
 
 const Logo = styled.div`
   font-style: normal;
@@ -66,14 +93,15 @@ const BTN_SignUp = styled(Button)`
   padding: 19px 63px;
   border-radius: 30px;
   color: #fff;
+  cursor: pointer;
 `;
 
-const LoginBTNContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-`;
+// const LoginBTNContainer = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   gap: 20px;
+// `;
 
 const Hero = styled.div`
   background: #fafafa;
@@ -104,55 +132,61 @@ const HeroBTN = styled(BTN_SignUp)`
   margin: 52px 0;
 `;
 
-const NavListContainer = styled.ul`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  list-style: none;
-`;
 
-const NavItem = styled.li`
-  a {
-    text-decoration: none;
-    color: #000;
-  }
-`;
+
 
 function LandingPage() {
+
+	const NavItems = [
+		{
+			id: 1,
+			text: 'Why Mama',
+			link: '#',
+			onClick: () => console.log('why mama clicked'),
+		},
+		{
+			id: 2,
+			text: 'The Zone',
+			link: '#',
+			onClick: () => console.log('the zone clicked'),
+		},
+		{
+			id: 3,
+			text: 'Pricing',
+			link: '#',
+			onClick: () => console.log('pricing clicked'),
+		},
+		{
+			id: 4,
+			text: 'FAQs',
+			link: '#',
+			onClick: () => console.log('faqs clicked'),
+		},
+    
+	];
 
 	return (
 		<MainContainer>
 			<Header>
 				<LogoText>{'mama.'}</LogoText>
 
-				<Nav>
-					<NavListContainer>
-						<NavItem>
-							<a href="#">{'Why Mama'}</a>
-						</NavItem>
-						<NavItem>
-							<a href="#">{'The Zone'}</a>
-						</NavItem>
-						<NavItem>
-							<a href="#">{'Pricing'}</a>
-						</NavItem>
-						<NavItem>
-							<a href="#">{'FAQs'}</a>
-						</NavItem>
-					</NavListContainer>
-				</Nav>
-        
-				<LoginBTNContainer>
-					<BTN_Login>{'Login'}</BTN_Login>
-					<BTN_SignUp>{'Sign Up'}</BTN_SignUp>
-				</LoginBTNContainer>
+				<NavContainer>
+					<NavOptionsContainer>
+						{NavItems.map((item) => (
+							<NavItem key={item.id}>
+								<NavText onClick={item.onClick}>{item.text}</NavText>
+							</NavItem>
+						))}
+					</NavOptionsContainer>
+				</NavContainer>
+
+				<BTN_SignUp>{'Log in'}</BTN_SignUp>
+
 			</Header>
-			{/* <header className="header"></header> */}
+
 			<Hero>
-				{/* <div></div> */}
 				<div>
-					<HeroHeadingText>{'Personalised'} </HeroHeadingText>
+					<HeroHeadingText>{'Personalized'} </HeroHeadingText>
 					<HeroHeadingText>{'learning for you'}</HeroHeadingText>
 				</div>
 				<HeroBTN>{'Sign Up for free'}</HeroBTN>
