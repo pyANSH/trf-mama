@@ -4,7 +4,7 @@ const app = express();
 const userRoute = require('./router/user/userRoute');
 const meetingRoute = require('./router/meeting/meetingRoute');
 var cors = require('cors')
-// const notesRoute = require('./router/notes/notesRoute');
+const notesRoute = require('./router/notes/notesRoute');
 const { verify } = require('jsonwebtoken');
 app.use(express.json());
 app.use(cors())
@@ -39,7 +39,7 @@ function checkToken(req, res, next) {
 
 app.use('/user', checkKey, userRoute);
 app.use('/meeting', checkKey, checkToken, meetingRoute);
-// app.use('/notes', checkKey, checkToken, notesRoute);
+app.use('/notes', checkKey, checkToken, notesRoute);
 
 app.listen(8000, () => {
     console.log('Server is running on port 8000');
