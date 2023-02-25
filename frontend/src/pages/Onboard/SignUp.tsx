@@ -85,9 +85,9 @@ function SignUp() {
 		console.log('Encoded JWT ID token: ' + responsePayload);
 		console.log(responsePayload.name,responsePayload.sub,responsePayload.email,);
 		const body ={
-			fullname:responsePayload.name,
-			reffererId:responsePayload.sub,
-			email:responsePayload.email,
+			userFullName:responsePayload.name,
+			socialRefererId:responsePayload.sub,
+			userEmail:responsePayload.email,
 			'interests': []
 		};
 		dispatch(_onBoard({body}));

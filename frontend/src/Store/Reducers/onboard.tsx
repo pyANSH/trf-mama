@@ -6,7 +6,8 @@ const appdata = createSlice({
 	name: 'appdata',
 	initialState: {
 		user:{},
-		status:'idle'
+		status:'idle',
+		JWT:'',
 	},
 	reducers: {
 		
@@ -20,7 +21,12 @@ const appdata = createSlice({
 		builder.addCase(
 			_onBoard.fulfilled,(state, action:any)=>{
 				const response = action.payload;
-				state.user = response;
+				state.user = {
+					userId:response.data.userId,
+					email:response.data.userEmail,
+					fullname:response.data.userFullName
+				};
+				state.JWT=response.data.token;
 				state.status='fullfilled';
 			}
 		);
