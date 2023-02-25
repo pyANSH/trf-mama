@@ -25,21 +25,23 @@ require('dotenv').config();
 
 
 router.post('/login', async (req, res) => {
-    const { userId, userEmail, interests, userFullName, socialRefererId, isMentor } = req.body;
+    const { userEmail, interests, userFullName, socialRefererId, isMentor } = req.body;
 
-    if (!userId || !userEmail || !interests || !userFullName || !socialRefererId, !isMentor) {
-        return res.status(400).send('Please fill all the fields');
+    if (!userEmail || !interests || !userFullName || !socialRefererId) {
+        res.statusCode = 400;
+        return res.send('Please fill all the fields');
     }
     let userExists = await userModal.findOne({ socialRefererId: socialRefererId });
     if (userExists) {
         const token = jwt.sign({
+            id: userExists._id,
             userEmail: userEmail,
             socialRefererId: socialRefererId
         }, process.env.JWT_SECRET)
-        res.status(201).send({ response: 'User Successfully logged In', userId: userId, userEmail: userEmail, token: token });
+        res.statusCode = 200;
+        return res.send({ response: 'User Successfully logged In', userId: userExists._id, userEmail: userEmail, token: token, isMentor: userExists.isMentor });
     }
     const user = new userModal({
-        userId: userId,
         userEmail: userEmail,
         interests: interests,
         userFullName: userFullName,
@@ -47,30 +49,33 @@ router.post('/login', async (req, res) => {
         isMentor: isMentor
     })
     try {
-        await user.save();
+        const dbUpdate = await user.save()
         const token = jwt.sign({
+            id: dbUpdate._id,
             userEmail: userEmail,
             socialRefererId: socialRefererId
         }, process.env.JWT_SECRET)
-        res.status(201).send({ response: 'User created', userId: userId, userEmail: userEmail, token: token });
+        res.statusCode = 201;
+        return res.send({ response: 'User created', userId: dbUpdate._id, userEmail: userEmail, token: token, isMentor: dbUpdate.isMentor });
     } catch (err) {
-        res.status(400).send({ response: 'User not created', err });
+        res.statusCode = 400;
+        return res.send({ response: 'User not created', err });
     }
 })
 
 router.get('/', (req, res) => {
-    const { email, token } = req.query;
-    if (!email || !token) {
+    const { userId, token } = req.query;
+    if (!userId || !token) {
         return res.status(400).json({ response: 'Please fill all the fields' });
     }
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         console.log(decoded.userEmail);
-        if (err || decoded.userEmail !== email) {
+        if (err || decoded.id !== userId) {
             return res.status(401).json({ response: 'Invalid token' });
         }
         else {
             try {
-                userModal.find({ userEmail: decoded.userEmail }).then((user) => {
+                userModal.find({ _id: userId }).then((user) => {
                     if (user.length > 0) {
                         return res.status(200).json(user);
                     }
@@ -78,7 +83,6 @@ router.get('/', (req, res) => {
                         return res.status(400).json({ response: 'User not found' });
                     }
                 })
-
             }
             catch (err) {
                 return res.status(400).json({ response: 'User not found' });

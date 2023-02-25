@@ -15,21 +15,23 @@ router.post('/schedule', async (req, res) => {
         return res.status(400).send({ response: 'Meeting already scheduled' });
     }
     const meeting = new meetingModal(request)
-    console.log("meeting", meeting)
     try {
-        meeting.save()
-        const findMentor = await userModal.find({ socialRefererId: request.mentorId })
-        const findMentee = await userModal.find({ socialRefererId: request.menteeId })
+
+        const findMentor = await userModal.find({ _id: request.mentorId })
+        const findMentee = await userModal.find({ _id: request.menteeId })
 
         findMentor[0].meetings.push(meeting._id)
         findMentee[0].meetings.push(meeting._id)
         findMentor[0].save()
         findMentee[0].save()
-
-        res.status(201).send({ response: 'Meeting scheduled', meetingId: meeting._id })
+        if (findMentor[0].isMentor === false || findMentee[0].isMentor === true) {
+            return res.status(400).send({ response: 'Please enter valid mentor and mentee' });
+        }
+        meeting.save()
+        return res.status(201).send({ response: 'Meeting scheduled', meetingId: meeting._id })
     }
     catch (err) {
-        res.status(400).send({ response: 'Meeting not scheduled', err })
+        return res.status(400).send({ response: 'Meeting not scheduled', err })
     }
 })
 router.get('/get', async (req, res) => {
