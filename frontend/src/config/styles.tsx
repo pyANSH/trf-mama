@@ -131,7 +131,7 @@ export const lightThemeColorScheme = {
 export const appTypography = {
 	'displayLarge': {
 		'med': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '500',
 			'font-size': '52px',
@@ -157,7 +157,7 @@ export const appTypography = {
 			}
 		},
 		'semiBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '600',
 			'font-size': '52px',
@@ -183,7 +183,7 @@ export const appTypography = {
 			}
 		},
 		'bold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '700',
 			'font-size': '52px',
@@ -209,7 +209,7 @@ export const appTypography = {
 			}
 		},
 		'extraBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '800',
 			'font-size': '52px',
@@ -237,7 +237,7 @@ export const appTypography = {
 	},
 	'displaySmall': {
 		'med': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '500',
 			'font-size': '44px',
@@ -263,7 +263,7 @@ export const appTypography = {
 			}
 		},
 		'semiBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '600',
 			'font-size': '44px',
@@ -289,7 +289,7 @@ export const appTypography = {
 			}
 		},
 		'bold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '700',
 			'font-size': '44px',
@@ -315,7 +315,7 @@ export const appTypography = {
 			}
 		},
 		'extraBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '800',
 			'font-size': '44px',
@@ -343,7 +343,7 @@ export const appTypography = {
 	},
 	'h1': {
 		'med': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '500',
 			'font-size': '40px',
@@ -369,7 +369,7 @@ export const appTypography = {
 			}
 		},
 		'semiBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '600',
 			'font-size': '40px',
@@ -395,7 +395,7 @@ export const appTypography = {
 			}
 		},
 		'bold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '700',
 			'font-size': '40px',
@@ -421,7 +421,7 @@ export const appTypography = {
 			}
 		},
 		'extraBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '800',
 			'font-size': '40px',
@@ -449,7 +449,7 @@ export const appTypography = {
 	},
 	'h2': {
 		'med': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '500',
 			'font-size': '36px',
@@ -475,7 +475,7 @@ export const appTypography = {
 			}
 		},
 		'semiBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '600',
 			'font-size': '36px',
@@ -501,7 +501,7 @@ export const appTypography = {
 			}
 		},
 		'bold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '700',
 			'font-size': '36px',
@@ -527,7 +527,7 @@ export const appTypography = {
 			}
 		},
 		'extraBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '800',
 			'font-size': '36px',
@@ -555,7 +555,7 @@ export const appTypography = {
 	},
 	'h3': {
 		'med': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '500',
 			'font-size': '32px',
@@ -581,7 +581,7 @@ export const appTypography = {
 			}
 		},
 		'semiBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '600',
 			'font-size': '32px',
@@ -607,7 +607,7 @@ export const appTypography = {
 			}
 		},
 		'bold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '700',
 			'font-size': '32px',
@@ -633,7 +633,7 @@ export const appTypography = {
 			}
 		},
 		'extraBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '800',
 			'font-size': '32px',
@@ -661,7 +661,7 @@ export const appTypography = {
 	},
 	'h4': {
 		'med': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '500',
 			'font-size': '28px',
@@ -687,7 +687,7 @@ export const appTypography = {
 			}
 		},
 		'semiBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '600',
 			'font-size': '28px',
@@ -713,7 +713,7 @@ export const appTypography = {
 			}
 		},
 		'bold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '700',
 			'font-size': '28px',
@@ -739,7 +739,7 @@ export const appTypography = {
 			}
 		},
 		'extraBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '800',
 			'font-size': '28px',
@@ -767,7 +767,7 @@ export const appTypography = {
 	},
 	'h5': {
 		'med': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '500',
 			'font-size': '24px',
@@ -793,7 +793,7 @@ export const appTypography = {
 			}
 		},
 		'semiBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '600',
 			'font-size': '24px',
@@ -819,7 +819,7 @@ export const appTypography = {
 			}
 		},
 		'bold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '700',
 			'font-size': '24px',
@@ -845,7 +845,7 @@ export const appTypography = {
 			}
 		},
 		'extraBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '800',
 			'font-size': '24px',
@@ -873,7 +873,7 @@ export const appTypography = {
 	},
 	'h6': {
 		'med': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '500',
 			'font-size': '20px',
@@ -899,7 +899,7 @@ export const appTypography = {
 			}
 		},
 		'semiBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '600',
 			'font-size': '20px',
@@ -925,7 +925,7 @@ export const appTypography = {
 			}
 		},
 		'bold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '700',
 			'font-size': '20px',
@@ -951,7 +951,7 @@ export const appTypography = {
 			}
 		},
 		'extraBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '800',
 			'font-size': '20px',
@@ -979,7 +979,7 @@ export const appTypography = {
 	},
 	'paraLarge': {
 		'regular': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '18px',
@@ -1004,7 +1004,7 @@ export const appTypography = {
 			}
 		},
 		'med': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '500',
 			'font-size': '18px',
@@ -1029,7 +1029,7 @@ export const appTypography = {
 			}
 		},
 		'semiBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '600',
 			'font-size': '18px',
@@ -1054,7 +1054,7 @@ export const appTypography = {
 			}
 		},
 		'underline': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '18px',
@@ -1080,7 +1080,7 @@ export const appTypography = {
 			}
 		},
 		'strikeTrough': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '18px',
@@ -1106,7 +1106,7 @@ export const appTypography = {
 			}
 		},
 		'italic': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'italic',
 			'font-weight': '400',
 			'font-size': '18px',
@@ -1133,7 +1133,7 @@ export const appTypography = {
 	},
 	'paraMed': {
 		'regular': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '16px',
@@ -1158,7 +1158,7 @@ export const appTypography = {
 			}
 		},
 		'med': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '500',
 			'font-size': '16px',
@@ -1183,7 +1183,7 @@ export const appTypography = {
 			}
 		},
 		'semiBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '600',
 			'font-size': '16px',
@@ -1208,7 +1208,7 @@ export const appTypography = {
 			}
 		},
 		'underline': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '16px',
@@ -1234,7 +1234,7 @@ export const appTypography = {
 			}
 		},
 		'strikeTrough': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '16px',
@@ -1260,7 +1260,7 @@ export const appTypography = {
 			}
 		},
 		'italic': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'italic',
 			'font-weight': '400',
 			'font-size': '16px',
@@ -1287,7 +1287,7 @@ export const appTypography = {
 	},
 	'paraSmall': {
 		'regular': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '14px',
@@ -1312,7 +1312,7 @@ export const appTypography = {
 			}
 		},
 		'med': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '500',
 			'font-size': '14px',
@@ -1337,7 +1337,7 @@ export const appTypography = {
 			}
 		},
 		'semiBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '600',
 			'font-size': '14px',
@@ -1362,7 +1362,7 @@ export const appTypography = {
 			}
 		},
 		'underline': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '14px',
@@ -1388,7 +1388,7 @@ export const appTypography = {
 			}
 		},
 		'strikeTrough': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '14px',
@@ -1414,7 +1414,7 @@ export const appTypography = {
 			}
 		},
 		'italic': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'italic',
 			'font-weight': '400',
 			'font-size': '14px',
@@ -1441,7 +1441,7 @@ export const appTypography = {
 	},
 	'paraXSmall': {
 		'regular': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '12px',
@@ -1466,7 +1466,7 @@ export const appTypography = {
 			}
 		},
 		'med': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '500',
 			'font-size': '12px',
@@ -1491,7 +1491,7 @@ export const appTypography = {
 			}
 		},
 		'semiBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '600',
 			'font-size': '12px',
@@ -1516,7 +1516,7 @@ export const appTypography = {
 			}
 		},
 		'underline': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '12px',
@@ -1542,7 +1542,7 @@ export const appTypography = {
 			}
 		},
 		'strikeTrough': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '12px',
@@ -1568,7 +1568,7 @@ export const appTypography = {
 			}
 		},
 		'italic': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'italic',
 			'font-weight': '400',
 			'font-size': '12px',
@@ -1595,7 +1595,7 @@ export const appTypography = {
 	},
 	'paraXXSmall': {
 		'regular': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '8px',
@@ -1620,7 +1620,7 @@ export const appTypography = {
 			}
 		},
 		'med': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '500',
 			'font-size': '8px',
@@ -1645,7 +1645,7 @@ export const appTypography = {
 			}
 		},
 		'semiBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '600',
 			'font-size': '8px',
@@ -1670,7 +1670,7 @@ export const appTypography = {
 			}
 		},
 		'underline': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '8px',
@@ -1696,7 +1696,7 @@ export const appTypography = {
 			}
 		},
 		'strikeTrough': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '8px',
@@ -1722,7 +1722,7 @@ export const appTypography = {
 			}
 		},
 		'italic': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'italic',
 			'font-weight': '400',
 			'font-size': '8px',
@@ -1748,7 +1748,7 @@ export const appTypography = {
 		}
 	},
 	'overlineLarge': {
-		'font-family': 'Roboto',
+		'font-family': 'Work Sans',
 		'font-style': 'normal',
 		'font-weight': '600',
 		'font-size': '14px',
@@ -1775,7 +1775,7 @@ export const appTypography = {
 		}
 	},
 	'overlineSemiBold': {
-		'font-family': 'Roboto',
+		'font-family': 'Work Sans',
 		'font-size': '14px',
 		'font-weight': '600',
 		'line-height': '18px',
@@ -1783,7 +1783,7 @@ export const appTypography = {
 		'text-align': 'center',
 	},
 	'overlineSmall': {
-		'font-family': 'Roboto',
+		'font-family': 'Work Sans',
 		'font-style': 'normal',
 		'font-weight': '600',
 		'font-size': '12px',
@@ -1810,7 +1810,7 @@ export const appTypography = {
 		}
 	},
 	'overlineXSmall': {
-		'font-family': 'Roboto',
+		'font-family': 'Work Sans',
 		'font-style': 'normal',
 		'font-weight': '600',
 		'font-size': '10px',
@@ -1837,7 +1837,7 @@ export const appTypography = {
 		}
 	},
 	'filterNumber': {
-		'font-family': 'Roboto',
+		'font-family': 'Work Sans',
 		'font-size': '8px',
 		'font-weight': '600',
 		'line-height': '9px',
@@ -1845,7 +1845,7 @@ export const appTypography = {
 		'text-align': 'left',
 	},
 	'Title2': {
-		'font-family': 'Roboto',
+		'font-family': 'Work Sans',
 		'font-style': 'normal',
 		'font-weight': '500',
 		'font-size': '16px',
@@ -1853,7 +1853,7 @@ export const appTypography = {
 		'letter-spacing': '-0.02em',
 	},
 	'Title3': {
-		'font-family': 'Roboto',
+		'font-family': 'Work Sans',
 		'font-style': 'normal',
 		'font-weight': '500',
 		'font-size': '10px',
@@ -1861,7 +1861,7 @@ export const appTypography = {
 	},
 	'Para2': {
 		'regular': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '11px',
@@ -1886,7 +1886,7 @@ export const appTypography = {
 			}
 		},
 		'med': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '500',
 			'font-size': '11px',
@@ -1911,7 +1911,7 @@ export const appTypography = {
 			}
 		},
 		'semiBold': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '600',
 			'font-size': '11px',
@@ -1936,7 +1936,7 @@ export const appTypography = {
 			}
 		},
 		'underline': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '11px',
@@ -1962,7 +1962,7 @@ export const appTypography = {
 			}
 		},
 		'strikeTrough': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'normal',
 			'font-weight': '400',
 			'font-size': '11px',
@@ -1988,7 +1988,7 @@ export const appTypography = {
 			}
 		},
 		'italic': {
-			'font-family': 'Roboto',
+			'font-family': 'Work Sans',
 			'font-style': 'italic',
 			'font-weight': '400',
 			'font-size': '11px',
