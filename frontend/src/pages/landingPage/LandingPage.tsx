@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const MainContainer = styled.div`
   display: flex;
@@ -120,42 +120,45 @@ const NavItem = styled.li`
 `;
 
 function LandingPage() {
-  return (
-    <MainContainer>
-      <Header>
-        <LogoText>{"mama."}</LogoText>
-        <Nav>
-          <NavListContainer>
-            <NavItem>
-              <a href="#">{"Why Mama"}</a>
-            </NavItem>
-            <NavItem>
-              <a href="#">{"The Zone"}</a>
-            </NavItem>
-            <NavItem>
-              <a href="#">{"Pricing"}</a>
-            </NavItem>
-            <NavItem>
-              <a href="#">{"FAQs"}</a>
-            </NavItem>
-          </NavListContainer>
-        </Nav>
-        <LoginBTNContainer>
-          <BTN_Login>{"Login"}</BTN_Login>
-          <BTN_SignUp>{"Sign Up"}</BTN_SignUp>
-        </LoginBTNContainer>
-      </Header>
-      {/* <header className="header"></header> */}
-      <Hero>
-        {/* <div></div> */}
-        <div>
-          <HeroHeadingText>{"Personalised"} </HeroHeadingText>
-          <HeroHeadingText>{"learning for you"}</HeroHeadingText>
-        </div>
-        <HeroBTN>{"Sign Up for free"}</HeroBTN>
-      </Hero>
-    </MainContainer>
-  );
+
+	return (
+		<MainContainer>
+			<Header>
+				<LogoText>{'mama.'}</LogoText>
+
+				<Nav>
+					<NavListContainer>
+						<NavItem>
+							<a href="#">{'Why Mama'}</a>
+						</NavItem>
+						<NavItem>
+							<a href="#">{'The Zone'}</a>
+						</NavItem>
+						<NavItem>
+							<a href="#">{'Pricing'}</a>
+						</NavItem>
+						<NavItem>
+							<a href="#">{'FAQs'}</a>
+						</NavItem>
+					</NavListContainer>
+				</Nav>
+        
+				<LoginBTNContainer>
+					<BTN_Login>{'Login'}</BTN_Login>
+					<BTN_SignUp>{'Sign Up'}</BTN_SignUp>
+				</LoginBTNContainer>
+			</Header>
+			{/* <header className="header"></header> */}
+			<Hero>
+				{/* <div></div> */}
+				<div>
+					<HeroHeadingText>{'Personalised'} </HeroHeadingText>
+					<HeroHeadingText>{'learning for you'}</HeroHeadingText>
+				</div>
+				<HeroBTN>{'Sign Up for free'}</HeroBTN>
+			</Hero>
+		</MainContainer>
+	);
 }
 
 export default LandingPage;
