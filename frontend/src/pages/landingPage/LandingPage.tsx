@@ -1,21 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const MainContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  gap: 200px;
   width: 100%;
   min-height: 200vh;
 `;
 
 const Header = styled.header`
   background: transparent;
+
+  /* position: fixed;
+  top: 0; */
+
   position: fixed;
   top: 0;
+  left: 50%;
+  transform: translate(-50%, 0%);
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 52px;
-  width: 100%;
+  padding: 52px 52px;
+  width: 98%;
 `;
 
 const LogoText = styled.h1`
@@ -35,7 +45,7 @@ const NavContainer = styled.div`
   /* max-height: 56px; */ //? why do we need this?
 
   width: 100%;
-  background-color: aqua;
+  background-color: #fff;
   padding: 18px 48px;
   border-radius: 30px;
 
@@ -105,7 +115,7 @@ const BTN_SignUp = styled(Button)`
 
 const Hero = styled.div`
   background: #fafafa;
-  border-radius: 70px;
+  border-radius: 30px;
   height: 100vh;
   width: 98%;
   margin: 16px;
@@ -129,10 +139,25 @@ const HeroBTN = styled(BTN_SignUp)`
   font-size: 28px;
   line-height: 33px;
   border-radius: 70px;
-  margin: 52px 0;
+  margin: 56px 0;
 `;
 
+const HeroText = styled.p`
+  font-style: normal;
+font-weight: 500;
+font-size: 96px;
+line-height: 113px;
+text-align: center;
 
+width: 800px;
+`;
+
+const VideoContainer = styled.div(() => ({
+	borderRadius:'50%',
+	height: '400px',
+	width: '400px',
+	backgroundColor: 'red',
+}));
 
 
 function LandingPage() {
@@ -165,6 +190,12 @@ function LandingPage() {
     
 	];
 
+	const navigate = useNavigate();
+  
+	function handleLoginClick() {
+		navigate('/onboard');
+	}
+
 	return (
 		<MainContainer>
 			<Header>
@@ -180,17 +211,21 @@ function LandingPage() {
 					</NavOptionsContainer>
 				</NavContainer>
 
-				<BTN_SignUp>{'Log in'}</BTN_SignUp>
+				<BTN_SignUp onClick={handleLoginClick}>{'Log in'}</BTN_SignUp>
 
 			</Header>
 
 			<Hero>
-				<div>
-					<HeroHeadingText>{'Personalized'} </HeroHeadingText>
-					<HeroHeadingText>{'learning for you'}</HeroHeadingText>
-				</div>
+				<HeroText>
+					{'Personalized learning for you'}
+				</HeroText>
 				<HeroBTN>{'Sign Up for free'}</HeroBTN>
 			</Hero>
+
+			<VideoContainer>
+        
+			</VideoContainer>
+
 		</MainContainer>
 	);
 }
