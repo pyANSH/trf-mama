@@ -25,9 +25,9 @@ router.post('/login', (req, res) => {
 
 
 router.post('/new', async (req, res) => {
-    const { userId, userEmail, interests, userFullName, socialRefererId } = req.body;
+    const { userId, userEmail, interests, userFullName, socialRefererId, isMentor } = req.body;
 
-    if (!userId || !userEmail || !interests || !userFullName || !socialRefererId) {
+    if (!userId || !userEmail || !interests || !userFullName || !socialRefererId, !isMentor) {
         return res.status(400).send('Please fill all the fields');
     }
     //check email already exists in db userModal
@@ -42,8 +42,8 @@ router.post('/new', async (req, res) => {
         interests: interests,
         userFullName: userFullName,
         socialRefererId: socialRefererId,
+        isMentor: isMentor
     })
-
     try {
         await user.save();
         const token = jwt.sign({
