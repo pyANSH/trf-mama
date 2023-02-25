@@ -39,7 +39,7 @@ router.post('/login', async (req, res) => {
             socialRefererId: socialRefererId
         }, process.env.JWT_SECRET)
         res.statusCode = 200;
-        return res.send({ response: 'User Successfully logged In', userId: userExists._id, userEmail: userEmail, token: token, isMentor: userExists.isMentor });
+        return res.send({ response: 'User Successfully logged In', userId: userExists._id, userEmail, token, isMentor: userExists.isMentor,userFullName });
     }
     const user = new userModal({
         userEmail: userEmail,
@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
             socialRefererId: socialRefererId
         }, process.env.JWT_SECRET)
         res.statusCode = 201;
-        return res.send({ response: 'User created', userId: dbUpdate._id, userEmail: userEmail, token: token, isMentor: dbUpdate.isMentor });
+        return res.send({ response: 'User created', userId: dbUpdate._id, userEmail, token, isMentor: dbUpdate.isMentor,userFullname });
     } catch (err) {
         res.statusCode = 400;
         return res.send({ response: 'User not created', err });

@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { appTypography } from '../../config/styles';
+import { _onBoard } from '../../Store/Thunk/Onboard';
+import {useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
+
 
 const Container = styled.div`
 height:100vh;
@@ -58,7 +62,8 @@ width:80%;
 `;
 
 function SignUp() {
-
+	const dispatch:any = useDispatch();
+	const navigate = useNavigate();
 	function decodeJwtResponse(token: string) {
 		const base64Url = token.split('.')[1];
 		const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -78,11 +83,23 @@ function SignUp() {
 			{ theme: 'outline', size: 'large', text: 'Continue with', shape: 'pill', logo_alignment: 'center', width: '280', height: 100, outerHeight: 100, innerHeight: 100 }
 		);
 	}, []);
-	function handleCredentialResponse(response: { credential: string; }) {
+	async function handleCredentialResponse(response: { credential: string; }) {
 		
 		const responsePayload = decodeJwtResponse(response.credential);
 		console.log('Encoded JWT ID token: ' + responsePayload);
 		console.log(responsePayload.name,responsePayload.sub,responsePayload.email,);
+		const body ={
+			userFullName:responsePayload.name,
+			socialRefererId:responsePayload.sub,
+			userEmail:responsePayload.email,
+			'interests': []
+		};
+		const res = await dispatch(_onBoard({body}));
+		console.log(res);
+		
+		if(res.meta.requestStatus==='fulfilled'){		
+			navigate('/');//to dashboard
+		}
 		
 	}
 	return (
