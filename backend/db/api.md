@@ -2,12 +2,11 @@
 
 <!-- api key -->
 
-## User
+## User - completed
 
 - /user
   /user/new => POST, signup:{
   isMentor: boolean,
-  userId: string,
   userEmail: string,
   interests: string[],
   userFullName: string,
@@ -21,7 +20,7 @@
 
   /user/:userId => GET, {JWT: string} => {user: User, meetings: Meeting[]}
 
-## schedule
+## schedule - completed
 
 - /meeting
   /meeting/schedule => POST, scheduleDetails:{
@@ -57,6 +56,9 @@
   /meeting/:meetingId => GET, {JWT: string} => {meetingDetails: Object[]}
   <!-- //accept reject -->
   /meeting/respond => PUT, {JWT: string, meetingId:string, status: string, } => {meetingDetails: Object[]}
+
+## /notes
+
 - /notes
   /notes/upload => POST, {
   fileUrl: string,

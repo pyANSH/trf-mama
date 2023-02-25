@@ -12,7 +12,24 @@ export default defineConfig({
 	},
 
 	plugins: [
-		react(),
+		react({
+			babel: {
+				presets: ['@babel/preset-typescript'],
+				plugins: [
+					'@babel/plugin-transform-typescript',
+					[
+						'babel-plugin-styled-components',
+						{
+							ssr: false,
+							pure: true,
+							displayName: true,
+							fileName: true,
+							minify: true,
+						},
+					],
+				],
+			},
+		}),
 		checker({
 			typescript: true,
 		}),
