@@ -11,9 +11,9 @@ router.post('/schedule', async (req, res) => {
     }
     const checkMeetingExists = await meetingModal.find({ mentorId: request.mentorId, menteeId: request.menteeId, meetingDate: request.meetingDate, meetingTime: request.meetingTime })
 
-    // if (checkMeetingExists.length > 0) {
-    //     return res.status(400).send({ response: 'Meeting already scheduled' });
-    // }
+    if (checkMeetingExists.length > 0) {
+        return res.status(400).send({ response: 'Meeting already scheduled' });
+    }
     const meeting = new meetingModal(request)
     console.log("meeting", meeting)
     try {
