@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const userModal = require('../../db/Model/userModal');
+const userModal = require('../../Model/userModal');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -54,6 +54,32 @@ router.post('/new', async (req, res) => {
     } catch (err) {
         res.status(400).send({ response: 'User not created', err });
     }
+})
+
+router.get('/', (req, res) => {
+    const { email, token } = req.query;
+    if (!email || !token) {
+        return res.status(400).json({ response: 'Please fill all the fields' });
+    }
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        console.log(decoded.userEmail);
+        if (err || decoded.userEmail !== email) {
+            return res.status(401).json({ response: 'Invalid token' });
+        }
+        else {
+
+            userModal.find({ userEmail: decoded.userEmail }).then((user) => {
+                if (user.length > 0) {
+                    return res.status(200).json(user);
+                }
+                else {
+                    return res.status(400).json({ response: 'User not found' });
+                }
+            }
+
+            )
+        }
+    })
 })
 
 
