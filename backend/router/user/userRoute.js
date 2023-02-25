@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const userModal = require('../../db/Model/userModal');
+const userModal = require('../../Model/userModal');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -25,9 +25,9 @@ router.post('/login', (req, res) => {
 
 
 router.post('/new', async (req, res) => {
-    const { userId, userEmail, interests, userFullName, socialRefererId } = req.body;
+    const { userId, userEmail, interests, userFullName, socialRefererId, isMentor } = req.body;
 
-    if (!userId || !userEmail || !interests || !userFullName || !socialRefererId) {
+    if (!userId || !userEmail || !interests || !userFullName || !socialRefererId, !isMentor) {
         return res.status(400).send('Please fill all the fields');
     }
     //check email already exists in db userModal
@@ -42,8 +42,8 @@ router.post('/new', async (req, res) => {
         interests: interests,
         userFullName: userFullName,
         socialRefererId: socialRefererId,
+        isMentor: isMentor
     })
-
     try {
         await user.save();
         const token = jwt.sign({
@@ -54,6 +54,32 @@ router.post('/new', async (req, res) => {
     } catch (err) {
         res.status(400).send({ response: 'User not created', err });
     }
+})
+
+router.get('/', (req, res) => {
+    const { email, token } = req.query;
+    if (!email || !token) {
+        return res.status(400).json({ response: 'Please fill all the fields' });
+    }
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        console.log(decoded.userEmail);
+        if (err || decoded.userEmail !== email) {
+            return res.status(401).json({ response: 'Invalid token' });
+        }
+        else {
+
+            userModal.find({ userEmail: decoded.userEmail }).then((user) => {
+                if (user.length > 0) {
+                    return res.status(200).json(user);
+                }
+                else {
+                    return res.status(400).json({ response: 'User not found' });
+                }
+            }
+
+            )
+        }
+    })
 })
 
 
