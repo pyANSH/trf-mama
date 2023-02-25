@@ -1,8 +1,10 @@
-import SignUp from "../pages/Onboard/SignUp";
+
+import React from 'react';
+import SignUp from '../pages/Onboard/SignUp';
 
 export const onboardRoutes = [
-    {
-        path: "/onboard",
-    element: <SignUp />,
-    }
-]
+	{
+		path: '/onboard',
+		element: <SignUp />,
+	}
+];
