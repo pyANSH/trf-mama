@@ -1,14 +1,11 @@
-const mongoose = require('../db');
+const mongoose = require('../db/db');
 
 const userSchema = new mongoose.Schema({
     isMentor: {
         type: Boolean,
         default: false
     },
-    userId: {
-        type: String,
-        required: true,
-    },
+
     userEmail: {
         type: String,
         required: true,
