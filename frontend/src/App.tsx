@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
 import {RouterProvider} from 'react-router-dom';
@@ -16,6 +17,26 @@ function App() {
 			<RouterProvider router={router} />
 		</ThemeProvider>
 	);
+=======
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { decrement, increment } from "./Store/Reducers/TestReducer";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import { router } from "./routes";
+
+function App() {
+
+  const counter: number = useSelector((state: any) => state.test.counter);
+  const dispatch: any = useDispatch();
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
+>>>>>>> b98104a334bd3aed39126dfc4ce5f29badf97216
 }
 
 export default App;
