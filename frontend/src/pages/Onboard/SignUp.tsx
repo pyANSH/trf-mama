@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { appTypography } from '../../config/styles';
+import { _onBoard } from '../../Store/Thunk/Onboard';
+import {useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
+import billiBKL from '../../assets/billiBC.svg';
 
 const Container = styled.div`
 height:100vh;
@@ -25,12 +29,14 @@ justify-content: center;
 
 const Header =styled.div`
   padding:56px 0 0 95px;
-
+width:fit-content;
 `;
 
 const Logo =styled.div(({theme})=>({
 	...appTypography.h5.bold,
-	color:theme.app.typography['900']
+	color:theme.app.typography['900'],
+	width:'fit-content',
+	cursor:'pointer'
 }));
 
 const MainContent =styled.div`
@@ -53,12 +59,18 @@ const LoginText =styled.p(({theme})=>({
 const CatContainer =styled.div`
 background: #FFF8E1;
 border-radius: 300px;	
-height:200px;
+height:280px;
 width:80%;
 `;
 
-function SignUp() {
+const CatImage =styled.img`
+width:100%;
+height:100%;	
+`;
 
+function SignUp() {
+	const dispatch:any = useDispatch();
+	const navigate = useNavigate();
 	function decodeJwtResponse(token: string) {
 		const base64Url = token.split('.')[1];
 		const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -78,18 +90,35 @@ function SignUp() {
 			{ theme: 'outline', size: 'large', text: 'Continue with', shape: 'pill', logo_alignment: 'center', width: '280', height: 100, outerHeight: 100, innerHeight: 100 }
 		);
 	}, []);
-	function handleCredentialResponse(response: { credential: string; }) {
+	async function handleCredentialResponse(response: { credential: string; }) {
 		
 		const responsePayload = decodeJwtResponse(response.credential);
 		console.log('Encoded JWT ID token: ' + responsePayload);
 		console.log(responsePayload.name,responsePayload.sub,responsePayload.email,);
+		const body ={
+			userFullName:responsePayload.name,
+			socialRefererId:responsePayload.sub,
+			userEmail:responsePayload.email,
+			'interests': []
+		};
+		const res = await dispatch(_onBoard({body}));
+		console.log(res);
+		
+		if(res.meta.requestStatus==='fulfilled'){		
+			navigate('/');//to dashboard
+		}
+		
+	}
+
+	function handleHomeRoute() {
+		navigate('/');
 		
 	}
 	return (
 		<Container>
 			<LeftContainer>
 				<Header>
-					<Logo>mama.</Logo>
+					<Logo onClick={handleHomeRoute}>mama.</Logo>
 				</Header>
 
 				<MainContent>
@@ -99,7 +128,7 @@ function SignUp() {
 			</LeftContainer>
 			<RightContainer>
 				<CatContainer>
-
+					<CatImage src={billiBKL}/>
 				</CatContainer>
 
 			</RightContainer>
