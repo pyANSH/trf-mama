@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
     body {
         /* font-family: "Work Sans", sans-serif; */
         background: #ffffff;
-        transition: all 0.50s linear;
+        /* transition: all 0.50s linear; */
     }
     *{
         box-sizing: border-box;
