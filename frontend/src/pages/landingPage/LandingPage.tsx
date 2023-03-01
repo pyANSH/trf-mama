@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import ReactPlayer from 'react-player';
-import {useEffect,useState} from 'react';
+import { useEffect, useState } from 'react';
 import Marquee from 'react-fast-marquee';
 
 
@@ -93,7 +93,7 @@ const NavItem = styled.div`
 `;
 
 const NavText = styled.p(() => ({
-	fontStyle: 'normal', 
+	fontStyle: 'normal',
 	fontWeight: '400',
 	fontSize: '16px',
 	lineHeight: '20px',
@@ -189,8 +189,8 @@ const VideoContainer = styled.div(() => ({
 	height: '400px',
 	width: '400px',
 	overflow: 'hidden',
-	borderRadius:'50%',
-	marginBlockEnd:'100px',
+	borderRadius: '50%',
+	marginBlockEnd: '100px',
 	// boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px'
 	// backgroundColor: 'red',
 }));
@@ -251,42 +251,42 @@ function LandingPage() {
 			link: '#',
 			onClick: () => console.log('faqs clicked'),
 		},
-    
+
 	];
 
 	const navigate = useNavigate();
-  
+
 	function handleLoginClick() {
 		navigate('/onboard');
 	}
-  
+
 	const MarqueeData = [
 		{
-			logo:'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 		{
-			logo:'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 		{
-			logo:'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 		{
-			logo:'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 		{
-			logo:'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 		{
-			logo:'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 		{
-			logo:'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 		{
-			logo:'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 		{
-			logo:'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 	];
 
@@ -295,7 +295,7 @@ function LandingPage() {
 			<HeroContainer>
 
 				<Header>
-					<LogoText onClick={()=>{navigate('/');}}>{'mama.'}</LogoText>
+					<LogoText onClick={() => { navigate('/'); }}>{'mama.'}</LogoText>
 
 					<NavContainer>
 						<NavOptionsContainer>
@@ -311,17 +311,17 @@ function LandingPage() {
 
 				</Header>
 
-			
+
 				<HeroTextAndBTNContainer>
 					<HeroText>
 						{'Personalized learning for you'}
 					</HeroText>
 					<HeroBTN onClick={handleLoginClick}>{'Start your journey '}</HeroBTN>
 				</HeroTextAndBTNContainer>
-			
+
 
 				<VideoContainer>
-					<ReactPlayer 
+					<ReactPlayer
 						url={'https://www.sendpotion.com/assets/video/home/hero/1.mp4?6'}
 						muted={true}
 						playing={true}
@@ -329,7 +329,7 @@ function LandingPage() {
 						height={'400px'}
 						width={'400px'}
 						controls={false}
-						style={{borderRadius:'50%'}}
+						style={{ borderRadius: '50%' }}
 					/>
 				</VideoContainer>
 
@@ -347,16 +347,16 @@ function LandingPage() {
 
 			<Marquee
 				gradient
-				gradientColor={[255,255,255]}
+				gradientColor={[255, 255, 255]}
 				speed={100}
 				style={{
-					display:'flex',
-					flexDirection:'row',
-					gap:'20px',
+					display: 'flex',
+					flexDirection: 'row',
+					gap: '20px',
 				}}
 			>
 				{
-					MarqueeData.map((item,index)=>{
+					MarqueeData.map((item, index) => {
 						return (
 							<MarqueeItem key={index} src={item.logo} />
 						);
