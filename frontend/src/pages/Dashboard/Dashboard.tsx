@@ -6,6 +6,7 @@ import {User} from "phosphor-react";
 import React, { useState } from "react";
 import styled from "styled-components";
 import "./App.css";
+import Notebank from "./components/Notebank";
 import Profile from "./components/Profile";
 
 const Container = styled.div`
@@ -89,7 +90,7 @@ justify-content: space-between;
 
 function Dashboard() {
 
-const tab = 4;
+const tab = 2;
 
   let sidebarOptions = [
 		{
@@ -105,7 +106,7 @@ const tab = 4;
     {
 			icon: <BooksIcon />,
 			text: 'The Notebank',
-			/* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
+      component: <Notebank/>
 		},
     {
 			icon: <CapIcon />,
