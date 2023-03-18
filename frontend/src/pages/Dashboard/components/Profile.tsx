@@ -74,6 +74,7 @@ padding: 12px 16px;
 display: flex;
 justify-content: space-between;
 cursor: pointer;
+align-items: center;
 `;
 
 const DropDownMainContainer = styled.div`
@@ -333,7 +334,7 @@ Change Avatar
         <DropDownOptionText>
 {feed.text}
         </DropDownOptionText>
-        {gender===feed.text&&<TickIcon/>}
+        {interest===feed.text&&<TickIcon/>}
     </DropDownOption>
 ))}
 </DropDownMainContainer>}
