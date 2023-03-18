@@ -6,6 +6,7 @@ import {User} from "phosphor-react";
 import React, { useState } from "react";
 import styled from "styled-components";
 import "./App.css";
+import Profile from "./components/Profile";
 
 const Container = styled.div`
 
@@ -76,10 +77,19 @@ const CommonIcons = {
 const SidebarOptionIcon = styled.div(({ }) => ({
 	...CommonIcons,
 }));
+const ContentContainer = styled.div(({ theme }) => ({
+	width: '78%',
+	height: '100%',
+}));
+
+const MainContainer =styled.div`
+display: flex;
+justify-content: space-between;
+`;
 
 function Dashboard() {
 
-const [tab,setTab] =useState(0);
+const tab = 4;
 
   let sidebarOptions = [
 		{
@@ -104,8 +114,8 @@ const [tab,setTab] =useState(0);
 		},
     {
 			icon: <UserIcon />,
-			text: 'Dashboard',
-			/* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
+			text: 'Profile',
+			component: <Profile/>
 		},
     
     ];
@@ -119,6 +129,9 @@ const [tab,setTab] =useState(0);
       <Header>
         <Logo>mama.</Logo>
       </Header>
+      <MainContainer>
+
+      
       <LeftContainer>
       {
 												sidebarOptions.map((option, index) => {
@@ -140,10 +153,12 @@ const [tab,setTab] =useState(0);
 													);
 												})
 											}
-<>
 
-</>
       </LeftContainer>
+      <ContentContainer>
+										{sidebarOptions[tab]?.component}
+									</ContentContainer>
+                  </MainContainer>
     </Container>
   );
 }
