@@ -5,7 +5,7 @@ import SignUp from '../pages/Onboard/SignUp';
 
 export const dashboardRoutes = [
 	{
-		path: '/onboard',
+		path: '/dashboard',
 		element: <Dashboard />,
 	}
 ];
