@@ -8,6 +8,7 @@ import styled from "styled-components";
 import "./App.css";
 import Notebank from "./components/Notebank";
 import Profile from "./components/Profile";
+import SellDocuments from "./components/SellDocuments";
 
 const Container = styled.div`
 
@@ -90,7 +91,7 @@ justify-content: space-between;
 
 function Dashboard() {
 
-const tab = 2;
+const tab = 1;
 
   let sidebarOptions = [
 		{
@@ -101,7 +102,8 @@ const tab = 2;
     {
 			icon: <SellIcon />,
 			text: 'Sell Documents',
-			/* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
+      component: <SellDocuments/>
+
 		},
     {
 			icon: <BooksIcon />,
