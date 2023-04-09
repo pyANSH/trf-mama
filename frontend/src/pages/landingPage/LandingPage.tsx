@@ -214,15 +214,19 @@ text-align: center;
 letter-spacing: -0.08em;
 `;
 
-const MarqueeItem = styled.img`
+const MarqueeItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0px;
+  padding: 0px 48px;
+  box-sizing: border-box;
+`;
+
+const MarqueeImage = styled.img`
   height: 100px;
   width: 100px;
-  
 `;
+
 
 function LandingPage() {
 
@@ -262,33 +266,31 @@ function LandingPage() {
 
 	const MarqueeData = [
 		{
-			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo:'https://s3-alpha-sig.figma.com/img/2a43/7658/e8ce9fbb4c1fbb23d755731096529cd7?Expires=1681689600&Signature=heuhamt4zgzrP8m59NylVrEG3C1alanxupUGLNa-QFdtB7Z6t4oMV1Ji7RqyCev~mWLTsGf0Cza5iwFuixWgPo8I~mXRkC2P7xcaxsCAo1uGqSItF45NNib7ioaBfOA~gqR~MCx-u5MiMji6BX87MOfnFE8wzNS7QI~PX~VtdLY-76MbyXY6BPan5lOf1Y~PQ-j7rqavIKAM7WL-aYBGm1wDahqWsuE6pDmBZ2C9oQdQm3toHyGA3zUYn1ftQk0ZUTGbRQS-fhnhh15GKqp~AoN0Jkivn0b5cDfAX79UdqV0wyqkKzTz2pg3b2dNqY3lCKv9EfBaETdawbFE~rZ8Hw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 		{
-			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1681689600&Signature=HLrdX~STY-Ngq8ighLE7nJow1z745xAfbqCeSEf1Yw2bc2zX6aNMZppzsMHGAc~ClxpKcmIWDy2KCqMpjMifwS2muwuR7JUlM29JCTEAuToywQxevNyr7o2F2uuNGkwxaGUjvQDRu27ZX32nWB4PRL1b5-~baO--YcRg~2wmeWQa1xMOgqgwnYjuK9d3ylRVzEJXhNVXj4hbocqWAQyWg48NrAcJnUxqkpfdtacTQQea07r4IiuuxyKPh9pav10QGDf8EUw52OxB7AqwEDEYabx5-MR~5csjDcgGHK-PJvokRNEMZ1dkQ1NNKA2GMzcCMemVINAXjI-WLzGiIJcpoQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 		{
-			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo:'https://s3-alpha-sig.figma.com/img/e711/767d/51631c75d6b78cb50324ef0425dc239b?Expires=1681689600&Signature=mfU67MoCKqPU4pQujRu5CqJgtq9QKrjWFyeH1OcuHtjGJaVYbs1G4ckKEism1gq-v0tNClYPbd8jnlh~PQtc7jZkg6N-KhTi7qWpoLmzFKKO6fn28NuXrYxW2c4KFse6D2rYSwDl8pPXy040kqjlWpXvBwyOeyJpDqOllAyoajiPCBaNH0QIyF0h5NhAJBVlWpuaCnbEGCY71vPS7InLwCCWVy1QQQP3245h56n6VFFKrEGMHlcLrw1lX61QVpD~Ll1OJNLCNkgyFKdphJQM8IGaDm55jH3HbysEqfy9cIjNAR1giqwfIbrOl9fIqHixnVrDkYhTnhc~mmAN0XHj0A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 		{
-			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo:'https://s3-alpha-sig.figma.com/img/f361/03c5/b2209ae9b04606ca6a6608a8de2da510?Expires=1681689600&Signature=BzOVDl3PsdcSKoYbrV5WXm5HrD6HLQMWQmVmf-vATdKi5tK7uWB2REgsBMFzLmxR7ybqH2-Hr9CeY32t8CiO15fcQYAGQOuIklXOlqT1~bj2WFJ9ep1XZPiJ7ZCOXpgf0peuZHQ0aEO3hZeqe~oUiNz2bV9x9IpANqmTDEkDJIUxIsiy3owXN6g0cwPVlvOK1~SqQyScnCMugssKztxtYZMlfYCSApzLPnU~pTVKqgLa-XiTkCVakV30eX9eLjkZoL6tPYh5okGC5Nf74FJ0uN4vP6plpXZXFkYpprDjWOmBBzJkaNLDwr5aasVfUqYHaWz~sp5YVvEWtL1lv3aS5Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 		{
-			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo:'https://s3-alpha-sig.figma.com/img/1620/17d1/6a3e5daffa62ed2ef5fd66bee7b411ed?Expires=1681689600&Signature=TwbydvWQ-JrefOCckhMLAGMAV94NbcGIymBEB5UvO0EhHyGbAahCMAUjHcjKx6wSAjPM8vmoHEsoq11dvAlQ6~F3uQfHD6hWZccmplxxj7H04Deqy3H4ZOKQNSJ5-FVyLY0PXBZQYi918Xr455J0wflfNRihLknQohQG-GVSszh4swQWj~8MHlWMXX03GGfy3rVrIegBjYGbxmkTXUKXN~m1pJAjeEjQB2YSw51IeMudq-NhylJK01h9yPbK8jl1Eq6uwDJ-MTWkEgF4XjBd1QgylYw9E~Iilm6IM8YQB6vWhgFDbMrnBbaXoFH1eQD7eslydw03RXj35rfv8BYVuQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 		{
-			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo:'https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/ddb3f5157b9baf052dd8ec72da184be44ef84f39?fuid=974696877205230466'
 		},
 		{
-			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo:'https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/244698ab40d164b83d55518f3616afbd58ff6afc?fuid=974696877205230466'
 		},
 		{
-			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-		},
-		{
-			logo: 'https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1678060800&Signature=RwWxSYQ04lLC8M14AKLCuxsPP3uUB4gufSRJ99tlwaXf4Eexsiq8e3vsc8wXrIbImzyJufRbc3NtYnxgX4iPl7MdewBkRdZaccVUjCYcvqLn-6M1p1ChjNsoectqbc0DhUUP4DDNWGCoGDZE0VbWNSBubwSrWPjN9ibQgh-xfCrFqgUZlYIl~4DIjmLwL2Ax2UrxuX-QedwOoVfPO8LnyvVjgQj5ZbP2cbJcZwhKA5OL~Sadrje5nRz2Lf2GsG2t3BHIyNfuCX~qMU6jHW53XTKf9b4fJsxccSy54flitP3r3db0nlxOQYJj8ROMzSClYiLJwz1T2NVbqUEMjI0vRw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+			logo:'https://s3-alpha-sig.figma.com/img/1620/17d1/6a3e5daffa62ed2ef5fd66bee7b411ed?Expires=1681689600&Signature=TwbydvWQ-JrefOCckhMLAGMAV94NbcGIymBEB5UvO0EhHyGbAahCMAUjHcjKx6wSAjPM8vmoHEsoq11dvAlQ6~F3uQfHD6hWZccmplxxj7H04Deqy3H4ZOKQNSJ5-FVyLY0PXBZQYi918Xr455J0wflfNRihLknQohQG-GVSszh4swQWj~8MHlWMXX03GGfy3rVrIegBjYGbxmkTXUKXN~m1pJAjeEjQB2YSw51IeMudq-NhylJK01h9yPbK8jl1Eq6uwDJ-MTWkEgF4XjBd1QgylYw9E~Iilm6IM8YQB6vWhgFDbMrnBbaXoFH1eQD7eslydw03RXj35rfv8BYVuQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 		},
 	];
+	console.warn(MarqueeData.length);
 
 	return (
 		<MainContainer>
@@ -346,19 +348,25 @@ function LandingPage() {
 			</UniversityScrollerContainer> */}
 
 			<Marquee
-				gradient
-				gradientColor={[255, 255, 255]}
+				gradient={true}
+				gradientColor={[223, 219, 219]}
 				speed={100}
 				style={{
-					display: 'flex',
-					flexDirection: 'row',
-					gap: '20px',
+					width: '100%',
+					height: '200px',
+					// backgroundColor: 'white',
+					borderRadius: '10px',
+					marginTop: '50px',
+					marginBottom: '50px',
 				}}
+				pauseOnHover
 			>
 				{
 					MarqueeData.map((item, index) => {
 						return (
-							<MarqueeItem key={index} src={item.logo} />
+							<MarqueeItem key={index} >
+								<MarqueeImage src={item.logo} />
+							</MarqueeItem>
 						);
 					})
 				}
