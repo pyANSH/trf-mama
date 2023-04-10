@@ -13,7 +13,7 @@ const MainContainer = styled.div`
 
   width: 100%;
   min-height: 200vh;
-  background: #dfdbdb;
+  background: #fff;
 
   align-items: center;
 /* 
@@ -362,10 +362,16 @@ min-height: calc(100vh - 100px);
 width: 100%;
 
 border-radius: 26px 26px 0px 0;
+
+padding: 100px 0 0 0 ;
+
+display: flex;
+align-items: center; 
+justify-content: center;
 `;
 
 const FooterHeroContainer = styled.div`
-padding: 100px 0px;
+padding: 150px 0px 100px 0px;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -423,6 +429,81 @@ padding: 0 12px 0 2px;
 
 const FooterHeroImage = styled.img`
 	width: 280px;
+`;
+
+const FooterTextsMainContainer = styled.div`
+display: flex;
+flex-direction: row;
+
+/* gap: 128px; */
+
+width: 100%;
+justify-content: space-around;
+`;
+
+const FooterTextCommonStyle = styled.p`
+font-style: normal;
+font-weight: 500;
+font-size: 28px;
+line-height: 33px;
+
+color: #FFFFFF;
+`;
+
+const FooterTextsContainer = styled.div`
+display: flex;
+flex-direction: column;
+gap: 12px;
+
+width: 340px;
+`;
+
+const FTC_FooterNavContainer = styled.div`
+display: grid;
+grid-template-columns: 1fr 1fr;
+/* grid-template-rows: repeat(n, 1fr); */
+column-gap: 68px;
+row-gap: 12px;
+/* gap: 12px; */
+`;
+	
+const FTC_FooterNavText = styled(FooterTextCommonStyle)`
+/* min-width: 240px; */
+cursor: pointer;
+
+
+font-size: 21px;
+line-height: 25px;
+
+
+`;
+
+const FTC_LogoText = styled(FooterTextCommonStyle)`
+font-weight: 700;
+font-size: 23px;
+line-height: 27px;
+`;
+
+const FTC_Description = styled(FooterTextCommonStyle)`
+
+`;
+
+const FTC_LegalLinks = styled.div`
+display: flex;
+justify-content: space-between;
+padding-top: 48px;
+`;
+
+const FTCL_PrivacyPolicyText = styled(FooterTextCommonStyle)`
+font-size: 16px;
+line-height: 19px;
+
+color: #9C9C9C;
+`;
+
+const FTCL_EmailText = styled(FooterTextCommonStyle)`
+font-size: 16px;
+line-height: 19px;
 `;
 
 function LandingPage() {
@@ -548,7 +629,8 @@ function LandingPage() {
 
 			<Marquee
 				gradient={true}
-				gradientColor={[223, 219, 219]}
+				// gradientColor={[223, 219, 219]}
+				gradientColor={[255, 255, 255]}
 				speed={100}
 				style={{
 					width: '100%',
@@ -614,7 +696,28 @@ function LandingPage() {
 
 				
 			<FooterContainer>
-				
+				<FooterTextsMainContainer>
+					<FooterTextsContainer>
+						<FTC_LogoText>{'mama.'}</FTC_LogoText>
+						<FTC_Description>
+							{'Personalised learning for you'}
+						</FTC_Description>
+						<FTC_LegalLinks>
+							<FTCL_PrivacyPolicyText>{'Privacy Policy'}</FTCL_PrivacyPolicyText>
+							<FTCL_EmailText>{'info@billikabaccha.com'}</FTCL_EmailText>
+						</FTC_LegalLinks>
+					</FooterTextsContainer>
+					<FooterTextsContainer>
+						<FTC_FooterNavContainer>
+							<FTC_FooterNavText>{'Home'}</FTC_FooterNavText>
+							<FTC_FooterNavText>{'FAQs'}</FTC_FooterNavText>
+							<FTC_FooterNavText>{'Dashboard'}</FTC_FooterNavText>
+							<FTC_FooterNavText>{'Pricing'}</FTC_FooterNavText>
+							<FTC_FooterNavText>{'Tutor'}</FTC_FooterNavText>
+							<FTC_FooterNavText>{'Sign up'}</FTC_FooterNavText>
+						</FTC_FooterNavContainer>
+					</FooterTextsContainer>
+				</FooterTextsMainContainer>
 			</FooterContainer>
 		</MainContainer>
 	);
