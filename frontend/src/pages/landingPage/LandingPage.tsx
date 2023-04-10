@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import { useEffect, useState } from 'react';
 import Marquee from 'react-fast-marquee';
+import BilliKaBaccha from '../../assets/billiBC.svg';
 
 
 const MainContainer = styled.div`
@@ -15,8 +16,13 @@ const MainContainer = styled.div`
   background: #dfdbdb;
 
   align-items: center;
+/* 
+  padding:16px 16px 0px 16px; */
+  `;
 
-  padding:16px 16px 0px 16px;
+const HeroMainContainer = styled.div`
+padding:16px 16px 0px 16px;
+width: 100%;
 `;
 
 const HeroContainer = styled.div`
@@ -29,7 +35,7 @@ const HeroContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
+  
   /* gap: 184px; */
 `;
 
@@ -50,6 +56,8 @@ const Header = styled.header`
   align-items: center;
   padding: 52px 68px;
   width: 100%;
+
+  z-index: 100;
 `;
 
 const LogoText = styled.h1`
@@ -227,6 +235,195 @@ const MarqueeImage = styled.img`
   width: 100px;
 `;
 
+const PricingTextContainer = styled.div`
+  width: 100%;
+  padding: 0px 0px;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  height: 200px;
+
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+`;
+
+const PricingTextLarge = styled.p`
+font-style: normal;
+font-weight: 600;
+font-size: 80px;
+line-height: 100%;
+/* or 80px */
+
+letter-spacing: -0.055em;
+
+color: #000000;
+
+max-width: 300px;
+text-align: end;
+`;
+
+const PricingTextSmall = styled.p`
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 100%;
+/* identical to box height, or 24px */
+
+align-self: flex-end;
+justify-self: flex-start;
+
+max-width: 272px;
+`;
+
+const PricingCardsContainer = styled.div`
+display: flex;
+flex-direction: row;
+gap: 24px;
+padding-top: 100px;
+`;
+
+const PricingCard = styled.div`
+border-radius: 48px;
+width: 100%;
+max-width: 520px;
+background-color: #fef2ff;
+padding: 64px;
+box-sizing: border-box;
+
+display: flex;
+flex-direction: column;
+gap: 24px;
+`;
+
+const PCT_Category = styled.p`
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 100%;
+/* identical to box height, or 24px */
+
+letter-spacing: -0.055em;
+
+color: #181818;
+
+`;
+
+const PCT_Price = styled.p`
+font-style: normal;
+font-weight: 600;
+font-size: 60px;
+line-height: 100%;
+/* identical to box height, or 60px */
+
+letter-spacing: -0.055em;
+
+color: #181818;
+`;
+
+const PCT_Description = styled.p`
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 100%;
+/* or 24px */
+
+letter-spacing: -0.055em;
+
+color: #181818;
+
+`;
+
+const PricingContainer_CTABTN = styled.p`
+padding: 20px 64px;
+width: 100%;
+border: 2px solid #000;
+border-radius: 50px;
+
+font-style: normal;
+font-weight: 500;
+font-size: 28px;
+line-height: 33px;
+/* identical to box height */
+
+
+color: #000000;
+
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+`;
+
+
+const FooterContainer = styled.div`
+background-color: #000;
+min-height: calc(100vh - 100px);
+width: 100%;
+
+border-radius: 26px 26px 0px 0;
+`;
+
+const FooterHeroContainer = styled.div`
+padding: 100px 0px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 24px;
+
+background-color: #fff;
+
+border-radius: 24px;
+
+position: relative;
+bottom: -100px;
+
+width: 100%;
+box-sizing: border-box;
+`;
+
+const FooterTextContainer = styled.div`
+display: flex;
+word-break: break-all;
+word-wrap: break-word;
+
+width: 920px;
+gap: 24px;
+flex-wrap: wrap;
+
+justify-content: center;
+`;
+
+const FooterHeroText = styled.p`
+font-style: normal;
+font-weight: 500;
+font-size: 100px;
+line-height: 91.8%;
+/* or 92px */
+
+text-align: center;
+letter-spacing: -0.08em;
+
+color: #000000;
+
+flex-shrink: 0;
+`;
+
+const FooterHeroText_Span = styled(FooterHeroText)`
+background-color: #7dfbb1;
+border-radius: 32px;
+padding: 0 12px 0 2px;
+`;
+
+// const FooterHeroTextLine = styled.div`
+// 	display: flex;
+// 	gap: 24px;
+// `;
+
+const FooterHeroImage = styled.img`
+	width: 280px;
+`;
 
 function LandingPage() {
 
@@ -294,48 +491,50 @@ function LandingPage() {
 
 	return (
 		<MainContainer>
-			<HeroContainer>
-
-				<Header>
-					<LogoText onClick={() => { navigate('/'); }}>{'mama.'}</LogoText>
-
-					<NavContainer>
-						<NavOptionsContainer>
-							{NavItems.map((item) => (
-								<NavItem key={item.id}>
-									<NavText onClick={item.onClick}>{item.text}</NavText>
-								</NavItem>
-							))}
-						</NavOptionsContainer>
-					</NavContainer>
-
-					<BTN_SignUp onClick={handleLoginClick}>{'Log in'}</BTN_SignUp>
-
-				</Header>
-
-
-				<HeroTextAndBTNContainer>
-					<HeroText>
-						{'Personalized learning for you'}
-					</HeroText>
-					<HeroBTN onClick={handleLoginClick}>{'Start your journey '}</HeroBTN>
-				</HeroTextAndBTNContainer>
-
-
-				<VideoContainer>
-					<ReactPlayer
-						url={'https://www.sendpotion.com/assets/video/home/hero/1.mp4?6'}
-						muted={true}
-						playing={true}
-						loop={true}
-						height={'400px'}
-						width={'400px'}
-						controls={false}
-						style={{ borderRadius: '50%' }}
-					/>
-				</VideoContainer>
-
-			</HeroContainer>
+			<HeroMainContainer>
+				<HeroContainer>
+				
+					<Header>
+						<LogoText onClick={() => { navigate('/'); }}>{'mama.'}</LogoText>
+				
+						<NavContainer>
+							<NavOptionsContainer>
+								{NavItems.map((item) => (
+									<NavItem key={item.id}>
+										<NavText onClick={item.onClick}>{item.text}</NavText>
+									</NavItem>
+								))}
+							</NavOptionsContainer>
+						</NavContainer>
+				
+						<BTN_SignUp onClick={handleLoginClick}>{'Log in'}</BTN_SignUp>
+				
+					</Header>
+				
+				
+					<HeroTextAndBTNContainer>
+						<HeroText>
+							{'Personalized learning for you'}
+						</HeroText>
+						<HeroBTN onClick={handleLoginClick}>{'Start your journey '}</HeroBTN>
+					</HeroTextAndBTNContainer>
+				
+				
+					<VideoContainer>
+						<ReactPlayer
+							url={'https://www.sendpotion.com/assets/video/home/hero/1.mp4?6'}
+							muted={true}
+							playing={true}
+							loop={true}
+							height={'400px'}
+							width={'400px'}
+							controls={false}
+							style={{ borderRadius: '50%' }}
+						/>
+					</VideoContainer>
+				
+				</HeroContainer>
+			</HeroMainContainer>
 
 			<ConnectWithTutorsTextContainer>
 				<ConnectWithTutorsText>
@@ -356,10 +555,9 @@ function LandingPage() {
 					height: '200px',
 					// backgroundColor: 'white',
 					borderRadius: '10px',
-					marginTop: '50px',
-					marginBottom: '50px',
+					margin:'100px 0px'
 				}}
-				pauseOnHover
+				pauseOnClick
 			>
 				{
 					MarqueeData.map((item, index) => {
@@ -372,6 +570,52 @@ function LandingPage() {
 				}
 			</Marquee>
 
+			<PricingTextContainer>
+				<PricingTextLarge>{'Choose a plan'}</PricingTextLarge>
+				<PricingTextSmall>{'No Credit card required to start'}</PricingTextSmall>
+			</PricingTextContainer>
+
+
+			<PricingCardsContainer>
+				<PricingCard>
+					<PCT_Category>{'Free'}</PCT_Category>
+					<PCT_Price>{'$0'}</PCT_Price>
+					<PCT_Description>{'Free Forever. As long as you hustle. No credit card required'}</PCT_Description>
+					<PricingContainer_CTABTN>
+						{'Sign up for free'}
+					</PricingContainer_CTABTN>
+				</PricingCard>
+				<PricingCard >
+					<PCT_Category>{'Premium'}</PCT_Category>
+					<PCT_Price>{'$10'}</PCT_Price>
+					<PCT_Description>{'30-day opt out guarantee. Cancel anytime.'}</PCT_Description>
+					<PricingContainer_CTABTN>
+						{'Sign up for free'}
+					</PricingContainer_CTABTN>
+				</PricingCard>
+			</PricingCardsContainer>
+
+
+			<FooterHeroContainer>
+					
+				<FooterTextContainer>
+
+					<FooterHeroText>{'Don\'t learn the '}</FooterHeroText>
+					<FooterHeroText_Span>{'old'}</FooterHeroText_Span>
+					<FooterHeroText_Span>{'boaring'}</FooterHeroText_Span>
+					<FooterHeroText>{'way, we have'}</FooterHeroText>
+					<FooterHeroText>{'Something'}</FooterHeroText>
+					<FooterHeroText_Span>{'cool!'}</FooterHeroText_Span>
+
+				</FooterTextContainer>
+
+				<FooterHeroImage src={BilliKaBaccha} />
+			</FooterHeroContainer>
+
+				
+			<FooterContainer>
+				
+			</FooterContainer>
 		</MainContainer>
 	);
 }
