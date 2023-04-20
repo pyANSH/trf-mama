@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"cd backend && npm i && npm run start\" \"cd frontend && npm i && npm run dev\" "
+    "dev": "concurrently \"cd backend && npm i && npm run start\" \"cd frontend && npm i && npm run dev\" ",
+    "build": "cd frontend && vite build",
+    "preview": "cd frontend && vite preview"
   },
   "author": "",
   "license": "ISC",
