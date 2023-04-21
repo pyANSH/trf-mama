@@ -13,7 +13,7 @@
     "alert:clean": "echo 📢 This command will only work in bash based terminals ",
     "clean:all": "npm run clean:frontend && npm run clean:backend && npm run clean:root",
     "clean:success": "echo 🧹 Cleaned all node_modules folders, you can now run npm run dev to install all dependencies again",
-    "clean": "npm run alert:clean && npm run clean:all && npm run clean:success"
+    "clean": "npm run alert:clean && npm run clean:all && npm run clean:success",
     "build": "cd frontend && vite build",
     "preview": "cd frontend && vite preview"
 
