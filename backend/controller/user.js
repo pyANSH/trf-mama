@@ -61,7 +61,7 @@ exports.login = async (req, res) => {
 }
 
 exports.user_get = (req, res) => {
-    const { token } = req.query;
+    const { token } = req.headers;
     if (!token) {
         return res.status(400).json({ response: 'Please fill all the fields' });
     }
