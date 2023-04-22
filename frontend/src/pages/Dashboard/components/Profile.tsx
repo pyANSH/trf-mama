@@ -11,8 +11,13 @@ import { X } from 'phosphor-react';
 import { _updateUser } from '../../../Store/Thunk/Onboard';
 import { _updateUserDetails } from '../../../Store/Thunk/users';
 import { showToast } from '../../../Store/Reducers/onboard';
+import img from '../../../assets/SweetGirl.png';
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+`;
 
 const Header = styled.div`
   display: flex;
@@ -28,13 +33,15 @@ const Topic = styled.p`
 
 const Caption = styled.p`
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 24px;
+  color: #7c7c7c;
 `;
 
 const MainContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 70% 30%;
+
   width: 100%;
 `;
 
@@ -48,10 +55,11 @@ const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 35px;
-  width: 30%;
+  width: 100%;
 `;
 
 const CommonInputContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -66,13 +74,22 @@ const CommonInputText = styled.p`
 const CommonInput = styled.input`
   border: 1px solid grey;
   border-radius: 8px;
+  font-size: 16px;
   padding: 12px 16px;
+  color: #757d8a;
+  border: 1px solid #e1e3e6;
+  &:focus {
+    outline: none;
+    border: 1px solid #4e73f8;
+    outline: 1px solid #4e73f8;
+  }
 `;
 
 const GenderText = styled.div`
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
+  color: #757d8a;
 `;
 const DropDownAns = styled.div`
   border: 1px solid grey;
@@ -82,13 +99,17 @@ const DropDownAns = styled.div`
   justify-content: space-between;
   cursor: pointer;
   align-items: center;
+  border: 1px solid #e1e3e6;
 `;
 
 const DropDownMainContainer = styled.div`
+  border: 1px solid #e1e3e6;
   width: 100%;
   box-shadow: 0px 8px 24px -4px rgba(27, 46, 94, 0.08);
   border-radius: 8px;
-  border: 1px solid #e1e3e6;
+  position: absolute;
+  bottom: 60px;
+  background: white;
   padding: 24px 9px;
   display: flex;
   flex-direction: column;
@@ -149,10 +170,12 @@ const ProfilePicText = styled.p`
 const UploadProfilePictureBtn = styled.button`
   padding: 12px 43px;
   border: 1px solid #4e73f8;
+  color: #4e73f8;
   border-radius: 8px;
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
+  cursor: pointer;
 `;
 const InterestBtn = styled.button`
   width: fit-content;
@@ -172,11 +195,13 @@ const SaveBtn = styled.div`
   width: fit-content;
   padding: 12px 32px;
   border-radius: 16px;
-  background-color: #4e73f8;
-  color: white;
+  border: 1px solid #4e73f8;
+  border-radius: 8px;
+  color: #4e73f8;
   font-weight: 500;
   font-size: 18px;
   margin: 0 auto;
+  cursor: pointer;
 `;
 function Profile() {
   const imageUpload = useRef<HTMLInputElement>(null);
@@ -195,7 +220,7 @@ function Profile() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [college, setCollege] = useState('');
-  const [gender, setGender] = useState('Select Gender');
+  const [gender, setGender] = useState('Gender');
   const [interest, setInterest] = useState('Education 🎓');
 
   const [isGenderDropDownOpen, setIsGenderDropDownOpen] = useState(false);
@@ -206,19 +231,19 @@ function Profile() {
   const InputFeeds = [
     {
       label: 'Email Address',
-      placeholderText: 'email',
+      placeholderText: 'Email',
       onInputChange: (e: any) => setEmail(e.target.value),
       stateName: email,
     },
     {
       label: 'Name',
-      placeholderText: 'name',
+      placeholderText: 'Name',
       onInputChange: (e: any) => setName(e.target.value),
       stateName: name,
     },
     {
       label: 'College',
-      placeholderText: 'college',
+      placeholderText: 'College',
       onInputChange: (e: any) => setCollege(e.target.value),
       stateName: college,
     },
@@ -326,7 +351,7 @@ function Profile() {
     setName(user?.userFullName);
     setCollege(user?.college);
     if (user?.gender === '') {
-      setGender('Select Gender');
+      setGender('Gender');
     }
     if (user?.gender === 'male') {
       setGender('Male');
@@ -405,11 +430,7 @@ function Profile() {
 
         <RightContainer>
           <ProfilePhotoContainer>
-            <ProfilePic
-              src={
-                'https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg'
-              }
-            />
+            <ProfilePic src={img} />
             <ProfilePicText>Profile Picture</ProfilePicText>
 
             <input
@@ -425,7 +446,7 @@ function Profile() {
           </ProfilePhotoContainer>
 
           <CommonInputContainer>
-            <CommonInputText>Choose your main interest</CommonInputText>
+            <CommonInputText>Choose your interests</CommonInputText>
             <InterestListContainer>
               {interestArr.map((interest: string, index: number) => (
                 <InterestBtn key={index}>
