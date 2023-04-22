@@ -92,7 +92,7 @@ exports.user_get = (req, res) => {
 exports.update_user = (req, res) => {
     const { userEmail, interests, userFullName, socialRefererId, isMentor } = req.body;
     const token = req.headers['token'];
-    if (!userEmail || !interests || !socialRefererId || !token || !isMentor) {
+    if (!interests || !token || !isMentor) {
         return res.status(400).send('Please fill all the fields');
     }
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
@@ -100,10 +100,7 @@ exports.update_user = (req, res) => {
             return res.status(423).send({ error: 'Invalid token' });
         }
         else {
-            if (decoded.userEmail !== userEmail || decoded.socialRefererId !== socialRefererId) {
-                return res.status(422).send('Invalid user');
-            }
-            userModal.findOneAndUpdate({ socialRefererId: socialRefererId }, { interests: interests, isMentor: isMentor }, { new: true }).then((user) => {
+            userModal.findOneAndUpdate({ socialRefererId: decoded.socialRefererId }, { interests: interests, isMentor: isMentor }, { new: true }).then((user) => {
                 if (user) {
                     return res.status(200).send({ response: 'User updated', user });
                 }
