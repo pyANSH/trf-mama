@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { appTypography } from '../../config/styles';
 import { useDispatch } from 'react-redux';
-
+import { _updateUser } from '../../Store/Thunk/Onboard';
+import { useNavigate } from 'react-router-dom';
 const Backdrop = styled.div(({ theme }) => ({
   position: 'fixed',
   height: '100vh',
@@ -142,9 +143,9 @@ function InterestModal() {
   const [userType, setUserType] = useState('Student');
 
   const userDropdownList = ['Student', 'Mentor'];
-
-  const [interestArr, setInterestArr] = useState<any>([]);
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [interestArr, setInterestArr] = useState<string[]>([]);
+  const dispatch: any = useDispatch();
   function handleInterestInsert(interestName: string) {
     if (interestArr.some((interest: string) => interest === interestName)) {
       const interestIndex = interestArr.findIndex(
@@ -162,7 +163,18 @@ function InterestModal() {
       setInterestArr(tempInterstArr);
     }
   }
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    const res = await dispatch(
+      _updateUser({
+        interests: interestArr,
+        isMentor: userType === 'Mentor' ? true : false,
+      }),
+    );
+    if (res.payload.status === 200) {
+      navigate('/dashboard');
+    }
+    console.warn(res);
+  };
   return (
     <>
       <Backdrop />

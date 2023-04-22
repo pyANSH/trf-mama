@@ -130,7 +130,7 @@ function SignUp() {
 		console.log(res.payload.data);
 
 		if (res.meta.requestStatus === 'fulfilled') {
-			initAPI({token:res.payload.data.token});
+			initAPI({ token: res.payload.data.token });
 			setCookie('token',res.payload.data.token);
 
 			if (res.payload.data.interests.length === 0) {
@@ -139,6 +139,7 @@ function SignUp() {
 				navigate('/dashboard');
 			}
 		}
+		console.warn(res.payload.data);
 	}
 	function handleHomeRoute() {
 		navigate('/');
