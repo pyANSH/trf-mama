@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import catFace from "../../assets/billiBC.svg";
-import { Check } from "@phosphor-icons/react";
+import { Check, ArrowCircleLeft, ArrowCircleRight } from "@phosphor-icons/react";
 import user_1_pfp from "../../assets/images/brittany.png";
 import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 const MainContainer = styled.div`
   display: flex;
@@ -602,7 +603,7 @@ width: 100%;
 `;
 
 const TestimonialCard = styled.div`
-width: 650px;
+/* width: 650px; */
 height: 350px;
 border-radius: 28px;
 background-color: #faf9f6;
@@ -613,11 +614,14 @@ flex-direction: column;
 align-items: center;
 
 gap: 16px;
+
+margin: 0 32px;
 `;
 
 const TestimonialPersonImage = styled.img`
 width: 90px;
 height: 90px;
+max-width: 90px;
 border-radius: 50%;
 `;
 
@@ -665,6 +669,36 @@ justify-content: center;
 align-items: center;
 gap: 8px;
 `
+
+const CarouselContainer = styled.div`
+  width: 100%;
+  position: relative;
+`;
+
+const CarouselLeftArrow = styled(ArrowCircleLeft)`
+  cursor: pointer;
+`;
+
+const CarouselRightArrow = styled(ArrowCircleRight)`
+  cursor: pointer;
+`;
+
+const RightBTN = styled.button`
+  display: none;
+`
+
+const LeftBTN = styled.button`
+  display: none;
+`
+
+const CarouselButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0px;
+`;
+
 
 function LandingPage() {
   const NavItems = [
@@ -764,6 +798,8 @@ function LandingPage() {
   ];
   // console.warn(MarqueeData.length);
 
+  const leftBTNRef = useRef<HTMLButtonElement>(null);
+  const rightBTNRef = useRef<HTMLButtonElement>(null);
   return (
     <MainContainer>
       <HeroMainContainer>
@@ -818,64 +854,30 @@ function LandingPage() {
         </ConnectWithTutorsText>
       </ConnectWithTutorsTextContainer>
 
-      <TestimonialCardContainer>
-        <TestimonialCard>
-          <TestimonialPersonImage src={user_1_pfp} />
-          <TestimonialText>
-            {"We have become heavy users of Potion across our entire team. It has increased our sales team’s performance substantially and we are incorporating it into more and more of our routines every week."}
-          </TestimonialText>
-          <TestimonialPersonNameAndDesignationContainer>
-            <TestimonialPersonName>
-              {"Brittany Chiang,"}
-            </TestimonialPersonName>
-            <TestimonialPersonDesignation>
-              {"Researcher at MIT"}
-            </TestimonialPersonDesignation>
-          </TestimonialPersonNameAndDesignationContainer>
-        </TestimonialCard>
+      <CarouselContainer>
+        <Carousel
+          autoPlay={true}
+          infiniteLoop={true}
+          width={"100%"}
+          showThumbs={false}
+          showStatus={false}
+          showIndicators={false}
+          showArrows={true}
+          centerMode={true}
+          centerSlidePercentage={60}
+          renderArrowNext={(onClickHandler, hasMore) =>
+            hasMore && (
+              <RightBTN ref={rightBTNRef} onClick={onClickHandler}>{"-->"}</RightBTN>
+            )
+          }
+          renderArrowPrev={(onClickHandler, hasMore) =>
+            hasMore && (
+              <LeftBTN ref={leftBTNRef} onClick={onClickHandler}>{"<--"}</LeftBTN>
+            )
+          }
 
-        <TestimonialCard>
-          <TestimonialPersonImage src={user_1_pfp} />
-          <TestimonialText>
-            {"We have become heavy users of Potion across our entire team. It has increased our sales team’s performance substantially and we are incorporating it into more and more of our routines every week."}
-          </TestimonialText>
-          <TestimonialPersonNameAndDesignationContainer>
-            <TestimonialPersonName>
-              {"Brittany Chiang,"}
-            </TestimonialPersonName>
-            <TestimonialPersonDesignation>
-              {"Researcher at MIT"}
-            </TestimonialPersonDesignation>
-          </TestimonialPersonNameAndDesignationContainer>
-        </TestimonialCard>
+        >
 
-        <TestimonialCard>
-          <TestimonialPersonImage src={user_1_pfp} />
-          <TestimonialText>
-            {"We have become heavy users of Potion across our entire team. It has increased our sales team’s performance substantially and we are incorporating it into more and more of our routines every week."}
-          </TestimonialText>
-          <TestimonialPersonNameAndDesignationContainer>
-            <TestimonialPersonName>
-              {"Brittany Chiang,"}
-            </TestimonialPersonName>
-            <TestimonialPersonDesignation>
-              {"Researcher at MIT"}
-            </TestimonialPersonDesignation>
-          </TestimonialPersonNameAndDesignationContainer>
-        </TestimonialCard>
-      </TestimonialCardContainer>
-
-      <Carousel
-        autoPlay={true}
-        infiniteLoop={true}
-        // axis={"horizontal"}
-        // width={"100%"}
-        showThumbs={false}
-        showStatus={false}
-        showIndicators={false}
-        centerMode={true}
-      >
-        <div>
           <TestimonialCard>
             <TestimonialPersonImage src={user_1_pfp} />
             <TestimonialText>
@@ -890,9 +892,6 @@ function LandingPage() {
               </TestimonialPersonDesignation>
             </TestimonialPersonNameAndDesignationContainer>
           </TestimonialCard>
-        </div>
-
-        <div>
           <TestimonialCard>
             <TestimonialPersonImage src={user_1_pfp} />
             <TestimonialText>
@@ -907,9 +906,6 @@ function LandingPage() {
               </TestimonialPersonDesignation>
             </TestimonialPersonNameAndDesignationContainer>
           </TestimonialCard>
-        </div>
-
-        <div>
           <TestimonialCard>
             <TestimonialPersonImage src={user_1_pfp} />
             <TestimonialText>
@@ -924,9 +920,29 @@ function LandingPage() {
               </TestimonialPersonDesignation>
             </TestimonialPersonNameAndDesignationContainer>
           </TestimonialCard>
-        </div>
+          <TestimonialCard>
+            <TestimonialPersonImage src={user_1_pfp} />
+            <TestimonialText>
+              {"We have become heavy users of Potion across our entire team. It has increased our sales team’s performance substantially and we are incorporating it into more and more of our routines every week."}
+            </TestimonialText>
+            <TestimonialPersonNameAndDesignationContainer>
+              <TestimonialPersonName>
+                {"Brittany Chiang,"}
+              </TestimonialPersonName>
+              <TestimonialPersonDesignation>
+                {"Researcher at MIT"}
+              </TestimonialPersonDesignation>
+            </TestimonialPersonNameAndDesignationContainer>
+          </TestimonialCard>
+        </Carousel>
 
-      </Carousel>
+        <CarouselButtonsContainer>
+          <CarouselLeftArrow onClick={() => leftBTNRef?.current?.click()} size={42} weight="thin" />
+          <CarouselRightArrow onClick={() => rightBTNRef?.current?.click()} size={42} weight="thin" />
+        </CarouselButtonsContainer>
+      </CarouselContainer>
+
+
 
       {/* <UniversityScrollerContainer>
         
@@ -1052,7 +1068,7 @@ function LandingPage() {
         <FooterTextContainer>
           <FooterHeroText>{"Don't learn the "}</FooterHeroText>
           <FooterHeroText_Span>{"old"}</FooterHeroText_Span>
-          <FooterHeroText_Span>{"boaring"}</FooterHeroText_Span>
+          <FooterHeroText_Span>{"boring"}</FooterHeroText_Span>
           <FooterHeroText>{"way, we have"}</FooterHeroText>
           <FooterHeroText>{"Something"}</FooterHeroText>
           <FooterHeroText_Span bgColor={"#bdefff"}>{"cool!"}</FooterHeroText_Span>
@@ -1087,7 +1103,7 @@ function LandingPage() {
           </FooterTextsContainer>
         </FooterTextsMainContainer>
       </FooterContainer>
-    </MainContainer>
+    </MainContainer >
   );
 }
 
