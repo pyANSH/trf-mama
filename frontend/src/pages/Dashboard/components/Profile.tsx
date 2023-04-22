@@ -331,9 +331,6 @@ function Profile() {
 			},
 		},
 	];
-	const [_it, set_it] = useState(false);
-	const user = useSelector((state: any) => state.appdata.user);
-
 	const handleSave = () => {
 		dispatch(
 			_updateUser({
