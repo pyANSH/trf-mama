@@ -40,9 +40,10 @@ const Caption = styled.p`
 
 const MainContainer = styled.div`
   display: grid;
-  grid-template-columns: 70% 30%;
+  grid-template-columns: 60% 30%;
 
   width: 100%;
+  height: 90%;
 `;
 
 const LeftContainer = styled.div`
@@ -200,7 +201,6 @@ const SaveBtn = styled.div`
   color: #4e73f8;
   font-weight: 500;
   font-size: 18px;
-  margin: 0 auto;
   cursor: pointer;
 `;
 function Profile() {
