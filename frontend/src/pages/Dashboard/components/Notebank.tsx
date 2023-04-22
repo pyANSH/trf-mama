@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import {MagnifyingGlass,SquaresFour} from 'phosphor-react';
+import { useSelector } from 'react-redux';
 
 const Container =styled.div`
 display: flex;
@@ -114,57 +115,56 @@ border-radius: 12px;
 
 
 function Notebank() {
-
-const interestList  =[
-'All','Interest 1','Interest 1','Interest 1'
-
-];
-
-
-  return (
-    <Container>
-        <SearchContainer>
-<SearchBox>
-<SearchInput placeholder='Search'/>
-
-<SearchBtn>
-<SearchIcon/>
-</SearchBtn>
-</SearchBox>
-
-<FilterBtn>
-
-<FourSquareIcon/>
-</FilterBtn>
-        </SearchContainer>
+	const userDetails = useSelector((state:any)=>state?.appdata?.user);
+	const interestList=[
+		'All',...userDetails?.interests
+	];
 
 
+	return (
+		<Container>
+			<SearchContainer>
+				<SearchBox>
+					<SearchInput placeholder='Search'/>
 
-<InterestContainer>
-{
-    interestList.map((interesttext)=>(
-        <SingleInterest>{interesttext}</SingleInterest>
-    ))
-}
-</InterestContainer>
+					<SearchBtn>
+						<SearchIcon/>
+					</SearchBtn>
+				</SearchBox>
 
-<DocumentsContainer>
-<SingleDocCard>
-    <DocImage/>
+				<FilterBtn>
 
-    <DocInfo>
-        <DocHeading>
+					<FourSquareIcon/>
+				</FilterBtn>
+			</SearchContainer>
+
+
+
+			<InterestContainer>
+				{
+					interestList?.map((interesttext:any,index:number)=>(
+						<SingleInterest key={index}>{interesttext}</SingleInterest>
+					))
+				}
+			</InterestContainer>
+
+			<DocumentsContainer>
+				<SingleDocCard>
+					<DocImage/>
+
+					<DocInfo>
+						<DocHeading>
         Headline
-        </DocHeading>
-        <DocDesc>
+						</DocHeading>
+						<DocDesc>
         Please add your content here. Keep it short and simple. And smile :) 
-        </DocDesc>
-    </DocInfo>
-</SingleDocCard>
-</DocumentsContainer>
+						</DocDesc>
+					</DocInfo>
+				</SingleDocCard>
+			</DocumentsContainer>
 
-    </Container>
-  )
+		</Container>
+	);
 }
 
-export default Notebank
+export default Notebank;
