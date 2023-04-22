@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { appTypography } from '../../config/styles';
 import { _onBoard } from '../../Store/Thunk/Onboard';
-import {useDispatch} from 'react-redux';
-import {useNavigate} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import billiBKL from '../../assets/billiBC.svg';
 
 const Container = styled.div`
@@ -27,19 +27,19 @@ align-items: center;
 justify-content: center;
 `;
 
-const Header =styled.div`
+const Header = styled.div`
   padding:56px 0 0 95px;
 width:fit-content;
 `;
 
-const Logo =styled.div(({theme})=>({
+const Logo = styled.div(({ theme }) => ({
 	...appTypography.h5.bold,
-	color:theme.app.typography['900'],
-	width:'fit-content',
-	cursor:'pointer'
+	color: theme.app.typography['900'],
+	width: 'fit-content',
+	cursor: 'pointer'
 }));
 
-const MainContent =styled.div`
+const MainContent = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -51,25 +51,25 @@ const MainContent =styled.div`
     transform: translate(-50%, -50%);
 `;
 
-const LoginText =styled.p(({theme})=>({
+const LoginText = styled.p(({ theme }) => ({
 	...appTypography.h1.bold,
-	color:theme.app.typography['900']
+	color: theme.app.typography['900']
 }));
 
-const CatContainer =styled.div`
+const CatContainer = styled.div`
 background: #FFF8E1;
 border-radius: 300px;	
 height:280px;
 width:80%;
 `;
 
-const CatImage =styled.img`
+const CatImage = styled.img`
 width:100%;
 height:100%;	
 `;
 
 function SignUp() {
-	const dispatch:any = useDispatch();
+	const dispatch: any = useDispatch();
 	const navigate = useNavigate();
 	function decodeJwtResponse(token: string) {
 		const base64Url = token.split('.')[1];
@@ -91,28 +91,28 @@ function SignUp() {
 		);
 	}, []);
 	async function handleCredentialResponse(response: { credential: string; }) {
-		
+
 		const responsePayload = decodeJwtResponse(response.credential);
 		console.log('Encoded JWT ID token: ' + responsePayload);
-		console.log(responsePayload.name,responsePayload.sub,responsePayload.email,);
-		const body ={
-			userFullName:responsePayload.name,
-			socialRefererId:responsePayload.sub,
-			userEmail:responsePayload.email,
+		console.log(responsePayload.name, responsePayload.sub, responsePayload.email,);
+		const body = {
+			userFullName: responsePayload.name,
+			socialRefererId: responsePayload.sub,
+			userEmail: responsePayload.email,
 			'interests': []
 		};
-		const res = await dispatch(_onBoard({body}));
+		const res = await dispatch(_onBoard({ body }));
 		console.log(res);
-		
-		if(res.meta.requestStatus==='fulfilled'){		
-			navigate('/dashboard');//to dashboard
+
+		if (res.meta.requestStatus === 'fulfilled') {
+			navigate('/');//to dashboard
 		}
-		
+
 	}
 
 	function handleHomeRoute() {
 		navigate('/');
-		
+
 	}
 	return (
 		<Container>
@@ -123,12 +123,12 @@ function SignUp() {
 
 				<MainContent>
 					<LoginText>Login</LoginText>
-					<div id="buttonDiv"></div> 
+					<div id="buttonDiv"></div>
 				</MainContent>
 			</LeftContainer>
 			<RightContainer>
 				<CatContainer>
-					<CatImage src={billiBKL}/>
+					<CatImage src={billiBKL} />
 				</CatContainer>
 
 			</RightContainer>

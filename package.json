@@ -5,11 +5,25 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"cd backend && npm i && npm run start\" \"cd frontend && npm i && npm run dev\" "
+    "dev": "npm i && concurrently \"cd backend && npm i && npm run start\" \"cd frontend && npm i && npm run dev\" ",
+    "clean:frontend": "rm -rf frontend/node_modules",
+    "clean:backend": "rm -rf backend/node_modules",
+    "clean:root": "rm -rf node_modules",
+    "alert:clean": "echo 📢 This command will only work in bash based terminals ",
+    "clean:all": "npm run clean:frontend && npm run clean:backend && npm run clean:root",
+    "clean:success": "echo 🧹 Cleaned all node_modules folders, you can now run npm run dev to install all dependencies again",
+    "clean": "npm run alert:clean && npm run clean:all && npm run clean:success",
+    "build": "cd frontend && vite build",
+    "preview": "cd frontend && vite preview",
+    "format": "concurrently 'prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"'"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^7.6.0"
+    "concurrently": "^7.6.0",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.35.0"
   }
 }
