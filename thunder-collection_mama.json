@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "mama",
-    "dateExported": "2023-02-25T21:35:35.171Z",
+    "dateExported": "2023-04-22T08:54:21.339Z",
     "version": "1.1",
     "folders": [
         {
@@ -43,7 +43,7 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-02-15T21:50:30.097Z",
-            "modified": "2023-02-25T17:52:24.344Z",
+            "modified": "2023-04-22T08:29:29.007Z",
             "headers": [
                 {
                     "name": "X-API-KEY",
@@ -62,7 +62,7 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{ \n  \"userEmail\":\"test1@test.commmm\",\n  \"interests\":[\"hey\", \"I am\", \"Interest\"],\n  \"userFullName\":\"test user mentor\",\n  \"socialRefererId\":\"1234567879011111\",\n  \"isMentor\":\"true\"\n  \n}",
+                "raw": "{ \n  \"userEmail\":\"test1@test.commmm\",\n\n  \"userFullName\":\"test user mentor\",\n  \"socialRefererId\":\"1234567879011111\",\n  \"isMentor\":\"true\"\n  \n}",
                 "form": []
             },
             "tests": []
@@ -72,11 +72,11 @@
             "colId": "642db600-39e6-46cc-9f19-179bee96821e",
             "containerId": "eb0348ac-ddea-4d60-a88c-438b7f5e5299",
             "name": "get schedule",
-            "url": "localhost:8000/meeting/get?meetingId=63f9e810f7231b703f518628",
+            "url": "localhost:8000/meeting/get?meetingId=63fa4dd9f920942d8fb24f90",
             "method": "GET",
             "sortNum": 10000,
             "created": "2023-02-25T07:39:03.345Z",
-            "modified": "2023-02-25T10:51:30.161Z",
+            "modified": "2023-02-26T04:33:49.032Z",
             "headers": [
                 {
                     "name": "User-Agent",
@@ -95,7 +95,7 @@
             "params": [
                 {
                     "name": "meetingId",
-                    "value": "63f9e810f7231b703f518628",
+                    "value": "63fa4dd9f920942d8fb24f90",
                     "isPath": false
                 }
             ],
@@ -238,12 +238,12 @@
             "_id": "757c8ad7-e124-4c47-963d-77f6eb3ca05e",
             "colId": "642db600-39e6-46cc-9f19-179bee96821e",
             "containerId": "a0927eca-1944-404a-8805-601affd377d5",
-            "name": "update user",
-            "url": "localhost:8000/user/update",
+            "name": "update user interest",
+            "url": "localhost:8000/user/update/status",
             "method": "PUT",
             "sortNum": 20000,
             "created": "2023-02-25T16:53:54.845Z",
-            "modified": "2023-02-25T17:45:28.466Z",
+            "modified": "2023-04-22T08:49:54.904Z",
             "headers": [
                 {
                     "name": "X-API-KEY",
@@ -260,13 +260,13 @@
                 },
                 {
                     "name": "token",
-                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwic29jaWFsUmVmZXJlcklkIjoiMTIzNDU2Nzg3OTAiLCJpYXQiOjE2NzczNDM5ODh9.jdBYeSRGMp7EE7Sd127Nc-y0Gs9aFr_JTZFf0s1a7B0"
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmE0OTEzY2MwOTE0YTQ0ZDA3MzgyOCIsInVzZXJFbWFpbCI6InRlc3QxQHRlc3QuY29tbW1tIiwic29jaWFsUmVmZXJlcklkIjoiMTIzNDU2Nzg3OTAxMTExMSIsImlhdCI6MTY3NzM4NTAzNn0.dkZ2AhJVtDylcmNLmTKJVRdVMiTxprP9rsxUx6_5eUk"
                 }
             ],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{ \n  \"userEmail\":\"test@test.com\",\n  \"interests\":[\"hey\", \"I am\", \"Interest\",\"hello\"],\n  \"userFullName\":\"test user mentor\",\n  \"socialRefererId\":\"12345678790\",\n  \"isMentor\": \"false\"\n}",
+                "raw": "{\n  \"interests\":[\"science\"],\n  \"isMentor\": true\n}",
                 "form": []
             },
             "tests": []
@@ -352,6 +352,43 @@
             "tests": []
         },
         {
+            "_id": "35740b6b-7f79-4577-8f63-c73baaa30f31",
+            "colId": "642db600-39e6-46cc-9f19-179bee96821e",
+            "containerId": "a0927eca-1944-404a-8805-601affd377d5",
+            "name": "update userProfile",
+            "url": "localhost:8000/user/update/profile",
+            "method": "PUT",
+            "sortNum": 22500,
+            "created": "2023-04-22T08:37:10.011Z",
+            "modified": "2023-04-22T08:53:53.774Z",
+            "headers": [
+                {
+                    "name": "X-API-KEY",
+                    "value": "1234567890123456"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmE0OTEzY2MwOTE0YTQ0ZDA3MzgyOCIsInVzZXJFbWFpbCI6InRlc3QxQHRlc3QuY29tbW1tIiwic29jaWFsUmVmZXJlcklkIjoiMTIzNDU2Nzg3OTAxMTExMSIsImlhdCI6MTY3NzM4NTAzNn0.dkZ2AhJVtDylcmNLmTKJVRdVMiTxprP9rsxUx6_5eUk"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"college\": \"dasjkdbnfjkla\",\n  \"userFullName\":\"asdfasdf\",\n  \"gender\":\"afsdfasddf\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
             "_id": "8fe4a4df-5209-4cae-94f9-ea845ad9f5a6",
             "colId": "642db600-39e6-46cc-9f19-179bee96821e",
             "containerId": "a0927eca-1944-404a-8805-601affd377d5",
@@ -395,7 +432,7 @@
             "method": "PUT",
             "sortNum": 25000,
             "created": "2023-02-25T20:40:28.230Z",
-            "modified": "2023-02-25T21:34:53.636Z",
+            "modified": "2023-02-25T21:33:45.934Z",
             "headers": [
                 {
                     "name": "User-Agent",
@@ -427,7 +464,7 @@
             ],
             "body": {
                 "type": "json",
-                "raw": " { \n   \"noteId\":\"63fa60a9e02d9d37728a81aa\", \n \"userId\":\"63fa4913cc0914a44d073828\",\n \"noteTitle\":\"test Title2\",\n \"category\":[\"changed titles\"], \n \"description\":\"changed description\" \n }",
+                "raw": " { \n   \"noteId\":\"63fa60a9e02d9d37728a81aa\", \n \"userId\":\"63fa4913cc0914a44d073828\",\n \"noteTitle\":\"test Title\",\n \"category\":[\"changed titles\"], \n \"description\":\"changed description\" \n }",
                 "form": []
             },
             "tests": []
