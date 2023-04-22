@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import {MagnifyingGlass,SquaresFour} from 'phosphor-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { _getNotes } from '../../../Store/Thunk/notes';
 
 const Container =styled.div`
 display: flex;
@@ -114,57 +116,64 @@ border-radius: 12px;
 
 
 function Notebank() {
+	const userDetails = useSelector((state:any)=>state?.appdata?.user);
+	const interestList=[
+		'All',...userDetails?.interests
+	];
 
-const interestList  =[
-'All','Interest 1','Interest 1','Interest 1'
+	const allNotes = useSelector((state:any)=>state?.appdata?.user);
 
-];
+	const dispatch:any =useDispatch();
+
+	useEffect(() => {
+		dispatch(_getNotes({userId:userDetails?._id}));
+	}, []);
+    
+
+	return (
+		<Container>
+			<SearchContainer>
+				<SearchBox>
+					<SearchInput placeholder='Search'/>
+
+					<SearchBtn>
+						<SearchIcon/>
+					</SearchBtn>
+				</SearchBox>
+
+				<FilterBtn>
+
+					<FourSquareIcon/>
+				</FilterBtn>
+			</SearchContainer>
 
 
-  return (
-    <Container>
-        <SearchContainer>
-<SearchBox>
-<SearchInput placeholder='Search'/>
 
-<SearchBtn>
-<SearchIcon/>
-</SearchBtn>
-</SearchBox>
+			<InterestContainer>
+				{
+					interestList?.map((interesttext:any,index:number)=>(
+						<SingleInterest key={index}>{interesttext}</SingleInterest>
+					))
+				}
+			</InterestContainer>
 
-<FilterBtn>
+			<DocumentsContainer>
+				<SingleDocCard>
+					<DocImage/>
 
-<FourSquareIcon/>
-</FilterBtn>
-        </SearchContainer>
-
-
-
-<InterestContainer>
-{
-    interestList.map((interesttext)=>(
-        <SingleInterest>{interesttext}</SingleInterest>
-    ))
-}
-</InterestContainer>
-
-<DocumentsContainer>
-<SingleDocCard>
-    <DocImage/>
-
-    <DocInfo>
-        <DocHeading>
+					<DocInfo>
+						<DocHeading>
         Headline
-        </DocHeading>
-        <DocDesc>
+						</DocHeading>
+						<DocDesc>
         Please add your content here. Keep it short and simple. And smile :) 
-        </DocDesc>
-    </DocInfo>
-</SingleDocCard>
-</DocumentsContainer>
+						</DocDesc>
+					</DocInfo>
+				</SingleDocCard>
+			</DocumentsContainer>
 
-    </Container>
-  )
+		</Container>
+	);
 }
 
-export default Notebank
+export default Notebank;

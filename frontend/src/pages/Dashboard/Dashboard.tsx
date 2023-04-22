@@ -64,21 +64,21 @@ const UserIcon = styled(User)`
 `;
 
 const OptionText = styled.p(() => ({
-  fontWeight: '500',
-  fontSize: '22px',
-  lineHeight: '26px',
+	fontWeight: '500',
+	fontSize: '22px',
+	lineHeight: '26px',
 }));
 
 const CommonIcons = {
-  height: '24px',
-  width: '24px',
+	height: '24px',
+	width: '24px',
 };
 const SidebarOptionIcon = styled.div(({}) => ({
-  ...CommonIcons,
+	...CommonIcons,
 }));
 const ContentContainer = styled.div(({ theme }) => ({
-  //   width: "78%",
-  //   height: "100%",
+	//   width: "78%",
+	//   height: "100%",
 }));
 
 const MainContainer = styled.div`
@@ -89,64 +89,66 @@ const MainContainer = styled.div`
 `;
 
 function Dashboard() {
-  const tab = 4;
+	const [tab, setTab] = useState(0);
 
-  let sidebarOptions = [
-    {
-      icon: <SquareFourIcon />,
-      text: 'Dashboard',
-      /* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
-    },
-    {
-      icon: <SellIcon />,
-      text: 'Sell Documents',
-      component: <SellDocuments />,
-    },
-    {
-      icon: <BooksIcon />,
-      text: 'The Notebank',
-      component: <Notebank />,
-    },
-    {
-      icon: <CapIcon />,
-      text: 'Community',
-      /* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
-    },
-    {
-      icon: <UserIcon />,
-      text: 'Profile',
-      component: <Profile />,
-    },
-  ];
+	const sidebarOptions = [
+		{
+			icon: <SquareFourIcon />,
+			text: 'Dashboard',
+			/* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
+		},
+		{
+			icon: <SellIcon />,
+			text: 'Sell Documents',
+			component: <SellDocuments />,
+		},
+		{
+			icon: <BooksIcon />,
+			text: 'The Notebank',
+			component: <Notebank />,
+		},
+		{
+			icon: <CapIcon />,
+			text: 'Community',
+			/* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
+		},
+		{
+			icon: <UserIcon />,
+			text: 'Profile',
+			component: <Profile />,
+		},
+	];
 
-  function handleSidebarOptionClick(index: any, option: any) {}
+	function handleSidebarOptionClick(index: any, option: any) {
+		setTab(index);
+	}
 
-  return (
-    <Container>
-      <Header>
-        <Logo>mama.</Logo>
-      </Header>
-      <MainContainer>
-        <LeftContainer>
-          {sidebarOptions.map((option, index) => {
-            if (!option) return null; //? to handle null value in array
-            return (
-              <>
-                <SingleMenuItem
-                  key={index}
-                  onClick={() => handleSidebarOptionClick(index, option)}
-                >
-                  <SidebarOptionIcon>{option.icon}</SidebarOptionIcon>
-                  <OptionText>{option.text}</OptionText>
-                </SingleMenuItem>
-              </>
-            );
-          })}
-        </LeftContainer>
-        <ContentContainer>{sidebarOptions[tab]?.component}</ContentContainer>
-      </MainContainer>
-    </Container>
-  );
+	return (
+		<Container>
+			<Header>
+				<Logo>mama.</Logo>
+			</Header>
+			<MainContainer>
+				<LeftContainer>
+					{sidebarOptions.map((option, index) => {
+						if (!option) return null; //? to handle null value in array
+						return (
+							<>
+								<SingleMenuItem
+									key={index}
+									onClick={() => handleSidebarOptionClick(index, option)}
+								>
+									<SidebarOptionIcon>{option.icon}</SidebarOptionIcon>
+									<OptionText>{option.text}</OptionText>
+								</SingleMenuItem>
+							</>
+						);
+					})}
+				</LeftContainer>
+				<ContentContainer>{sidebarOptions[tab]?.component}</ContentContainer>
+			</MainContainer>
+		</Container>
+	);
 }
 
 export default Dashboard;
