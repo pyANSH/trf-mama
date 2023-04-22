@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {MagnifyingGlass,SquaresFour} from 'phosphor-react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -69,6 +69,8 @@ border: 1px solid #E1E3E6;
 border-radius: 8px;
 padding: 12px 43px;
 cursor:pointer;
+background-color: ${({isActive,theme}:{isActive:any,theme:any})=>isActive?theme.app.primary['500']:'initial'};
+color: ${({isActive,theme}:{isActive:any,theme:any})=>isActive?theme.app.shades.white:theme.app.typography['900']};
 `;
 
 const DocumentsContainer =styled.div`
@@ -117,11 +119,14 @@ border-radius: 12px;
 
 function Notebank() {
 	const userDetails = useSelector((state:any)=>state?.appdata?.user);
+	const [currentTab, setCurrentTab] = useState('All');
+
 	const interestList=[
 		'All',...userDetails?.interests
 	];
 
-	const allNotes = useSelector((state:any)=>state?.appdata?.user);
+	const allNotes = useSelector((state:any)=>state?.notes?.notes); 
+	console.log(allNotes);
 
 	const dispatch:any =useDispatch();
 
@@ -129,6 +134,11 @@ function Notebank() {
 		dispatch(_getNotes({userId:userDetails?._id}));
 	}, []);
     
+
+	function handleTabChange(type:string) {
+		setCurrentTab(type);
+		dispatch(_getNotes({userId:userDetails?._id,category:type==='All'?null:type}));
+	}
 
 	return (
 		<Container>
@@ -152,24 +162,27 @@ function Notebank() {
 			<InterestContainer>
 				{
 					interestList?.map((interesttext:any,index:number)=>(
-						<SingleInterest key={index}>{interesttext}</SingleInterest>
+						<SingleInterest isActive={currentTab===interesttext}  onClick={()=>handleTabChange(interesttext)} key={index}>{interesttext}</SingleInterest>
 					))
 				}
 			</InterestContainer>
 
 			<DocumentsContainer>
-				<SingleDocCard>
-					<DocImage/>
+				{allNotes?.map((note:any,index:number)=>(
 
-					<DocInfo>
-						<DocHeading>
-        Headline
-						</DocHeading>
-						<DocDesc>
-        Please add your content here. Keep it short and simple. And smile :) 
-						</DocDesc>
-					</DocInfo>
-				</SingleDocCard>
+					<SingleDocCard key={index}>
+						<DocImage/>
+
+						<DocInfo>
+							<DocHeading>
+                                    Headline
+							</DocHeading>
+							<DocDesc>
+                                      Please add your content here. Keep it short and simple. And smile :) 
+							</DocDesc>
+						</DocInfo>
+					</SingleDocCard>
+				))}
 			</DocumentsContainer>
 
 		</Container>

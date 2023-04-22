@@ -7,7 +7,7 @@ import { lightThemeColorScheme } from './config/styles';
 import { ThemeProvider } from 'styled-components';
 import { CookiesProvider, useCookies } from 'react-cookie';
 import { initAPI } from './serverCom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { _getUserDetails } from './Store/Thunk/users';
 
 function App() {
