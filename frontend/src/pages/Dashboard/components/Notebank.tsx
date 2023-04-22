@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import {MagnifyingGlass,SquaresFour} from 'phosphor-react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { _getNotes } from '../../../Store/Thunk/notes';
 
 const Container =styled.div`
 display: flex;
@@ -120,6 +121,13 @@ function Notebank() {
 		'All',...userDetails?.interests
 	];
 
+
+	const dispatch:any =useDispatch();
+
+	useEffect(() => {
+		dispatch(_getNotes({userId:userDetails?._id}));
+	}, []);
+    
 
 	return (
 		<Container>
