@@ -1,6 +1,6 @@
 //createSlice
 import { createSlice } from '@reduxjs/toolkit';
-import { _onBoard } from '../Thunk/Onboard';
+import { _onBoard, _updateUser } from '../Thunk/Onboard';
 import { _getUserDetails } from '../Thunk/users';
 
 const appdata = createSlice({
@@ -52,6 +52,21 @@ const appdata = createSlice({
 				const {response,token} = action.payload;
 				state.user = response.data[0];
 				state.JWT=token;
+
+				state.status='fullfilled';
+			}
+		);
+		builder.addCase(
+			_updateUser.pending,(state, action)=>{
+				state.status='pending';
+			}
+		);
+		builder.addCase(
+			_updateUser.fulfilled,(state, action:any)=>{
+				const {interests,isMentor} = action.payload;
+				state.user={
+					...state.user,interests,isMentor
+				};
 
 				state.status='fullfilled';
 			}
