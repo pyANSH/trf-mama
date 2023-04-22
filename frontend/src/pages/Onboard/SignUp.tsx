@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import billiBKL from '../../assets/billiBC.svg';
 import InterestModal from './InterestModal';
 import Toaster from '../../common/Toaster';
+import { initAPI } from '../../serverCom';
 
 const Container = styled.div`
   height: 100vh;
@@ -126,6 +127,7 @@ function SignUp() {
     console.log(res.payload.data);
 
     if (res.meta.requestStatus === 'fulfilled') {
+      initAPI({token:res.payload.data.token})
       if (res.payload.data.interests.length === 0) {
         setInterestModal(true);
       } else {
