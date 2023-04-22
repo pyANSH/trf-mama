@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getUserDetails } from '../../serverCom/user';
-import { getNotes } from '../../serverCom/notes';
+import { getNotes, uploadNotes } from '../../serverCom/notes';
 
 export const _getNotes = createAsyncThunk(
 	'notes/getNotes',
@@ -22,3 +22,29 @@ export const _getNotes = createAsyncThunk(
 		}
 	},
 );
+
+export const _uploadNotes = createAsyncThunk(
+	'notes/uploadNotes',
+	async ({title,file,fileUrl,userId,description,category}:{category?:any,userId:any,title:any,file:any,fileUrl:any,description:any}, { rejectWithValue }) => {
+		try {
+			const body={
+				userId,
+				category,
+				noteTitle:title,
+				fileUrl,
+				fileName:file.name,
+				fileSize:file.size,
+				description,
+				fileType:'PDF'
+			};
+			const response = await uploadNotes({body});
+			console.log(response);
+			
+            
+			return {response:response.data.data};
+		} catch (error) {
+			rejectWithValue(error);
+		}
+	},
+);
+

@@ -79,7 +79,7 @@ align-items: center;
 justify-content: space-between;
 `;
 
-const SingleDocCard =styled.div`
+const SingleDocCard =styled.a`
 padding: 24px;
 border-radius: 12px;
 display: flex;
@@ -170,15 +170,15 @@ function Notebank() {
 			<DocumentsContainer>
 				{allNotes?.map((note:any,index:number)=>(
 
-					<SingleDocCard key={index}>
+					<SingleDocCard href={note.fileUrl} target='_blank' key={index}>
 						<DocImage/>
 
 						<DocInfo>
 							<DocHeading>
-                                    Headline
+								{note.noteTitle}
 							</DocHeading>
 							<DocDesc>
-                                      Please add your content here. Keep it short and simple. And smile :) 
+								{note.description}
 							</DocDesc>
 						</DocInfo>
 					</SingleDocCard>

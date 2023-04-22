@@ -5,6 +5,9 @@ import { appTypography } from '../../../config/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTags, initTags, removeTags } from '../../../Store/Reducers/notes';
 
+import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+import { storage } from '../../../firebase/firebase';
+import { _uploadNotes } from '../../../Store/Thunk/notes';
 
 const Backdrop = styled.div(({ theme }) => ({
 	position: 'fixed',
@@ -234,8 +237,9 @@ function SellDocumentModal({setUploadFiles,uploadFiles,setIsDetailsModal}:{setUp
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [tag, setTag] = useState<any>('');
+	const userDetails = useSelector((state:any)=>state.appdata.user);
 	const tagArr = useSelector((state:any)=>state.notes.tags);
-	const dispatch = useDispatch();
+	const dispatch:any = useDispatch();
 	const interestList = [
 		'Education 🎓',
 		'Yeeeah, science! ⚗️',
@@ -262,8 +266,36 @@ function SellDocumentModal({setUploadFiles,uploadFiles,setIsDetailsModal}:{setUp
 			setInterestArr(tempInterstArr);
 		}
 	}
+	const [imgUrl, setImgUrl] = useState();
+	const [progresspercent, setProgresspercent] = useState(0);
 	function handleSubmit() {
-    
+		if(interestArr.length<1&&!title){
+			console.log('sab daal gavar');
+			return;
+		}
+        
+		const storageRef = ref(storage, `files/${uploadFiles.name}`);
+		const uploadTask = uploadBytesResumable(storageRef, uploadFiles);
+
+		uploadTask.on('state_changed',
+			(snapshot) => {
+				const progress =
+            Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+				setProgresspercent(progress);
+			},
+			(error) => {
+				alert(error);
+			},
+			() => {
+				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL:any) => {                
+					setImgUrl(downloadURL);
+					dispatch(_uploadNotes({title,file:uploadFiles,fileUrl:downloadURL,userId:userDetails._id,description,category:interestArr}));
+				});
+			}
+		);
+		console.log(imgUrl);
+
+
 	}
 
 	function handleAddTags() {

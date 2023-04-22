@@ -8,3 +8,12 @@ export const getNotes = async ({ params }: any) => {
 	});
 	return response;
 };
+
+export const uploadNotes = async ({ body }: any) => {
+	const response = await commonAPI({
+		path: '/notes/upload',
+		method: 'POST',
+		body,
+	});
+	return response;
+};
