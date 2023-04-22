@@ -1,10 +1,9 @@
 import { CaretDown, CaretUp, Check, X } from 'phosphor-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { appTypography } from '../../config/styles';
-import { useDispatch } from 'react-redux';
-import { _updateUser } from '../../Store/Thunk/Onboard';
-import { useNavigate } from 'react-router-dom';
+import { appTypography } from '../../../config/styles';
+
+
 const Backdrop = styled.div(({ theme }) => ({
 	position: 'fixed',
 	height: '100vh',
@@ -128,7 +127,84 @@ const DownArrowIcon = styled(CaretDown)`
   line-height: 24px;
 `;
 
-function InterestModal() {
+const InputTitle =styled.input(({theme})=>({
+	border:`1px solid ${theme.app.neutral['800']}`,
+	...appTypography.paraMed.regular,
+	borderRadius:'8px',
+	padding:'8px 16px',
+	color:theme.app.typography['900'],
+	width:'100%'
+}));
+const InputDesc =styled.textarea(({theme})=>({
+	border:`1px solid ${theme.app.neutral['800']}`,
+	...appTypography.paraMed.regular,
+	borderRadius:'8px',
+	padding:'8px 16px',
+	color:theme.app.typography['900'],
+	width:'100%'
+
+}));
+
+const TagsAddContainer =styled.div`
+display: flex;
+gap: 16px;
+align-items: center;
+width:100%;
+`;
+
+const TagInput =styled.input(({theme})=>({
+	border:`1px solid ${theme.app.neutral['800']}`,
+	...appTypography.paraMed.regular,
+	borderRadius:'8px',
+	padding:'8px 16px',
+	color:theme.app.typography['900'],
+	width:'100%'
+
+}));
+
+const AddTagBtn =styled.button(() => ({
+	color: '#fff',
+	background: '#9E4CDC',
+	borderRadius: '16px',
+	padding: '8px 16px',
+	cursor: 'pointer',
+	border: 'none',
+	outline: 'none',
+}));
+
+const ActiveTagMainContainer=styled.div(({theme})=>({
+	background:theme.app.primary['500'],
+	padding:'4px',
+	display:'flex',
+	alignItems:'center',
+	gap:'4px',
+	borderRadius:'100px'
+}));
+const TagText = styled.p(({theme})=>({
+	...appTypography.paraMed.regular,
+	color:theme.app.shades.white,
+    
+}));
+
+const CloseIcon =styled(X)(({theme})=>({
+	width:'16px',
+	height:'16px',
+	color:theme.app.shades.white,
+	cursor:'pointer'
+}));
+
+const ActiveTagsContainer =styled.div`
+display: flex;
+gap: 8px;
+align-items: center;
+flex-wrap: wrap;
+`;
+
+function SellDocumentModal({setUploadFiles,uploadFiles}:{setUploadFiles:any,uploadFiles:any}) {
+	const [title, setTitle] = useState('');
+	const [description, setDescription] = useState('');
+	const [tag, setTag] = useState<string>('');
+	const [tagArr, setTagArr] = useState([]);
 	const interestList = [
 		'Education 🎓',
 		'Yeeeah, science! ⚗️',
@@ -137,15 +213,7 @@ function InterestModal() {
 		'Games 🎮',
 		'Health 🏥',
 	];
-
-	const [isUserTypeDropdownOpen, setIsUserTypeDropdownOpen] = useState(false);
-
-	const [userType, setUserType] = useState('Student');
-
-	const userDropdownList = ['Student', 'Mentor'];
-	const navigate = useNavigate();
 	const [interestArr, setInterestArr] = useState<string[]>([]);
-	const dispatch: any = useDispatch();
 	function handleInterestInsert(interestName: string) {
 		if (interestArr.some((interest: string) => interest === interestName)) {
 			const interestIndex = interestArr.findIndex(
@@ -163,18 +231,27 @@ function InterestModal() {
 			setInterestArr(tempInterstArr);
 		}
 	}
-	const handleSubmit = async () => {
-		const res = await dispatch(
-			_updateUser({
-				interests: interestArr,
-				isMentor: userType === 'Mentor' ? true : false,
-			}),
-		);
-		if (res.payload.status === 200) {
-			navigate('/dashboard');
+	function handleSubmit() {
+    
+	}
+
+	function handleAddTags() {
+		if(tag.length>0){
+			const tempTagArr:any = tagArr;
+			tempTagArr.push(tag);
+			setTagArr(tempTagArr);
+			setTag('');
+		}else{
+			return;
 		}
-		console.warn(res);
-	};
+	}
+	function handleDeleteTags(tagName:string) {
+		const tempTagArr:any = tagArr;
+		const arrIndeex=tempTagArr.findIndex((arrVal:string)=>arrVal===tagName);
+		tempTagArr.splice(arrIndeex,1);
+		setTagArr(tempTagArr);
+	}
+        
 	return (
 		<>
 			<Backdrop />
@@ -192,31 +269,28 @@ function InterestModal() {
 						</SingleInterestText>
 					))}
 				</InterstContainer>
-				<DropDownAns
-					onClick={() => setIsUserTypeDropdownOpen(!isUserTypeDropdownOpen)}
-				>
-					<GenderText>{userType}</GenderText>
-					{isUserTypeDropdownOpen ? <UpArrowIcon /> : <DownArrowIcon />}
-				</DropDownAns>
-				{isUserTypeDropdownOpen && (
-					<DropDownMainContainer>
-						{userDropdownList.map((feed) => (
-							<DropDownOption
-								onClick={() => {
-									setUserType(feed);
-									setIsUserTypeDropdownOpen(false);
-								}}
-							>
-								<DropDownOptionText>{feed}</DropDownOptionText>
-								{userType === feed && <TickIcon />}
-							</DropDownOption>
-						))}
-					</DropDownMainContainer>
-				)}
+				<InputTitle placeholder='title' value={title} onChange={(e)=>setTitle(e.target.value)}/>
+				<InputDesc placeholder='description' value={description}  onChange={(e)=>setDescription(e.target.value)}/>
+				<TagsAddContainer>
+					<TagInput value={tag} onChange={(e)=>setTag(e.target.value)}  placeholder='add tags'/>
+					<AddTagBtn onClick={handleAddTags}>Add</AddTagBtn>
+				</TagsAddContainer>
+				{tagArr?.length>0 && <ActiveTagsContainer>
+					{
+						tagArr?.map((tag,index)=>(
+							<ActiveTagMainContainer key={index}>
+								<TagText>
+									{tag}
+								</TagText>
+								<CloseIcon onClick={()=>handleDeleteTags(tag)} />
+							</ActiveTagMainContainer>
+						))
+					}
+				</ActiveTagsContainer>}
 				<BtnConfirm onClick={handleSubmit}>Confirm</BtnConfirm>
 			</ModalMainContainer>
 		</>
 	);
 }
 
-export default InterestModal;
+export default SellDocumentModal;

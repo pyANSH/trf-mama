@@ -16,7 +16,7 @@ export const _getNotes = createAsyncThunk(
 			const response = await getNotes({params});
 			console.log(response);
             
-			return {response:response.data};
+			return {response:response.data.data};
 		} catch (error) {
 			rejectWithValue(error);
 		}
