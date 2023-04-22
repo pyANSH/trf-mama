@@ -5,6 +5,7 @@ import ReactPlayer from "react-player";
 import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import catFace from "../../assets/billiBC.svg";
+import { Check } from "@phosphor-icons/react";
 
 const MainContainer = styled.div`
   display: flex;
@@ -278,11 +279,11 @@ const PricingCardsContainer = styled.div`
   padding-top: 100px;
 `;
 
-const PricingCard = styled.div`
+const PricingCard = styled.div<{ styleType?: string }>`
   border-radius: 48px;
   width: 100%;
   max-width: 520px;
-  background-color: #fef2ff;
+  background-color: ${props => (props.styleType === "v2" ? "#ede1ff" : "#faf9f6")};
   padding: 64px;
   box-sizing: border-box;
 
@@ -327,10 +328,10 @@ const PCT_Description = styled.p`
   color: #181818;
 `;
 
-const PricingContainer_CTABTN = styled.p`
+const PricingContainer_CTABTN = styled.p<{ styleType?: string }>`
   padding: 20px 64px;
   width: 100%;
-  border: 2px solid #000;
+  border: 2px solid ${props => (props.styleType === "v2" ? "#8330c2" : "#000")};
   border-radius: 50px;
 
   font-style: normal;
@@ -339,13 +340,52 @@ const PricingContainer_CTABTN = styled.p`
   line-height: 33px;
   /* identical to box height */
 
-  color: #000000;
+  color: ${props => (props.styleType === "v2" ? "#fff" : "#000")};
+  background-color: ${props => (props.styleType === "v2" ? "#8330c2" : null)};
 
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
+
+const PricingAndFeaturesListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  `;
+
+const FeaturesComparisonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: flex-start;
+`;
+
+const FeatureComparisonItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 0px 64px;
+  width: 100%;
+`;
+
+const FeatureComparisonItemText = styled.p`
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 100%;
+letter-spacing: -0.055em;
+color: #181818;
+`;
+
+const FeatureComparisonItemCheckMark = styled(Check)`
+  color: #9E4CDC;
+`
+
+
+
 
 const FooterContainer = styled.div`
   background-color: #000;
@@ -577,6 +617,29 @@ function LandingPage() {
     },
   ];
 
+  const FeaturesData = {
+    free: [
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+    ],
+    premium: [
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+    ]
+  }
+
   const navigate = useNavigate();
 
   function handleLoginClick() {
@@ -585,19 +648,10 @@ function LandingPage() {
 
   const MarqueeData = [
     {
-      logo: "https://s3-alpha-sig.figma.com/img/2a43/7658/e8ce9fbb4c1fbb23d755731096529cd7?Expires=1681689600&Signature=heuhamt4zgzrP8m59NylVrEG3C1alanxupUGLNa-QFdtB7Z6t4oMV1Ji7RqyCev~mWLTsGf0Cza5iwFuixWgPo8I~mXRkC2P7xcaxsCAo1uGqSItF45NNib7ioaBfOA~gqR~MCx-u5MiMji6BX87MOfnFE8wzNS7QI~PX~VtdLY-76MbyXY6BPan5lOf1Y~PQ-j7rqavIKAM7WL-aYBGm1wDahqWsuE6pDmBZ2C9oQdQm3toHyGA3zUYn1ftQk0ZUTGbRQS-fhnhh15GKqp~AoN0Jkivn0b5cDfAX79UdqV0wyqkKzTz2pg3b2dNqY3lCKv9EfBaETdawbFE~rZ8Hw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/ddb3f5157b9baf052dd8ec72da184be44ef84f39?fuid=974696877205230466",
     },
     {
-      logo: "https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1681689600&Signature=HLrdX~STY-Ngq8ighLE7nJow1z745xAfbqCeSEf1Yw2bc2zX6aNMZppzsMHGAc~ClxpKcmIWDy2KCqMpjMifwS2muwuR7JUlM29JCTEAuToywQxevNyr7o2F2uuNGkwxaGUjvQDRu27ZX32nWB4PRL1b5-~baO--YcRg~2wmeWQa1xMOgqgwnYjuK9d3ylRVzEJXhNVXj4hbocqWAQyWg48NrAcJnUxqkpfdtacTQQea07r4IiuuxyKPh9pav10QGDf8EUw52OxB7AqwEDEYabx5-MR~5csjDcgGHK-PJvokRNEMZ1dkQ1NNKA2GMzcCMemVINAXjI-WLzGiIJcpoQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-    },
-    {
-      logo: "https://s3-alpha-sig.figma.com/img/e711/767d/51631c75d6b78cb50324ef0425dc239b?Expires=1681689600&Signature=mfU67MoCKqPU4pQujRu5CqJgtq9QKrjWFyeH1OcuHtjGJaVYbs1G4ckKEism1gq-v0tNClYPbd8jnlh~PQtc7jZkg6N-KhTi7qWpoLmzFKKO6fn28NuXrYxW2c4KFse6D2rYSwDl8pPXy040kqjlWpXvBwyOeyJpDqOllAyoajiPCBaNH0QIyF0h5NhAJBVlWpuaCnbEGCY71vPS7InLwCCWVy1QQQP3245h56n6VFFKrEGMHlcLrw1lX61QVpD~Ll1OJNLCNkgyFKdphJQM8IGaDm55jH3HbysEqfy9cIjNAR1giqwfIbrOl9fIqHixnVrDkYhTnhc~mmAN0XHj0A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-    },
-    {
-      logo: "https://s3-alpha-sig.figma.com/img/f361/03c5/b2209ae9b04606ca6a6608a8de2da510?Expires=1681689600&Signature=BzOVDl3PsdcSKoYbrV5WXm5HrD6HLQMWQmVmf-vATdKi5tK7uWB2REgsBMFzLmxR7ybqH2-Hr9CeY32t8CiO15fcQYAGQOuIklXOlqT1~bj2WFJ9ep1XZPiJ7ZCOXpgf0peuZHQ0aEO3hZeqe~oUiNz2bV9x9IpANqmTDEkDJIUxIsiy3owXN6g0cwPVlvOK1~SqQyScnCMugssKztxtYZMlfYCSApzLPnU~pTVKqgLa-XiTkCVakV30eX9eLjkZoL6tPYh5okGC5Nf74FJ0uN4vP6plpXZXFkYpprDjWOmBBzJkaNLDwr5aasVfUqYHaWz~sp5YVvEWtL1lv3aS5Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-    },
-    {
-      logo: "https://s3-alpha-sig.figma.com/img/1620/17d1/6a3e5daffa62ed2ef5fd66bee7b411ed?Expires=1681689600&Signature=TwbydvWQ-JrefOCckhMLAGMAV94NbcGIymBEB5UvO0EhHyGbAahCMAUjHcjKx6wSAjPM8vmoHEsoq11dvAlQ6~F3uQfHD6hWZccmplxxj7H04Deqy3H4ZOKQNSJ5-FVyLY0PXBZQYi918Xr455J0wflfNRihLknQohQG-GVSszh4swQWj~8MHlWMXX03GGfy3rVrIegBjYGbxmkTXUKXN~m1pJAjeEjQB2YSw51IeMudq-NhylJK01h9yPbK8jl1Eq6uwDJ-MTWkEgF4XjBd1QgylYw9E~Iilm6IM8YQB6vWhgFDbMrnBbaXoFH1eQD7eslydw03RXj35rfv8BYVuQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/244698ab40d164b83d55518f3616afbd58ff6afc?fuid=974696877205230466",
     },
     {
       logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/ddb3f5157b9baf052dd8ec72da184be44ef84f39?fuid=974696877205230466",
@@ -606,8 +660,30 @@ function LandingPage() {
       logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/244698ab40d164b83d55518f3616afbd58ff6afc?fuid=974696877205230466",
     },
     {
-      logo: "https://s3-alpha-sig.figma.com/img/1620/17d1/6a3e5daffa62ed2ef5fd66bee7b411ed?Expires=1681689600&Signature=TwbydvWQ-JrefOCckhMLAGMAV94NbcGIymBEB5UvO0EhHyGbAahCMAUjHcjKx6wSAjPM8vmoHEsoq11dvAlQ6~F3uQfHD6hWZccmplxxj7H04Deqy3H4ZOKQNSJ5-FVyLY0PXBZQYi918Xr455J0wflfNRihLknQohQG-GVSszh4swQWj~8MHlWMXX03GGfy3rVrIegBjYGbxmkTXUKXN~m1pJAjeEjQB2YSw51IeMudq-NhylJK01h9yPbK8jl1Eq6uwDJ-MTWkEgF4XjBd1QgylYw9E~Iilm6IM8YQB6vWhgFDbMrnBbaXoFH1eQD7eslydw03RXj35rfv8BYVuQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/ddb3f5157b9baf052dd8ec72da184be44ef84f39?fuid=974696877205230466",
     },
+    {
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/244698ab40d164b83d55518f3616afbd58ff6afc?fuid=974696877205230466",
+    },
+    {
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/ddb3f5157b9baf052dd8ec72da184be44ef84f39?fuid=974696877205230466",
+    },
+    {
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/244698ab40d164b83d55518f3616afbd58ff6afc?fuid=974696877205230466",
+    },
+    {
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/ddb3f5157b9baf052dd8ec72da184be44ef84f39?fuid=974696877205230466",
+    },
+    {
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/244698ab40d164b83d55518f3616afbd58ff6afc?fuid=974696877205230466",
+    },
+    {
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/ddb3f5157b9baf052dd8ec72da184be44ef84f39?fuid=974696877205230466",
+    },
+    {
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/244698ab40d164b83d55518f3616afbd58ff6afc?fuid=974696877205230466",
+    },
+
   ];
   console.warn(MarqueeData.length);
 
@@ -700,26 +776,54 @@ function LandingPage() {
       </PricingTextContainer>
 
       <PricingCardsContainer>
-        <PricingCard>
-          <PCT_Category>{"Free"}</PCT_Category>
-          <PCT_Price>{"$0"}</PCT_Price>
-          <PCT_Description>
-            {"Free Forever. As long as you hustle. No credit card required"}
-          </PCT_Description>
-          <PricingContainer_CTABTN>
-            {"Sign up for free"}
-          </PricingContainer_CTABTN>
-        </PricingCard>
-        <PricingCard>
-          <PCT_Category>{"Premium"}</PCT_Category>
-          <PCT_Price>{"$10"}</PCT_Price>
-          <PCT_Description>
-            {"30-day opt out guarantee. Cancel anytime."}
-          </PCT_Description>
-          <PricingContainer_CTABTN>
-            {"Sign up for free"}
-          </PricingContainer_CTABTN>
-        </PricingCard>
+        <PricingAndFeaturesListContainer>
+          <PricingCard>
+            <PCT_Category>{"Free"}</PCT_Category>
+            <PCT_Price>{"$0"}</PCT_Price>
+            <PCT_Description>
+              {"Free Forever. As long as you hustle. No credit card required"}
+            </PCT_Description>
+            <PricingContainer_CTABTN>
+              {"Sign up for free"}
+            </PricingContainer_CTABTN>
+          </PricingCard>
+          <FeaturesComparisonContainer>
+            {
+              FeaturesData.free?.map((item, index) => {
+                return (
+                  <FeatureComparisonItem key={index}>
+                    <FeatureComparisonItemCheckMark size={24} />
+                    <FeatureComparisonItemText>{item}</FeatureComparisonItemText>
+                  </FeatureComparisonItem>
+                );
+              })
+            }
+          </FeaturesComparisonContainer>
+        </PricingAndFeaturesListContainer>
+        <PricingAndFeaturesListContainer>
+          <PricingCard styleType={"v2"}>
+            <PCT_Category>{"Premium"}</PCT_Category>
+            <PCT_Price>{"$10"}</PCT_Price>
+            <PCT_Description>
+              {"30-day opt out guarantee. Cancel anytime."}
+            </PCT_Description>
+            <PricingContainer_CTABTN styleType={"v2"}>
+              {"Sign up for free"}
+            </PricingContainer_CTABTN>
+          </PricingCard>
+          <FeaturesComparisonContainer>
+            {
+              FeaturesData.premium?.map((item, index) => {
+                return (
+                  <FeatureComparisonItem key={index}>
+                    <FeatureComparisonItemCheckMark size={24} />
+                    <FeatureComparisonItemText>{item}</FeatureComparisonItemText>
+                  </FeatureComparisonItem>
+                );
+              })
+            }
+          </FeaturesComparisonContainer>
+        </PricingAndFeaturesListContainer>
       </PricingCardsContainer>
 
       <FooterHeroContainer styleType={"v2"}>
