@@ -1,3 +1,4 @@
 interface Window {
-    google?: any;
-  }
+  google?: any;
+}
+declare module 'react-animated-cursor';
