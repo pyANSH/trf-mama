@@ -114,7 +114,6 @@ exports.update_user_status = (req, res) => {
 exports.update_user_profile = (req, res) => {
     const { college, userFullName, gender } = req.body;
     const token = req.headers['token'];
-    console.log(college, userFullName, gender);
     if (!college && !userFullName && !gender) {
         return res.status(400).send('Please fill all the fields');
     }
