@@ -121,6 +121,7 @@ function Notebank() {
 		'All',...userDetails?.interests
 	];
 
+	const allNotes = useSelector((state:any)=>state?.appdata?.user);
 
 	const dispatch:any =useDispatch();
 
