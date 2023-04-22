@@ -9,6 +9,9 @@ import {
 } from '../../../Store/Reducers/Profile';
 import { X } from 'phosphor-react';
 import { _updateUser } from '../../../Store/Thunk/Onboard';
+import { _updateUserDetails } from '../../../Store/Thunk/users';
+import { showToast } from '../../../Store/Reducers/onboard';
+
 const Container = styled.div``;
 
 const Header = styled.div`
@@ -180,6 +183,7 @@ function Profile() {
   const interestArr: string[] = useSelector(
     (state: any) => state.profile.interest,
   );
+  const [saveProfile, setSaveProfile] = useState(false);
   const dispatch: any = useDispatch();
   const handleDeleteInterest = (index: any) => {
     dispatch(removeInterest(index));
@@ -188,14 +192,16 @@ function Profile() {
     dispatch(addInterest(interest));
   };
 
-  const [email, setEmail] = useState();
-  const [name, setName] = useState();
-  const [college, setCollege] = useState();
-  const [gender, setGender] = useState('Male');
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [college, setCollege] = useState('');
+  const [gender, setGender] = useState('Select Gender');
   const [interest, setInterest] = useState('Education 🎓');
 
   const [isGenderDropDownOpen, setIsGenderDropDownOpen] = useState(false);
   const [isInterestDropDownOpen, setIsInterestDropDownOpen] = useState(false);
+  const [_it, set_it] = useState(false);
+  const user = useSelector((state: any) => state.appdata.user);
 
   const InputFeeds = [
     {
@@ -230,7 +236,6 @@ function Profile() {
       text: 'Female',
       onclickOption: () => {
         setIsGenderDropDownOpen(false);
-
         setGender('Female');
       },
     },
@@ -239,6 +244,13 @@ function Profile() {
       onclickOption: () => {
         setIsGenderDropDownOpen(false);
         setGender('Gender Diverse');
+      },
+    },
+    {
+      text: 'Prefer Not to Say',
+      onclickOption: () => {
+        setIsGenderDropDownOpen(false);
+        setGender('Prefer Not to Say');
       },
     },
   ];
@@ -294,8 +306,6 @@ function Profile() {
       },
     },
   ];
-  const [_it, set_it] = useState(false);
-  const user = useSelector((state: any) => state.appdata.user);
 
   const handleSave = () => {
     dispatch(
@@ -312,7 +322,37 @@ function Profile() {
         dispatch(initUpdate(user.interests));
       }
     }
+    setEmail(user?.userEmail);
+    setName(user?.userFullName);
+    setCollege(user?.college);
+    if (user?.gender === '') {
+      setGender('Select Gender');
+    }
+    if (user?.gender === 'male') {
+      setGender('Male');
+    }
+
+    if (user?.gender === 'female') {
+      setGender('Female');
+    }
+    if (user?.gender === 'not-specified') {
+      setGender('Gender Diverse');
+    }
   }, [user]);
+  React.useEffect(() => {
+    setSaveProfile(true);
+  }, [email, college, name, gender]);
+  const handleProfileSave = async () => {
+    await dispatch(
+      _updateUserDetails({
+        userFullName: name,
+        college: college,
+        gender: gender,
+      }),
+    ).then(() => {
+      dispatch(showToast('Profile Updated Successfully'));
+    });
+  };
   return (
     <Container>
       <Header>
@@ -358,6 +398,9 @@ function Profile() {
               </DropDownMainContainer>
             )}
           </CommonInputContainer>
+          {saveProfile && (
+            <SaveBtn onClick={handleProfileSave}>Update Profile</SaveBtn>
+          )}
         </LeftContainer>
 
         <RightContainer>
