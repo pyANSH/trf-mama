@@ -361,21 +361,20 @@ const FooterContainer = styled.div`
   justify-content: center;
 `;
 
-const FooterHeroContainer = styled.div`
-  padding: 150px 0px 100px 0px;
+const FooterHeroContainer = styled.div<{ styleType?: string }>`
+  padding: ${props => (props.styleType === "v2" ? "100px 0px 150px 0px" : "150px 0px 100px 0px")};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: ${props => (props.styleType === "v2" ? "64px" : "24px")};
 
-  background-color: #fff;
-
+  /* background-color: #fff; */
+  background-color: ${props => (props.styleType === "v2" ? "#ffe8d3" : "#fff")};
+  z-index: ${props => (props.styleType === "v2" ? 1 : 2)};
   border-radius: 24px;
-
   position: relative;
-  bottom: -100px;
-
+  bottom: ${props => (props.styleType === "v2" ? "-150px" : "-100px")};
   width: 100%;
   box-sizing: border-box;
 `;
@@ -392,26 +391,84 @@ const FooterTextContainer = styled.div`
   justify-content: center;
 `;
 
+const FooterHeroFeaturesTextGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 32px;
+  grid-template-rows: auto auto; //this means that the rows will be as tall as the content
+`;
+
+const FooterHeroFeaturesTextGridItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 12px;
+  gap: 16px;
+`;
+
+const FooterHeroFeaturesTextGridItem_Title = styled.p`
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 100%;
+letter-spacing: -0.055em;
+
+color: #000000;
+`
+
+const FooterHeroFeaturesTextGridItem_Description = styled.p`
+
+font-family: 'Work Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 100%;
+
+letter-spacing: -0.055em;
+
+color: #000000;
+`;
+
+
 const FooterHeroText = styled.p`
-  font-style: normal;
-  font-weight: 500;
-  font-size: 100px;
-  line-height: 91.8%;
-  /* or 92px */
+font-style: normal;
+font-weight: 500;
+font-size: 100px;
+line-height: 91.8%;
+/* or 92px */
 
-  text-align: center;
-  letter-spacing: -0.08em;
+text-align: center;
+letter-spacing: -0.08em;
 
-  color: #000000;
+color: #000000;
 
-  flex-shrink: 0;
+flex-shrink: 0;
 `;
 
-const FooterHeroText_Span = styled(FooterHeroText)`
-  background-color: #7dfbb1;
-  border-radius: 32px;
-  padding: 0 12px 0 2px;
+const FooterHeroText_Span = styled(FooterHeroText) <{ bgColor?: string }>`
+background-color: ${props => (props.bgColor ? props.bgColor : "#7dfbb1")};
+border-radius: 32px;
+padding: 0 12px 0 2px;
 `;
+
+const CatLargePillContainer = styled.div<{ prop?: any }>(({ prop }) => ({
+  width: "600px",
+  height: "300px",
+
+  borderRadius: "175px",
+
+  backgroundColor: "#fff8e1",
+}));
+
+const CatLargePillImage = styled.div<{ src?: string }>(({ src }) => ({
+  width: "100%",
+  backgroundImage: `url(${src})`,
+  height: "100%",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "340px",
+  backgroundPositionX: "center",
+  backgroundPositionY: "top",
+}));
 
 // const FooterHeroTextLine = styled.div`
 // 	display: flex;
@@ -665,15 +722,52 @@ function LandingPage() {
         </PricingCard>
       </PricingCardsContainer>
 
-      <FooterHeroContainer>
+      <FooterHeroContainer styleType={"v2"}>
+        <FooterTextContainer>
+          <FooterHeroText>{"Use mama to "}</FooterHeroText>
+          <FooterHeroText_Span>{"add"}</FooterHeroText_Span>
+          <FooterHeroText_Span>{"value"}</FooterHeroText_Span>
+          <FooterHeroText>{"to your learning"}</FooterHeroText>
+          <FooterHeroText>{"and preparation."}</FooterHeroText>
+          {/* <FooterHeroText_Span>{"cool!"}</FooterHeroText_Span> */}
+        </FooterTextContainer>
+        <CatLargePillContainer>
+          <CatLargePillImage src={catFace} />
+        </CatLargePillContainer>
+
+        <FooterHeroFeaturesTextGrid>
+          <FooterHeroFeaturesTextGridItem>
+            <FooterHeroFeaturesTextGridItem_Title>{"Concept Videos"}</FooterHeroFeaturesTextGridItem_Title>
+            <FooterHeroFeaturesTextGridItem_Description>{"All videos are suited well for your needs."}</FooterHeroFeaturesTextGridItem_Description>
+          </FooterHeroFeaturesTextGridItem>
+          <FooterHeroFeaturesTextGridItem>
+            <FooterHeroFeaturesTextGridItem_Title>{"Study Guides"}</FooterHeroFeaturesTextGridItem_Title>
+            <FooterHeroFeaturesTextGridItem_Description>{"All videos are suited well for your needs."}</FooterHeroFeaturesTextGridItem_Description>
+          </FooterHeroFeaturesTextGridItem>
+          <FooterHeroFeaturesTextGridItem>
+            <FooterHeroFeaturesTextGridItem_Title>{"Note Banks"}</FooterHeroFeaturesTextGridItem_Title>
+            <FooterHeroFeaturesTextGridItem_Description>{"All videos are suited well for your needs."}</FooterHeroFeaturesTextGridItem_Description>
+          </FooterHeroFeaturesTextGridItem>
+          <FooterHeroFeaturesTextGridItem>
+            <FooterHeroFeaturesTextGridItem_Title>{"Sell Docs"}</FooterHeroFeaturesTextGridItem_Title>
+            <FooterHeroFeaturesTextGridItem_Description>{"All videos are suited well for your needs."}</FooterHeroFeaturesTextGridItem_Description>
+          </FooterHeroFeaturesTextGridItem>
+        </FooterHeroFeaturesTextGrid>
+
+      </FooterHeroContainer>
+
+
+      <FooterHeroContainer >
         <FooterTextContainer>
           <FooterHeroText>{"Don't learn the "}</FooterHeroText>
           <FooterHeroText_Span>{"old"}</FooterHeroText_Span>
           <FooterHeroText_Span>{"boaring"}</FooterHeroText_Span>
           <FooterHeroText>{"way, we have"}</FooterHeroText>
           <FooterHeroText>{"Something"}</FooterHeroText>
-          <FooterHeroText_Span>{"cool!"}</FooterHeroText_Span>
+          <FooterHeroText_Span bgColor={"#bdefff"}>{"cool!"}</FooterHeroText_Span>
         </FooterTextContainer>
+
+
 
         <FooterHeroImage src={catFace} />
       </FooterHeroContainer>
