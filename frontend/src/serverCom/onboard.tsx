@@ -8,3 +8,14 @@ export const userOnboard = async ({ body }:any) => {
 	});
 	return response;
 };
+
+
+export const userInterest = async ({ body }:any) => {
+	const response = await commonAPI({
+		path: '/user/update',
+		method: 'POST',
+		body,
+	});
+	return response;
+};
+
