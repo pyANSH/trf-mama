@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema({
     interests: {
         type: [String],
         default: [],
-        required: true,
     },
     userFullName: {
         type: String,
