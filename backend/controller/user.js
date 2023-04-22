@@ -44,6 +44,7 @@ exports.login = async (req, res) => {
         userFullName: userFullName,
         socialRefererId: socialRefererId,
         isMentor: isMentor
+
     })
     try {
         const dbUpdate = await user.save()
@@ -53,7 +54,7 @@ exports.login = async (req, res) => {
             socialRefererId: socialRefererId
         }, process.env.JWT_SECRET)
         res.statusCode = 201;
-        return res.send({ response: 'User created', userId: dbUpdate._id, userEmail: userEmail, token: token, isMentor: dbUpdate.isMentor });
+        return res.send({ response: 'User created', userId: dbUpdate._id, userEmail: userEmail, token: token, isMentor: dbUpdate.isMentor, interests: dbUpdate.interests });
     } catch (err) {
         res.statusCode = 400;
         return res.send({ response: 'User not created', err });
