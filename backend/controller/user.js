@@ -61,18 +61,21 @@ exports.login = async (req, res) => {
 }
 
 exports.user_get = (req, res) => {
-    const { userId, token } = req.query;
-    if (!userId || !token) {
+    const { token } = req.query;
+    if (!token) {
         return res.status(400).json({ response: 'Please fill all the fields' });
     }
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
 
-        if (err || decoded.id !== userId) {
-            return res.status(401).json({ response: 'Invalid token' });
+        if (err) {
+            return res.status(423).json({ error: 'Invalid token' });
         }
         else {
             try {
-                userModal.find({ _id: userId }).then((user) => {
+                userModal.find({
+                    _id:
+                        decoded.id
+                }).then((user) => {
                     if (user.length > 0) {
                         return res.status(200).json(user);
                     }
