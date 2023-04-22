@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { appTypography } from '../../config/styles';
 import { _onBoard } from '../../Store/Thunk/Onboard';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import billiBKL from '../../assets/billiBC.svg';
 import InterestModal from './InterestModal';
@@ -69,6 +69,16 @@ const CatContainer = styled.div`
 const CatImage = styled.img`
   width: 100%;
   height: 100%;
+`;
+
+const DashBoardBtn =styled.div`
+padding: 8px 16px;
+
+border:none;
+border-radius: 100px;
+background:${({theme})=>theme.app.primary['500']};
+color:${({theme})=>theme.app.shades.white};
+
 `;
 
 function SignUp() {
@@ -145,6 +155,9 @@ function SignUp() {
 		navigate('/');
 	}
 
+
+
+	const userDetails = useSelector((state:any)=>state?.appdata?.user);
 	return (
 		<Container>
 			<LeftContainer>
@@ -152,10 +165,15 @@ function SignUp() {
 					<Logo onClick={handleHomeRoute}>mama.</Logo>
 				</Header>
 
-				<MainContent>
-					<LoginText>Login</LoginText>
-					<div id="buttonDiv"></div>
-				</MainContent>
+				{userDetails?._id?
+					<MainContent>
+						<LoginText>You are already logged in , click below to redirect to your dashboard</LoginText>
+						<DashBoardBtn onClick={()=>navigate('/dashboard')}>Dashboard</DashBoardBtn>
+					</MainContent>
+					:<MainContent>
+						<LoginText>Login</LoginText>
+						<div id="buttonDiv"></div>
+					</MainContent>}
 			</LeftContainer>
 			<RightContainer>
 				<CatContainer>

@@ -1,11 +1,10 @@
 import { commonAPI } from '.';
 
 
-export const getUserDetails = async ({ body }: any) => {
+export const getUserDetails = async () => {
 	const response = await commonAPI({
-		path: '/user/login',
-		method: 'POST',
-		body,
+		path: '/user/get',
+		method: 'GET'
 	});
 	return response;
 };

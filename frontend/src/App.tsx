@@ -7,16 +7,19 @@ import { lightThemeColorScheme } from './config/styles';
 import { ThemeProvider } from 'styled-components';
 import { CookiesProvider, useCookies } from 'react-cookie';
 import { initAPI } from './serverCom';
+import { useDispatch } from 'react-redux';
+import { _getUserDetails } from './Store/Thunk/users';
 
 function App() {
 
 	// const counter: number = useSelector((state: any) => state.test.counter);
 	// const dispatch: any = useDispatch();
 	const [cookies, setCookie] = useCookies(); 
- 
+	const dispatch:any =useDispatch();
 
 	if(cookies?.token){
 		initAPI({token:cookies?.token});
+		dispatch(_getUserDetails({token:cookies?.token}));
 	}
 
 

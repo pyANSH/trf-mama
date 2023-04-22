@@ -1,6 +1,7 @@
 //createSlice
-import { createSlice } from "@reduxjs/toolkit";
-import { _onBoard } from "../Thunk/Onboard";
+import { createSlice } from '@reduxjs/toolkit';
+import { _onBoard } from '../Thunk/Onboard';
+import { _getUserDetails } from '../Thunk/users';
 
 const appdata = createSlice({
 	name: 'appdata',
@@ -37,6 +38,21 @@ const appdata = createSlice({
 					fullname:response.data.userFullName
 				};
 				state.JWT=response.data.token;
+				state.status='fullfilled';
+			}
+		);
+
+		builder.addCase(
+			_getUserDetails.pending,(state, action)=>{
+				state.status='pending';
+			}
+		);
+		builder.addCase(
+			_getUserDetails.fulfilled,(state, action:any)=>{
+				const {response,token} = action.payload;
+				state.user = response.data[0];
+				state.JWT=token;
+
 				state.status='fullfilled';
 			}
 		);
