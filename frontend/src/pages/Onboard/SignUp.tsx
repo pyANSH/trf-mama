@@ -5,6 +5,8 @@ import { _onBoard } from '../../Store/Thunk/Onboard';
 import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import billiBKL from '../../assets/billiBC.svg';
+import InterestModal from './InterestModal';
+import Toaster from '../../common/Toaster';
 
 const Container = styled.div`
 height:100vh;
@@ -132,6 +134,7 @@ function SignUp() {
 				</CatContainer>
 
 			</RightContainer>
+			<InterestModal/>
 		</Container>
 	);
 }
