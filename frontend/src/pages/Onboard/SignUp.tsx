@@ -8,6 +8,7 @@ import billiBKL from '../../assets/billiBC.svg';
 import InterestModal from './InterestModal';
 import Toaster from '../../common/Toaster';
 import { initAPI } from '../../serverCom';
+import { useCookies } from 'react-cookie';
 
 const Container = styled.div`
   height: 100vh;
@@ -35,10 +36,10 @@ const Header = styled.div`
 `;
 
 const Logo = styled.div(({ theme }) => ({
-  ...appTypography.h5.bold,
-  color: theme.app.typography['900'],
-  width: 'fit-content',
-  cursor: 'pointer',
+	...appTypography.h5.bold,
+	color: theme.app.typography['900'],
+	width: 'fit-content',
+	cursor: 'pointer',
 }));
 
 const MainContent = styled.div`
@@ -54,8 +55,8 @@ const MainContent = styled.div`
 `;
 
 const LoginText = styled.p(({ theme }) => ({
-  ...appTypography.h1.bold,
-  color: theme.app.typography['900'],
+	...appTypography.h1.bold,
+	color: theme.app.typography['900'],
 }));
 
 const CatContainer = styled.div`
@@ -71,94 +72,98 @@ const CatImage = styled.img`
 `;
 
 function SignUp() {
-  const dispatch: any = useDispatch();
-  const navigate = useNavigate();
-  function decodeJwtResponse(token: string) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(
-      atob(base64)
-        .split('')
-        .map(function (c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        })
-        .join(''),
-    );
-    return JSON.parse(jsonPayload);
-  }
+	const dispatch: any = useDispatch();
+	const navigate = useNavigate();
 
-  useEffect(() => {
-    window.google.accounts.id.initialize({
-      client_id:
+	const [cookies, setCookie] = useCookies(); 
+	function decodeJwtResponse(token: string) {
+		const base64Url = token.split('.')[1];
+		const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+		const jsonPayload = decodeURIComponent(
+			atob(base64)
+				.split('')
+				.map(function (c) {
+					return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+				})
+				.join(''),
+		);
+		return JSON.parse(jsonPayload);
+	}
+
+	useEffect(() => {
+		window.google.accounts.id.initialize({
+			client_id:
         '6951006710-td58cqht8oke2isd8fl5c9uv2t1r7bka.apps.googleusercontent.com',
-      callback: handleCredentialResponse,
-    });
-    window.google.accounts.id.renderButton(
-      document.getElementById('buttonDiv'),
-      {
-        theme: 'outline',
-        size: 'large',
-        text: 'Continue with',
-        shape: 'pill',
-        logo_alignment: 'center',
-        width: '280',
-        height: 100,
-        outerHeight: 100,
-        innerHeight: 100,
-      },
-    );
-  }, []);
-  const [interestModal, setInterestModal] = React.useState(false);
-  async function handleCredentialResponse(response: { credential: string }) {
-    const responsePayload = decodeJwtResponse(response.credential);
-    console.log('Encoded JWT ID token: ' + responsePayload);
-    console.log(
-      responsePayload.name,
-      responsePayload.sub,
-      responsePayload.email,
-    );
-    const body = {
-      userFullName: responsePayload.name,
-      socialRefererId: responsePayload.sub,
-      userEmail: responsePayload.email,
-      interests: [],
-    };
-    const res = await dispatch(_onBoard({ body }));
-    console.log(res.payload.data);
+			callback: handleCredentialResponse,
+		});
+		window.google.accounts.id.renderButton(
+			document.getElementById('buttonDiv'),
+			{
+				theme: 'outline',
+				size: 'large',
+				text: 'Continue with',
+				shape: 'pill',
+				logo_alignment: 'center',
+				width: '280',
+				height: 100,
+				outerHeight: 100,
+				innerHeight: 100,
+			},
+		);
+	}, []);
+	const [interestModal, setInterestModal] = React.useState(false);
+	async function handleCredentialResponse(response: { credential: string }) {
+		const responsePayload = decodeJwtResponse(response.credential);
+		console.log('Encoded JWT ID token: ' + responsePayload);
+		console.log(
+			responsePayload.name,
+			responsePayload.sub,
+			responsePayload.email,
+		);
+		const body = {
+			userFullName: responsePayload.name,
+			socialRefererId: responsePayload.sub,
+			userEmail: responsePayload.email,
+			interests: [],
+		};
+		const res = await dispatch(_onBoard({ body }));
+		console.log(res.payload.data);
 
-    if (res.meta.requestStatus === 'fulfilled') {
-      initAPI({token:res.payload.data.token})
-      if (res.payload.data.interests.length === 0) {
-        setInterestModal(true);
-      } else {
-        navigate('/dashboard');
-      }
-    }
-  }
-  function handleHomeRoute() {
-    navigate('/');
-  }
+		if (res.meta.requestStatus === 'fulfilled') {
+			initAPI({token:res.payload.data.token});
+			setCookie('token',res.payload.data.token);
 
-  return (
-    <Container>
-      <LeftContainer>
-        <Header>
-          <Logo onClick={handleHomeRoute}>mama.</Logo>
-        </Header>
+			if (res.payload.data.interests.length === 0) {
+				setInterestModal(true);
+			} else {
+				navigate('/dashboard');
+			}
+		}
+	}
+	function handleHomeRoute() {
+		navigate('/');
+	}
 
-        <MainContent>
-          <LoginText>Login</LoginText>
-          <div id="buttonDiv"></div>
-        </MainContent>
-      </LeftContainer>
-      <RightContainer>
-        <CatContainer>
-          <CatImage src={billiBKL} />
-        </CatContainer>
-      </RightContainer>
-      {interestModal && <InterestModal />}
-    </Container>
-  );
+	return (
+		<Container>
+			<LeftContainer>
+				<Header>
+					<Logo onClick={handleHomeRoute}>mama.</Logo>
+				</Header>
+
+				<MainContent>
+					<LoginText>Login</LoginText>
+					<div id="buttonDiv"></div>
+				</MainContent>
+			</LeftContainer>
+			<RightContainer>
+				<CatContainer>
+					<CatImage src={billiBKL} />
+				</CatContainer>
+			</RightContainer>
+			{interestModal && <InterestModal />}
+		</Container>
+	);
 }
 
 export default SignUp;
