@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import catFace from "../../assets/billiBC.svg";
+import { Check, ArrowCircleLeft, ArrowCircleRight } from "@phosphor-icons/react";
+import user_1_pfp from "../../assets/images/brittany.png";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 const MainContainer = styled.div`
   display: flex;
@@ -278,11 +282,11 @@ const PricingCardsContainer = styled.div`
   padding-top: 100px;
 `;
 
-const PricingCard = styled.div`
+const PricingCard = styled.div<{ styleType?: string }>`
   border-radius: 48px;
   width: 100%;
   max-width: 520px;
-  background-color: #fef2ff;
+  background-color: ${props => (props.styleType === "v2" ? "#ede1ff" : "#faf9f6")};
   padding: 64px;
   box-sizing: border-box;
 
@@ -327,10 +331,10 @@ const PCT_Description = styled.p`
   color: #181818;
 `;
 
-const PricingContainer_CTABTN = styled.p`
+const PricingContainer_CTABTN = styled.p<{ styleType?: string }>`
   padding: 20px 64px;
   width: 100%;
-  border: 2px solid #000;
+  border: 2px solid ${props => (props.styleType === "v2" ? "#8330c2" : "#000")};
   border-radius: 50px;
 
   font-style: normal;
@@ -339,13 +343,52 @@ const PricingContainer_CTABTN = styled.p`
   line-height: 33px;
   /* identical to box height */
 
-  color: #000000;
+  color: ${props => (props.styleType === "v2" ? "#fff" : "#000")};
+  background-color: ${props => (props.styleType === "v2" ? "#8330c2" : null)};
 
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
+
+const PricingAndFeaturesListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  `;
+
+const FeaturesComparisonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: flex-start;
+`;
+
+const FeatureComparisonItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 0px 64px;
+  width: 100%;
+`;
+
+const FeatureComparisonItemText = styled.p`
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 100%;
+letter-spacing: -0.055em;
+color: #181818;
+`;
+
+const FeatureComparisonItemCheckMark = styled(Check)`
+  color: #9E4CDC;
+`
+
+
+
 
 const FooterContainer = styled.div`
   background-color: #000;
@@ -361,21 +404,20 @@ const FooterContainer = styled.div`
   justify-content: center;
 `;
 
-const FooterHeroContainer = styled.div`
-  padding: 150px 0px 100px 0px;
+const FooterHeroContainer = styled.div<{ styleType?: string }>`
+  padding: ${props => (props.styleType === "v2" ? "100px 0px 150px 0px" : "150px 0px 100px 0px")};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: ${props => (props.styleType === "v2" ? "64px" : "24px")};
 
-  background-color: #fff;
-
+  /* background-color: #fff; */
+  background-color: ${props => (props.styleType === "v2" ? "#ffe8d3" : "#fff")};
+  z-index: ${props => (props.styleType === "v2" ? 1 : 2)};
   border-radius: 24px;
-
   position: relative;
-  bottom: -100px;
-
+  bottom: ${props => (props.styleType === "v2" ? "-150px" : "-100px")};
   width: 100%;
   box-sizing: border-box;
 `;
@@ -392,26 +434,84 @@ const FooterTextContainer = styled.div`
   justify-content: center;
 `;
 
+const FooterHeroFeaturesTextGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 32px;
+  grid-template-rows: auto auto; //this means that the rows will be as tall as the content
+`;
+
+const FooterHeroFeaturesTextGridItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 12px;
+  gap: 16px;
+`;
+
+const FooterHeroFeaturesTextGridItem_Title = styled.p`
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 100%;
+letter-spacing: -0.055em;
+
+color: #000000;
+`
+
+const FooterHeroFeaturesTextGridItem_Description = styled.p`
+
+font-family: 'Work Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 100%;
+
+letter-spacing: -0.055em;
+
+color: #000000;
+`;
+
+
 const FooterHeroText = styled.p`
-  font-style: normal;
-  font-weight: 500;
-  font-size: 100px;
-  line-height: 91.8%;
-  /* or 92px */
+font-style: normal;
+font-weight: 500;
+font-size: 100px;
+line-height: 91.8%;
+/* or 92px */
 
-  text-align: center;
-  letter-spacing: -0.08em;
+text-align: center;
+letter-spacing: -0.08em;
 
-  color: #000000;
+color: #000000;
 
-  flex-shrink: 0;
+flex-shrink: 0;
 `;
 
-const FooterHeroText_Span = styled(FooterHeroText)`
-  background-color: #7dfbb1;
-  border-radius: 32px;
-  padding: 0 12px 0 2px;
+const FooterHeroText_Span = styled(FooterHeroText) <{ bgColor?: string }>`
+background-color: ${props => (props.bgColor ? props.bgColor : "#7dfbb1")};
+border-radius: 32px;
+padding: 0 12px 0 2px;
 `;
+
+const CatLargePillContainer = styled.div<{ prop?: any }>(({ prop }) => ({
+  width: "600px",
+  height: "300px",
+
+  borderRadius: "175px",
+
+  backgroundColor: "#fff8e1",
+}));
+
+const CatLargePillImage = styled.div<{ src?: string }>(({ src }) => ({
+  width: "100%",
+  backgroundImage: `url(${src})`,
+  height: "100%",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "340px",
+  backgroundPositionX: "center",
+  backgroundPositionY: "top",
+}));
 
 // const FooterHeroTextLine = styled.div`
 // 	display: flex;
@@ -492,6 +592,114 @@ const FTCL_EmailText = styled(FooterTextCommonStyle)`
   line-height: 19px;
 `;
 
+const TestimonialCardContainer = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 20px 0px;
+gap: 48px;
+width: 100%;
+`;
+
+const TestimonialCard = styled.div`
+/* width: 650px; */
+height: 350px;
+border-radius: 28px;
+background-color: #faf9f6;
+padding: 32px 64px;
+display: flex;
+flex-direction: column;
+
+align-items: center;
+
+gap: 16px;
+
+margin: 0 32px;
+`;
+
+const TestimonialPersonImage = styled.img`
+width: 90px;
+height: 90px;
+max-width: 90px;
+border-radius: 50%;
+`;
+
+const TestimonialText = styled.p`
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 100%;
+/* or 24px */
+
+text-align: center;
+letter-spacing: -0.055em;
+
+padding: 0 64px;
+
+color: #000000;
+`;
+
+const TestimonialPersonName = styled.p`
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 100%;
+/* identical to box height, or 16px */
+text-align: center;
+letter-spacing: -0.055em;
+color: #000000;
+`;
+
+const TestimonialPersonDesignation = styled.p`
+font-style: normal;
+font-size: 16px;
+line-height: 100%;
+/* identical to box height, or 16px */
+text-align: center;
+letter-spacing: -0.055em;
+color: #000000;
+font-weight: 400;
+`;
+
+const TestimonialPersonNameAndDesignationContainer = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+gap: 8px;
+`
+
+const CarouselContainer = styled.div`
+  width: 100%;
+  position: relative;
+`;
+
+const CarouselLeftArrow = styled(ArrowCircleLeft)`
+  cursor: pointer;
+`;
+
+const CarouselRightArrow = styled(ArrowCircleRight)`
+  cursor: pointer;
+`;
+
+const RightBTN = styled.button`
+  display: none;
+`
+
+const LeftBTN = styled.button`
+  display: none;
+`
+
+const CarouselButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0px;
+`;
+
+
 function LandingPage() {
   const NavItems = [
     {
@@ -520,6 +728,29 @@ function LandingPage() {
     },
   ];
 
+  const FeaturesData = {
+    free: [
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+    ],
+    premium: [
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+      "Unlimited access to static videos",
+      "Unlimited static videos",
+    ]
+  }
+
   const navigate = useNavigate();
 
   function handleLoginClick() {
@@ -528,19 +759,10 @@ function LandingPage() {
 
   const MarqueeData = [
     {
-      logo: "https://s3-alpha-sig.figma.com/img/2a43/7658/e8ce9fbb4c1fbb23d755731096529cd7?Expires=1681689600&Signature=heuhamt4zgzrP8m59NylVrEG3C1alanxupUGLNa-QFdtB7Z6t4oMV1Ji7RqyCev~mWLTsGf0Cza5iwFuixWgPo8I~mXRkC2P7xcaxsCAo1uGqSItF45NNib7ioaBfOA~gqR~MCx-u5MiMji6BX87MOfnFE8wzNS7QI~PX~VtdLY-76MbyXY6BPan5lOf1Y~PQ-j7rqavIKAM7WL-aYBGm1wDahqWsuE6pDmBZ2C9oQdQm3toHyGA3zUYn1ftQk0ZUTGbRQS-fhnhh15GKqp~AoN0Jkivn0b5cDfAX79UdqV0wyqkKzTz2pg3b2dNqY3lCKv9EfBaETdawbFE~rZ8Hw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/ddb3f5157b9baf052dd8ec72da184be44ef84f39?fuid=974696877205230466",
     },
     {
-      logo: "https://s3-alpha-sig.figma.com/img/351f/cbd5/626a841ccc5a444f33c6037a5f1b67b2?Expires=1681689600&Signature=HLrdX~STY-Ngq8ighLE7nJow1z745xAfbqCeSEf1Yw2bc2zX6aNMZppzsMHGAc~ClxpKcmIWDy2KCqMpjMifwS2muwuR7JUlM29JCTEAuToywQxevNyr7o2F2uuNGkwxaGUjvQDRu27ZX32nWB4PRL1b5-~baO--YcRg~2wmeWQa1xMOgqgwnYjuK9d3ylRVzEJXhNVXj4hbocqWAQyWg48NrAcJnUxqkpfdtacTQQea07r4IiuuxyKPh9pav10QGDf8EUw52OxB7AqwEDEYabx5-MR~5csjDcgGHK-PJvokRNEMZ1dkQ1NNKA2GMzcCMemVINAXjI-WLzGiIJcpoQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-    },
-    {
-      logo: "https://s3-alpha-sig.figma.com/img/e711/767d/51631c75d6b78cb50324ef0425dc239b?Expires=1681689600&Signature=mfU67MoCKqPU4pQujRu5CqJgtq9QKrjWFyeH1OcuHtjGJaVYbs1G4ckKEism1gq-v0tNClYPbd8jnlh~PQtc7jZkg6N-KhTi7qWpoLmzFKKO6fn28NuXrYxW2c4KFse6D2rYSwDl8pPXy040kqjlWpXvBwyOeyJpDqOllAyoajiPCBaNH0QIyF0h5NhAJBVlWpuaCnbEGCY71vPS7InLwCCWVy1QQQP3245h56n6VFFKrEGMHlcLrw1lX61QVpD~Ll1OJNLCNkgyFKdphJQM8IGaDm55jH3HbysEqfy9cIjNAR1giqwfIbrOl9fIqHixnVrDkYhTnhc~mmAN0XHj0A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-    },
-    {
-      logo: "https://s3-alpha-sig.figma.com/img/f361/03c5/b2209ae9b04606ca6a6608a8de2da510?Expires=1681689600&Signature=BzOVDl3PsdcSKoYbrV5WXm5HrD6HLQMWQmVmf-vATdKi5tK7uWB2REgsBMFzLmxR7ybqH2-Hr9CeY32t8CiO15fcQYAGQOuIklXOlqT1~bj2WFJ9ep1XZPiJ7ZCOXpgf0peuZHQ0aEO3hZeqe~oUiNz2bV9x9IpANqmTDEkDJIUxIsiy3owXN6g0cwPVlvOK1~SqQyScnCMugssKztxtYZMlfYCSApzLPnU~pTVKqgLa-XiTkCVakV30eX9eLjkZoL6tPYh5okGC5Nf74FJ0uN4vP6plpXZXFkYpprDjWOmBBzJkaNLDwr5aasVfUqYHaWz~sp5YVvEWtL1lv3aS5Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-    },
-    {
-      logo: "https://s3-alpha-sig.figma.com/img/1620/17d1/6a3e5daffa62ed2ef5fd66bee7b411ed?Expires=1681689600&Signature=TwbydvWQ-JrefOCckhMLAGMAV94NbcGIymBEB5UvO0EhHyGbAahCMAUjHcjKx6wSAjPM8vmoHEsoq11dvAlQ6~F3uQfHD6hWZccmplxxj7H04Deqy3H4ZOKQNSJ5-FVyLY0PXBZQYi918Xr455J0wflfNRihLknQohQG-GVSszh4swQWj~8MHlWMXX03GGfy3rVrIegBjYGbxmkTXUKXN~m1pJAjeEjQB2YSw51IeMudq-NhylJK01h9yPbK8jl1Eq6uwDJ-MTWkEgF4XjBd1QgylYw9E~Iilm6IM8YQB6vWhgFDbMrnBbaXoFH1eQD7eslydw03RXj35rfv8BYVuQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/244698ab40d164b83d55518f3616afbd58ff6afc?fuid=974696877205230466",
     },
     {
       logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/ddb3f5157b9baf052dd8ec72da184be44ef84f39?fuid=974696877205230466",
@@ -549,11 +771,35 @@ function LandingPage() {
       logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/244698ab40d164b83d55518f3616afbd58ff6afc?fuid=974696877205230466",
     },
     {
-      logo: "https://s3-alpha-sig.figma.com/img/1620/17d1/6a3e5daffa62ed2ef5fd66bee7b411ed?Expires=1681689600&Signature=TwbydvWQ-JrefOCckhMLAGMAV94NbcGIymBEB5UvO0EhHyGbAahCMAUjHcjKx6wSAjPM8vmoHEsoq11dvAlQ6~F3uQfHD6hWZccmplxxj7H04Deqy3H4ZOKQNSJ5-FVyLY0PXBZQYi918Xr455J0wflfNRihLknQohQG-GVSszh4swQWj~8MHlWMXX03GGfy3rVrIegBjYGbxmkTXUKXN~m1pJAjeEjQB2YSw51IeMudq-NhylJK01h9yPbK8jl1Eq6uwDJ-MTWkEgF4XjBd1QgylYw9E~Iilm6IM8YQB6vWhgFDbMrnBbaXoFH1eQD7eslydw03RXj35rfv8BYVuQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/ddb3f5157b9baf052dd8ec72da184be44ef84f39?fuid=974696877205230466",
     },
-  ];
-  console.warn(MarqueeData.length);
+    {
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/244698ab40d164b83d55518f3616afbd58ff6afc?fuid=974696877205230466",
+    },
+    {
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/ddb3f5157b9baf052dd8ec72da184be44ef84f39?fuid=974696877205230466",
+    },
+    {
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/244698ab40d164b83d55518f3616afbd58ff6afc?fuid=974696877205230466",
+    },
+    {
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/ddb3f5157b9baf052dd8ec72da184be44ef84f39?fuid=974696877205230466",
+    },
+    {
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/244698ab40d164b83d55518f3616afbd58ff6afc?fuid=974696877205230466",
+    },
+    {
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/ddb3f5157b9baf052dd8ec72da184be44ef84f39?fuid=974696877205230466",
+    },
+    {
+      logo: "https://www.figma.com/file/nHVnbvYtTgyuFZEQ6TV4kO/image/244698ab40d164b83d55518f3616afbd58ff6afc?fuid=974696877205230466",
+    },
 
+  ];
+  // console.warn(MarqueeData.length);
+
+  const leftBTNRef = useRef<HTMLButtonElement>(null);
+  const rightBTNRef = useRef<HTMLButtonElement>(null);
   return (
     <MainContainer>
       <HeroMainContainer>
@@ -608,6 +854,96 @@ function LandingPage() {
         </ConnectWithTutorsText>
       </ConnectWithTutorsTextContainer>
 
+      <CarouselContainer>
+        <Carousel
+          autoPlay={true}
+          infiniteLoop={true}
+          width={"100%"}
+          showThumbs={false}
+          showStatus={false}
+          showIndicators={false}
+          showArrows={true}
+          centerMode={true}
+          centerSlidePercentage={60}
+          renderArrowNext={(onClickHandler, hasMore) =>
+            hasMore && (
+              <RightBTN ref={rightBTNRef} onClick={onClickHandler}>{"-->"}</RightBTN>
+            )
+          }
+          renderArrowPrev={(onClickHandler, hasMore) =>
+            hasMore && (
+              <LeftBTN ref={leftBTNRef} onClick={onClickHandler}>{"<--"}</LeftBTN>
+            )
+          }
+
+        >
+
+          <TestimonialCard>
+            <TestimonialPersonImage src={user_1_pfp} />
+            <TestimonialText>
+              {"We have become heavy users of Potion across our entire team. It has increased our sales team’s performance substantially and we are incorporating it into more and more of our routines every week."}
+            </TestimonialText>
+            <TestimonialPersonNameAndDesignationContainer>
+              <TestimonialPersonName>
+                {"Brittany Chiang,"}
+              </TestimonialPersonName>
+              <TestimonialPersonDesignation>
+                {"Researcher at MIT"}
+              </TestimonialPersonDesignation>
+            </TestimonialPersonNameAndDesignationContainer>
+          </TestimonialCard>
+          <TestimonialCard>
+            <TestimonialPersonImage src={user_1_pfp} />
+            <TestimonialText>
+              {"We have become heavy users of Potion across our entire team. It has increased our sales team’s performance substantially and we are incorporating it into more and more of our routines every week."}
+            </TestimonialText>
+            <TestimonialPersonNameAndDesignationContainer>
+              <TestimonialPersonName>
+                {"Brittany Chiang,"}
+              </TestimonialPersonName>
+              <TestimonialPersonDesignation>
+                {"Researcher at MIT"}
+              </TestimonialPersonDesignation>
+            </TestimonialPersonNameAndDesignationContainer>
+          </TestimonialCard>
+          <TestimonialCard>
+            <TestimonialPersonImage src={user_1_pfp} />
+            <TestimonialText>
+              {"We have become heavy users of Potion across our entire team. It has increased our sales team’s performance substantially and we are incorporating it into more and more of our routines every week."}
+            </TestimonialText>
+            <TestimonialPersonNameAndDesignationContainer>
+              <TestimonialPersonName>
+                {"Brittany Chiang,"}
+              </TestimonialPersonName>
+              <TestimonialPersonDesignation>
+                {"Researcher at MIT"}
+              </TestimonialPersonDesignation>
+            </TestimonialPersonNameAndDesignationContainer>
+          </TestimonialCard>
+          <TestimonialCard>
+            <TestimonialPersonImage src={user_1_pfp} />
+            <TestimonialText>
+              {"We have become heavy users of Potion across our entire team. It has increased our sales team’s performance substantially and we are incorporating it into more and more of our routines every week."}
+            </TestimonialText>
+            <TestimonialPersonNameAndDesignationContainer>
+              <TestimonialPersonName>
+                {"Brittany Chiang,"}
+              </TestimonialPersonName>
+              <TestimonialPersonDesignation>
+                {"Researcher at MIT"}
+              </TestimonialPersonDesignation>
+            </TestimonialPersonNameAndDesignationContainer>
+          </TestimonialCard>
+        </Carousel>
+
+        <CarouselButtonsContainer>
+          <CarouselLeftArrow onClick={() => leftBTNRef?.current?.click()} size={42} weight="thin" />
+          <CarouselRightArrow onClick={() => rightBTNRef?.current?.click()} size={42} weight="thin" />
+        </CarouselButtonsContainer>
+      </CarouselContainer>
+
+
+
       {/* <UniversityScrollerContainer>
         
 			</UniversityScrollerContainer> */}
@@ -643,37 +979,102 @@ function LandingPage() {
       </PricingTextContainer>
 
       <PricingCardsContainer>
-        <PricingCard>
-          <PCT_Category>{"Free"}</PCT_Category>
-          <PCT_Price>{"$0"}</PCT_Price>
-          <PCT_Description>
-            {"Free Forever. As long as you hustle. No credit card required"}
-          </PCT_Description>
-          <PricingContainer_CTABTN>
-            {"Sign up for free"}
-          </PricingContainer_CTABTN>
-        </PricingCard>
-        <PricingCard>
-          <PCT_Category>{"Premium"}</PCT_Category>
-          <PCT_Price>{"$10"}</PCT_Price>
-          <PCT_Description>
-            {"30-day opt out guarantee. Cancel anytime."}
-          </PCT_Description>
-          <PricingContainer_CTABTN>
-            {"Sign up for free"}
-          </PricingContainer_CTABTN>
-        </PricingCard>
+        <PricingAndFeaturesListContainer>
+          <PricingCard>
+            <PCT_Category>{"Free"}</PCT_Category>
+            <PCT_Price>{"$0"}</PCT_Price>
+            <PCT_Description>
+              {"Free Forever. As long as you hustle. No credit card required"}
+            </PCT_Description>
+            <PricingContainer_CTABTN>
+              {"Sign up for free"}
+            </PricingContainer_CTABTN>
+          </PricingCard>
+          <FeaturesComparisonContainer>
+            {
+              FeaturesData.free?.map((item, index) => {
+                return (
+                  <FeatureComparisonItem key={index}>
+                    <FeatureComparisonItemCheckMark size={24} />
+                    <FeatureComparisonItemText>{item}</FeatureComparisonItemText>
+                  </FeatureComparisonItem>
+                );
+              })
+            }
+          </FeaturesComparisonContainer>
+        </PricingAndFeaturesListContainer>
+        <PricingAndFeaturesListContainer>
+          <PricingCard styleType={"v2"}>
+            <PCT_Category>{"Premium"}</PCT_Category>
+            <PCT_Price>{"$10"}</PCT_Price>
+            <PCT_Description>
+              {"30-day opt out guarantee. Cancel anytime."}
+            </PCT_Description>
+            <PricingContainer_CTABTN styleType={"v2"}>
+              {"Sign up for free"}
+            </PricingContainer_CTABTN>
+          </PricingCard>
+          <FeaturesComparisonContainer>
+            {
+              FeaturesData.premium?.map((item, index) => {
+                return (
+                  <FeatureComparisonItem key={index}>
+                    <FeatureComparisonItemCheckMark size={24} />
+                    <FeatureComparisonItemText>{item}</FeatureComparisonItemText>
+                  </FeatureComparisonItem>
+                );
+              })
+            }
+          </FeaturesComparisonContainer>
+        </PricingAndFeaturesListContainer>
       </PricingCardsContainer>
 
-      <FooterHeroContainer>
+      <FooterHeroContainer styleType={"v2"}>
+        <FooterTextContainer>
+          <FooterHeroText>{"Use mama to "}</FooterHeroText>
+          <FooterHeroText_Span>{"add"}</FooterHeroText_Span>
+          <FooterHeroText_Span>{"value"}</FooterHeroText_Span>
+          <FooterHeroText>{"to your learning"}</FooterHeroText>
+          <FooterHeroText>{"and preparation."}</FooterHeroText>
+          {/* <FooterHeroText_Span>{"cool!"}</FooterHeroText_Span> */}
+        </FooterTextContainer>
+        <CatLargePillContainer>
+          <CatLargePillImage src={catFace} />
+        </CatLargePillContainer>
+
+        <FooterHeroFeaturesTextGrid>
+          <FooterHeroFeaturesTextGridItem>
+            <FooterHeroFeaturesTextGridItem_Title>{"Concept Videos"}</FooterHeroFeaturesTextGridItem_Title>
+            <FooterHeroFeaturesTextGridItem_Description>{"All videos are suited well for your needs."}</FooterHeroFeaturesTextGridItem_Description>
+          </FooterHeroFeaturesTextGridItem>
+          <FooterHeroFeaturesTextGridItem>
+            <FooterHeroFeaturesTextGridItem_Title>{"Study Guides"}</FooterHeroFeaturesTextGridItem_Title>
+            <FooterHeroFeaturesTextGridItem_Description>{"All videos are suited well for your needs."}</FooterHeroFeaturesTextGridItem_Description>
+          </FooterHeroFeaturesTextGridItem>
+          <FooterHeroFeaturesTextGridItem>
+            <FooterHeroFeaturesTextGridItem_Title>{"Note Banks"}</FooterHeroFeaturesTextGridItem_Title>
+            <FooterHeroFeaturesTextGridItem_Description>{"All videos are suited well for your needs."}</FooterHeroFeaturesTextGridItem_Description>
+          </FooterHeroFeaturesTextGridItem>
+          <FooterHeroFeaturesTextGridItem>
+            <FooterHeroFeaturesTextGridItem_Title>{"Sell Docs"}</FooterHeroFeaturesTextGridItem_Title>
+            <FooterHeroFeaturesTextGridItem_Description>{"All videos are suited well for your needs."}</FooterHeroFeaturesTextGridItem_Description>
+          </FooterHeroFeaturesTextGridItem>
+        </FooterHeroFeaturesTextGrid>
+
+      </FooterHeroContainer>
+
+
+      <FooterHeroContainer >
         <FooterTextContainer>
           <FooterHeroText>{"Don't learn the "}</FooterHeroText>
           <FooterHeroText_Span>{"old"}</FooterHeroText_Span>
-          <FooterHeroText_Span>{"boaring"}</FooterHeroText_Span>
+          <FooterHeroText_Span>{"boring"}</FooterHeroText_Span>
           <FooterHeroText>{"way, we have"}</FooterHeroText>
           <FooterHeroText>{"Something"}</FooterHeroText>
-          <FooterHeroText_Span>{"cool!"}</FooterHeroText_Span>
+          <FooterHeroText_Span bgColor={"#bdefff"}>{"cool!"}</FooterHeroText_Span>
         </FooterTextContainer>
+
+
 
         <FooterHeroImage src={catFace} />
       </FooterHeroContainer>
@@ -702,7 +1103,7 @@ function LandingPage() {
           </FooterTextsContainer>
         </FooterTextsMainContainer>
       </FooterContainer>
-    </MainContainer>
+    </MainContainer >
   );
 }
 

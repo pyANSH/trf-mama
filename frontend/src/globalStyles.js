@@ -19,6 +19,11 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Work Sans", sans-serif;
+
+  ::selection {
+    background-color: #8330c2;
+    color: #ffffff;
+  }
 }
 button:focus-visible{
 	outline:none;
