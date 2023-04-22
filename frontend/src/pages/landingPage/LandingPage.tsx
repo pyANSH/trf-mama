@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import catFace from "../../assets/billiBC.svg";
 import { Check } from "@phosphor-icons/react";
+import user_1_pfp from "../../assets/images/brittany.png";
+import { Carousel } from "react-responsive-carousel";
 
 const MainContainer = styled.div`
   display: flex;
@@ -589,6 +591,81 @@ const FTCL_EmailText = styled(FooterTextCommonStyle)`
   line-height: 19px;
 `;
 
+const TestimonialCardContainer = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 20px 0px;
+gap: 48px;
+width: 100%;
+`;
+
+const TestimonialCard = styled.div`
+width: 650px;
+height: 350px;
+border-radius: 28px;
+background-color: #faf9f6;
+padding: 32px 64px;
+display: flex;
+flex-direction: column;
+
+align-items: center;
+
+gap: 16px;
+`;
+
+const TestimonialPersonImage = styled.img`
+width: 90px;
+height: 90px;
+border-radius: 50%;
+`;
+
+const TestimonialText = styled.p`
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 100%;
+/* or 24px */
+
+text-align: center;
+letter-spacing: -0.055em;
+
+padding: 0 64px;
+
+color: #000000;
+`;
+
+const TestimonialPersonName = styled.p`
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 100%;
+/* identical to box height, or 16px */
+text-align: center;
+letter-spacing: -0.055em;
+color: #000000;
+`;
+
+const TestimonialPersonDesignation = styled.p`
+font-style: normal;
+font-size: 16px;
+line-height: 100%;
+/* identical to box height, or 16px */
+text-align: center;
+letter-spacing: -0.055em;
+color: #000000;
+font-weight: 400;
+`;
+
+const TestimonialPersonNameAndDesignationContainer = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+gap: 8px;
+`
+
 function LandingPage() {
   const NavItems = [
     {
@@ -685,7 +762,7 @@ function LandingPage() {
     },
 
   ];
-  console.warn(MarqueeData.length);
+  // console.warn(MarqueeData.length);
 
   return (
     <MainContainer>
@@ -740,6 +817,116 @@ function LandingPage() {
           {"Connect with tutors across🌏"}
         </ConnectWithTutorsText>
       </ConnectWithTutorsTextContainer>
+
+      <TestimonialCardContainer>
+        <TestimonialCard>
+          <TestimonialPersonImage src={user_1_pfp} />
+          <TestimonialText>
+            {"We have become heavy users of Potion across our entire team. It has increased our sales team’s performance substantially and we are incorporating it into more and more of our routines every week."}
+          </TestimonialText>
+          <TestimonialPersonNameAndDesignationContainer>
+            <TestimonialPersonName>
+              {"Brittany Chiang,"}
+            </TestimonialPersonName>
+            <TestimonialPersonDesignation>
+              {"Researcher at MIT"}
+            </TestimonialPersonDesignation>
+          </TestimonialPersonNameAndDesignationContainer>
+        </TestimonialCard>
+
+        <TestimonialCard>
+          <TestimonialPersonImage src={user_1_pfp} />
+          <TestimonialText>
+            {"We have become heavy users of Potion across our entire team. It has increased our sales team’s performance substantially and we are incorporating it into more and more of our routines every week."}
+          </TestimonialText>
+          <TestimonialPersonNameAndDesignationContainer>
+            <TestimonialPersonName>
+              {"Brittany Chiang,"}
+            </TestimonialPersonName>
+            <TestimonialPersonDesignation>
+              {"Researcher at MIT"}
+            </TestimonialPersonDesignation>
+          </TestimonialPersonNameAndDesignationContainer>
+        </TestimonialCard>
+
+        <TestimonialCard>
+          <TestimonialPersonImage src={user_1_pfp} />
+          <TestimonialText>
+            {"We have become heavy users of Potion across our entire team. It has increased our sales team’s performance substantially and we are incorporating it into more and more of our routines every week."}
+          </TestimonialText>
+          <TestimonialPersonNameAndDesignationContainer>
+            <TestimonialPersonName>
+              {"Brittany Chiang,"}
+            </TestimonialPersonName>
+            <TestimonialPersonDesignation>
+              {"Researcher at MIT"}
+            </TestimonialPersonDesignation>
+          </TestimonialPersonNameAndDesignationContainer>
+        </TestimonialCard>
+      </TestimonialCardContainer>
+
+      <Carousel
+        autoPlay={true}
+        infiniteLoop={true}
+        // axis={"horizontal"}
+        // width={"100%"}
+        showThumbs={false}
+        showStatus={false}
+        showIndicators={false}
+        centerMode={true}
+      >
+        <div>
+          <TestimonialCard>
+            <TestimonialPersonImage src={user_1_pfp} />
+            <TestimonialText>
+              {"We have become heavy users of Potion across our entire team. It has increased our sales team’s performance substantially and we are incorporating it into more and more of our routines every week."}
+            </TestimonialText>
+            <TestimonialPersonNameAndDesignationContainer>
+              <TestimonialPersonName>
+                {"Brittany Chiang,"}
+              </TestimonialPersonName>
+              <TestimonialPersonDesignation>
+                {"Researcher at MIT"}
+              </TestimonialPersonDesignation>
+            </TestimonialPersonNameAndDesignationContainer>
+          </TestimonialCard>
+        </div>
+
+        <div>
+          <TestimonialCard>
+            <TestimonialPersonImage src={user_1_pfp} />
+            <TestimonialText>
+              {"We have become heavy users of Potion across our entire team. It has increased our sales team’s performance substantially and we are incorporating it into more and more of our routines every week."}
+            </TestimonialText>
+            <TestimonialPersonNameAndDesignationContainer>
+              <TestimonialPersonName>
+                {"Brittany Chiang,"}
+              </TestimonialPersonName>
+              <TestimonialPersonDesignation>
+                {"Researcher at MIT"}
+              </TestimonialPersonDesignation>
+            </TestimonialPersonNameAndDesignationContainer>
+          </TestimonialCard>
+        </div>
+
+        <div>
+          <TestimonialCard>
+            <TestimonialPersonImage src={user_1_pfp} />
+            <TestimonialText>
+              {"We have become heavy users of Potion across our entire team. It has increased our sales team’s performance substantially and we are incorporating it into more and more of our routines every week."}
+            </TestimonialText>
+            <TestimonialPersonNameAndDesignationContainer>
+              <TestimonialPersonName>
+                {"Brittany Chiang,"}
+              </TestimonialPersonName>
+              <TestimonialPersonDesignation>
+                {"Researcher at MIT"}
+              </TestimonialPersonDesignation>
+            </TestimonialPersonNameAndDesignationContainer>
+          </TestimonialCard>
+        </div>
+
+      </Carousel>
 
       {/* <UniversityScrollerContainer>
         
