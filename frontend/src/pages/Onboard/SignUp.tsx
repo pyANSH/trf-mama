@@ -105,7 +105,7 @@ function SignUp() {
 		console.log(res);
 		
 		if(res.meta.requestStatus==='fulfilled'){		
-			navigate('/');//to dashboard
+			navigate('/dashboard');//to dashboard
 		}
 		
 	}
