@@ -23,9 +23,9 @@ require('dotenv').config();
 
 
 exports.login = async (req, res) => {
-    const { userEmail, interests, userFullName, socialRefererId, isMentor } = req.body;
+    const { userEmail, userFullName, socialRefererId, isMentor } = req.body;
 
-    if (!userEmail || !interests || !userFullName || !socialRefererId) {
+    if (!userEmail || !userFullName || !socialRefererId) {
         res.statusCode = 400;
         return res.send('Please fill all the fields');
     }
@@ -37,14 +37,14 @@ exports.login = async (req, res) => {
             socialRefererId: socialRefererId
         }, process.env.JWT_SECRET)
         res.statusCode = 200;
-        return res.send({ response: 'User Successfully logged In', userId: userExists._id, userEmail: userEmail, token: token, isMentor: userExists.isMentor });
+        return res.send({ response: 'User Successfully logged In', userId: userExists._id, userEmail: userEmail, token: token, isMentor: userExists.isMentor, interests: userExists.interests });
     }
     const user = new userModal({
         userEmail: userEmail,
-        interests: interests,
         userFullName: userFullName,
         socialRefererId: socialRefererId,
         isMentor: isMentor
+
     })
     try {
         const dbUpdate = await user.save()
@@ -54,7 +54,7 @@ exports.login = async (req, res) => {
             socialRefererId: socialRefererId
         }, process.env.JWT_SECRET)
         res.statusCode = 201;
-        return res.send({ response: 'User created', userId: dbUpdate._id, userEmail: userEmail, token: token, isMentor: dbUpdate.isMentor });
+        return res.send({ response: 'User created', userId: dbUpdate._id, userEmail: userEmail, token: token, isMentor: dbUpdate.isMentor, interests: dbUpdate.interests });
     } catch (err) {
         res.statusCode = 400;
         return res.send({ response: 'User not created', err });
@@ -62,18 +62,21 @@ exports.login = async (req, res) => {
 }
 
 exports.user_get = (req, res) => {
-    const { userId, token } = req.query;
-    if (!userId || !token) {
+    const { token } = req.headers;
+    if (!token) {
         return res.status(400).json({ response: 'Please fill all the fields' });
     }
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
 
-        if (err || decoded.id !== userId) {
-            return res.status(401).json({ response: 'Invalid token' });
+        if (err) {
+            return res.status(423).json({ error: 'Invalid token' });
         }
         else {
             try {
-                userModal.find({ _id: userId }).then((user) => {
+                userModal.find({
+                    _id:
+                        decoded.id
+                }).then((user) => {
                     if (user.length > 0) {
                         return res.status(200).json(user);
                     }
@@ -89,10 +92,11 @@ exports.user_get = (req, res) => {
         }
     })
 }
-exports.update_user = (req, res) => {
-    const { userEmail, interests, userFullName, socialRefererId, isMentor } = req.body;
+exports.update_user_status = (req, res) => {
+    const { interests, isMentor } = req.body;
     const token = req.headers['token'];
-    if (userEmail || !interests || !userFullName || !socialRefererId, !isMentor) {
+    if (!interests || !token || typeof (isMentor) !== 'boolean') {
+
         return res.status(400).send('Please fill all the fields');
     }
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
@@ -100,15 +104,37 @@ exports.update_user = (req, res) => {
             return res.status(423).send({ error: 'Invalid token' });
         }
         else {
-            if (decoded.userEmail !== userEmail || decoded.socialRefererId !== socialRefererId) {
-                return res.status(422).send('Invalid user');
-            }
-            userModal.findOneAndUpdate({ socialRefererId: socialRefererId }, { interests: interests, userFullName: userFullName, isMentor: isMentor }, { new: true }).then((user) => {
+            userModal.findOneAndUpdate({ socialRefererId: decoded.socialRefererId }, { interests: interests, isMentor: isMentor }, { new: true }).then((user) => {
                 if (user) {
                     return res.status(200).send({ response: 'User updated', user });
                 }
                 else {
                     return res.status(400).send({ error: 'User not found' });
+                }
+            })
+        }
+    })
+}
+exports.update_user_profile = (req, res) => {
+    const { college, userFullName, gender } = req.body;
+    const token = req.headers['token'];
+    if (!college && !userFullName && !gender) {
+        return res.status(400).send('Please fill all the fields');
+    }
+    if (!token) {
+        return res.status(400).send('token missing');
+    }
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(423).send({ error: 'Invalid token' });
+        }
+        else {
+            userModal.findOneAndUpdate({ socialRefererId: decoded.socialRefererId }, { college: college, userFullName: userFullName, gender: gender }, { new: true }).then((user) => {
+                if (user) {
+                    return res.status(200).send({ response: 'User profile updated', user });
+                }
+                else {
+                    return res.status(400).send({ error: 'User not updated' });
                 }
             })
         }
