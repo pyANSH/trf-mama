@@ -1,14 +1,14 @@
-import { SquaresFour } from "phosphor-react";
-import { Books } from "phosphor-react";
-import { Coins } from "phosphor-react";
-import { GraduationCap } from "phosphor-react";
-import { User } from "phosphor-react";
-import React, { useState } from "react";
-import styled from "styled-components";
-import "./App.css";
-import Notebank from "./components/Notebank";
-import Profile from "./components/Profile";
-import SellDocuments from "./components/SellDocuments";
+import { SquaresFour } from 'phosphor-react';
+import { Books } from 'phosphor-react';
+import { Coins } from 'phosphor-react';
+import { GraduationCap } from 'phosphor-react';
+import { User } from 'phosphor-react';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import './App.css';
+import Notebank from './components/Notebank';
+import Profile from './components/Profile';
+import SellDocuments from './components/SellDocuments';
 
 const Container = styled.div`
   display: grid;
@@ -64,14 +64,14 @@ const UserIcon = styled(User)`
 `;
 
 const OptionText = styled.p(() => ({
-  fontWeight: "500",
-  fontSize: "22px",
-  lineHeight: "26px",
+  fontWeight: '500',
+  fontSize: '22px',
+  lineHeight: '26px',
 }));
 
 const CommonIcons = {
-  height: "24px",
-  width: "24px",
+  height: '24px',
+  width: '24px',
 };
 const SidebarOptionIcon = styled.div(({}) => ({
   ...CommonIcons,
@@ -89,32 +89,32 @@ const MainContainer = styled.div`
 `;
 
 function Dashboard() {
-  const tab = 1;
+  const tab = 4;
 
   let sidebarOptions = [
     {
       icon: <SquareFourIcon />,
-      text: "Dashboard",
+      text: 'Dashboard',
       /* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
     },
     {
       icon: <SellIcon />,
-      text: "Sell Documents",
+      text: 'Sell Documents',
       component: <SellDocuments />,
     },
     {
       icon: <BooksIcon />,
-      text: "The Notebank",
+      text: 'The Notebank',
       component: <Notebank />,
     },
     {
       icon: <CapIcon />,
-      text: "Community",
+      text: 'Community',
       /* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
     },
     {
       icon: <UserIcon />,
-      text: "Profile",
+      text: 'Profile',
       component: <Profile />,
     },
   ];

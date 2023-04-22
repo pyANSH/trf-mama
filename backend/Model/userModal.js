@@ -26,6 +26,18 @@ const userSchema = new mongoose.Schema({
         type: [Object],
         default: [],
     },
+    college: {
+        type: String,
+        default: '',
+    },
+    gender: {
+        type: String,
+        default: '',
+
+    }
+
+
+
 });
 
 module.exports = mongoose.model('user', userSchema);

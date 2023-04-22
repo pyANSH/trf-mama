@@ -88,11 +88,10 @@ exports.user_get = (req, res) => {
         }
     })
 }
-exports.update_user = (req, res) => {
+exports.update_user_status = (req, res) => {
     const { interests, isMentor } = req.body;
     const token = req.headers['token'];
     if (!interests || !token || typeof (isMentor) !== 'boolean') {
-        console.log(req.body, interests, token, isMentor)
 
         return res.status(400).send('Please fill all the fields');
     }
@@ -107,6 +106,32 @@ exports.update_user = (req, res) => {
                 }
                 else {
                     return res.status(400).send({ error: 'User not found' });
+                }
+            })
+        }
+    })
+}
+exports.update_user_profile = (req, res) => {
+    const { college, userFullName, gender } = req.body;
+    const token = req.headers['token'];
+    console.log(college, userFullName, gender);
+    if (!college && !userFullName && !gender) {
+        return res.status(400).send('Please fill all the fields');
+    }
+    if (!token) {
+        return res.status(400).send('token missing');
+    }
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(423).send({ error: 'Invalid token' });
+        }
+        else {
+            userModal.findOneAndUpdate({ socialRefererId: decoded.socialRefererId }, { college: college, userFullName: userFullName, gender: gender }, { new: true }).then((user) => {
+                if (user) {
+                    return res.status(200).send({ response: 'User profile updated', user });
+                }
+                else {
+                    return res.status(400).send({ error: 'User not updated' });
                 }
             })
         }
