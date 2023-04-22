@@ -1,6 +1,6 @@
 //createSlice
-import { createSlice } from '@reduxjs/toolkit';
-import { _onBoard } from '../Thunk/Onboard';
+import { createSlice } from "@reduxjs/toolkit";
+import { _onBoard } from "../Thunk/Onboard";
 
 const appdata = createSlice({
 	name: 'appdata',
