@@ -18,19 +18,13 @@ export const _updateUser = createAsyncThunk(
     {
       interests,
       isMentor,
-      userEmail,
-      socialRefererId,
     }: {
       interests: string[];
       isMentor: boolean;
-      userEmail: string;
-      socialRefererId: string;
     },
     { rejectWithValue },
   ) => {
     const body = {
-      userEmail,
-      socialRefererId,
       interests,
       isMentor,
     };

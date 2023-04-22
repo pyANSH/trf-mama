@@ -23,9 +23,9 @@ require('dotenv').config();
 
 
 exports.login = async (req, res) => {
-    const { userEmail, interests, userFullName, socialRefererId, isMentor } = req.body;
+    const { userEmail, userFullName, socialRefererId, isMentor } = req.body;
 
-    if (!userEmail || !interests || !userFullName || !socialRefererId) {
+    if (!userEmail || !userFullName || !socialRefererId) {
         res.statusCode = 400;
         return res.send('Please fill all the fields');
     }
@@ -37,11 +37,10 @@ exports.login = async (req, res) => {
             socialRefererId: socialRefererId
         }, process.env.JWT_SECRET)
         res.statusCode = 200;
-        return res.send({ response: 'User Successfully logged In', userId: userExists._id, userEmail: userEmail, token: token, isMentor: userExists.isMentor, interests });
+        return res.send({ response: 'User Successfully logged In', userId: userExists._id, userEmail: userEmail, token: token, isMentor: userExists.isMentor, interests: userExists.interests });
     }
     const user = new userModal({
         userEmail: userEmail,
-        interests: interests,
         userFullName: userFullName,
         socialRefererId: socialRefererId,
         isMentor: isMentor
@@ -90,9 +89,11 @@ exports.user_get = (req, res) => {
     })
 }
 exports.update_user = (req, res) => {
-    const { userEmail, interests, userFullName, socialRefererId, isMentor } = req.body;
+    const { interests, isMentor } = req.body;
     const token = req.headers['token'];
-    if (!interests || !token || !isMentor) {
+    if (!interests || !token || typeof (isMentor) !== 'boolean') {
+        console.log(req.body, interests, token, isMentor)
+
         return res.status(400).send('Please fill all the fields');
     }
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
