@@ -37,7 +37,7 @@ exports.login = async (req, res) => {
             socialRefererId: socialRefererId
         }, process.env.JWT_SECRET)
         res.statusCode = 200;
-        return res.send({ response: 'User Successfully logged In', userId: userExists._id, userEmail: userEmail, token: token, isMentor: userExists.isMentor });
+        return res.send({ response: 'User Successfully logged In', userId: userExists._id, userEmail: userEmail, token: token, isMentor: userExists.isMentor,interests });
     }
     const user = new userModal({
         userEmail: userEmail,
