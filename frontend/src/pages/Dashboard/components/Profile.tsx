@@ -9,7 +9,15 @@ import {
 } from '../../../Store/Reducers/Profile';
 import { X } from 'phosphor-react';
 import { _updateUser } from '../../../Store/Thunk/Onboard';
-const Container = styled.div``;
+import { _updateUserDetails } from '../../../Store/Thunk/users';
+import { showToast } from '../../../Store/Reducers/onboard';
+import img from '../../../assets/SweetGirl.png';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+`;
 
 const Header = styled.div`
   display: flex;
@@ -25,13 +33,15 @@ const Topic = styled.p`
 
 const Caption = styled.p`
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 24px;
+  color: #7c7c7c;
 `;
 
 const MainContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 70% 30%;
+
   width: 100%;
 `;
 
@@ -45,10 +55,11 @@ const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 35px;
-  width: 30%;
+  width: 100%;
 `;
 
 const CommonInputContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -63,13 +74,22 @@ const CommonInputText = styled.p`
 const CommonInput = styled.input`
   border: 1px solid grey;
   border-radius: 8px;
+  font-size: 16px;
   padding: 12px 16px;
+  color: #757d8a;
+  border: 1px solid #e1e3e6;
+  &:focus {
+    outline: none;
+    border: 1px solid #4e73f8;
+    outline: 1px solid #4e73f8;
+  }
 `;
 
 const GenderText = styled.div`
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
+  color: #757d8a;
 `;
 const DropDownAns = styled.div`
   border: 1px solid grey;
@@ -79,13 +99,17 @@ const DropDownAns = styled.div`
   justify-content: space-between;
   cursor: pointer;
   align-items: center;
+  border: 1px solid #e1e3e6;
 `;
 
 const DropDownMainContainer = styled.div`
+  border: 1px solid #e1e3e6;
   width: 100%;
   box-shadow: 0px 8px 24px -4px rgba(27, 46, 94, 0.08);
   border-radius: 8px;
-  border: 1px solid #e1e3e6;
+  position: absolute;
+  bottom: 60px;
+  background: white;
   padding: 24px 9px;
   display: flex;
   flex-direction: column;
@@ -146,10 +170,12 @@ const ProfilePicText = styled.p`
 const UploadProfilePictureBtn = styled.button`
   padding: 12px 43px;
   border: 1px solid #4e73f8;
+  color: #4e73f8;
   border-radius: 8px;
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
+  cursor: pointer;
 `;
 const InterestBtn = styled.button`
   width: fit-content;
@@ -169,17 +195,20 @@ const SaveBtn = styled.div`
   width: fit-content;
   padding: 12px 32px;
   border-radius: 16px;
-  background-color: #4e73f8;
-  color: white;
+  border: 1px solid #4e73f8;
+  border-radius: 8px;
+  color: #4e73f8;
   font-weight: 500;
   font-size: 18px;
   margin: 0 auto;
+  cursor: pointer;
 `;
 function Profile() {
 	const imageUpload = useRef<HTMLInputElement>(null);
 	const interestArr: string[] = useSelector(
 		(state: any) => state.profile.interest,
 	);
+	const [saveProfile, setSaveProfile] = useState(false);
 	const dispatch: any = useDispatch();
 	const handleDeleteInterest = (index: any) => {
 		dispatch(removeInterest(index));
@@ -188,31 +217,33 @@ function Profile() {
 		dispatch(addInterest(interest));
 	};
 
-	const [email, setEmail] = useState();
-	const [name, setName] = useState();
-	const [college, setCollege] = useState();
-	const [gender, setGender] = useState('Male');
+	const [email, setEmail] = useState('');
+	const [name, setName] = useState('');
+	const [college, setCollege] = useState('');
+	const [gender, setGender] = useState('Gender');
 	const [interest, setInterest] = useState('Education 🎓');
 
 	const [isGenderDropDownOpen, setIsGenderDropDownOpen] = useState(false);
 	const [isInterestDropDownOpen, setIsInterestDropDownOpen] = useState(false);
+	const [_it, set_it] = useState(false);
+	const user = useSelector((state: any) => state.appdata.user);
 
 	const InputFeeds = [
 		{
 			label: 'Email Address',
-			placeholderText: 'email',
+			placeholderText: 'Email',
 			onInputChange: (e: any) => setEmail(e.target.value),
 			stateName: email,
 		},
 		{
 			label: 'Name',
-			placeholderText: 'name',
+			placeholderText: 'Name',
 			onInputChange: (e: any) => setName(e.target.value),
 			stateName: name,
 		},
 		{
 			label: 'College',
-			placeholderText: 'college',
+			placeholderText: 'College',
 			onInputChange: (e: any) => setCollege(e.target.value),
 			stateName: college,
 		},
@@ -230,7 +261,6 @@ function Profile() {
 			text: 'Female',
 			onclickOption: () => {
 				setIsGenderDropDownOpen(false);
-
 				setGender('Female');
 			},
 		},
@@ -239,6 +269,13 @@ function Profile() {
 			onclickOption: () => {
 				setIsGenderDropDownOpen(false);
 				setGender('Gender Diverse');
+			},
+		},
+		{
+			text: 'Prefer Not to Say',
+			onclickOption: () => {
+				setIsGenderDropDownOpen(false);
+				setGender('Prefer Not to Say');
 			},
 		},
 	];
@@ -312,7 +349,37 @@ function Profile() {
 				dispatch(initUpdate(user.interests));
 			}
 		}
+		setEmail(user?.userEmail);
+		setName(user?.userFullName);
+		setCollege(user?.college);
+		if (user?.gender === '') {
+			setGender('Gender');
+		}
+		if (user?.gender === 'male') {
+			setGender('Male');
+		}
+
+		if (user?.gender === 'female') {
+			setGender('Female');
+		}
+		if (user?.gender === 'not-specified') {
+			setGender('Gender Diverse');
+		}
 	}, [user]);
+	React.useEffect(() => {
+		setSaveProfile(true);
+	}, [email, college, name, gender]);
+	const handleProfileSave = async () => {
+		await dispatch(
+			_updateUserDetails({
+				userFullName: name,
+				college: college,
+				gender: gender,
+			}),
+		).then(() => {
+			dispatch(showToast('Profile Updated Successfully'));
+		});
+	};
 	return (
 		<Container>
 			<Header>
@@ -358,6 +425,9 @@ function Profile() {
 							</DropDownMainContainer>
 						)}
 					</CommonInputContainer>
+					{saveProfile && (
+						<SaveBtn onClick={handleProfileSave}>Update Profile</SaveBtn>
+					)}
 				</LeftContainer>
 
 				<RightContainer>
