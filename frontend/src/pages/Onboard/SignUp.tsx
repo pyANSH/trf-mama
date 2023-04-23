@@ -31,7 +31,7 @@ const RightContainer = styled.div`
 `;
 
 const Header = styled.div`
-  padding: 56px 0 0 95px;
+  padding: 62px 0 0 68px;
   width: fit-content;
 `;
 
@@ -71,21 +71,22 @@ const CatImage = styled.img`
   height: 100%;
 `;
 
-const DashBoardBtn =styled.div`
+const DashBoardBtn = styled.div`
 padding: 8px 16px;
 
 border:none;
 border-radius: 100px;
-background:${({theme})=>theme.app.primary['500']};
-color:${({theme})=>theme.app.shades.white};
+background:${({ theme }) => theme.app.primary['500']};
+color:${({ theme }) => theme.app.shades.white};
 
+cursor:pointer;
 `;
 
 function SignUp() {
 	const dispatch: any = useDispatch();
 	const navigate = useNavigate();
 
-	const [cookies, setCookie] = useCookies(); 
+	const [cookies, setCookie] = useCookies();
 	function decodeJwtResponse(token: string) {
 		const base64Url = token.split('.')[1];
 		const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -103,7 +104,7 @@ function SignUp() {
 	useEffect(() => {
 		window.google.accounts.id.initialize({
 			client_id:
-        '6951006710-td58cqht8oke2isd8fl5c9uv2t1r7bka.apps.googleusercontent.com',
+				'6951006710-td58cqht8oke2isd8fl5c9uv2t1r7bka.apps.googleusercontent.com',
 			callback: handleCredentialResponse,
 		});
 		window.google.accounts.id.renderButton(
@@ -141,7 +142,7 @@ function SignUp() {
 
 		if (res.meta.requestStatus === 'fulfilled') {
 			initAPI({ token: res.payload.data.token });
-			setCookie('token',res.payload.data.token);
+			setCookie('token', res.payload.data.token);
 
 			if (res.payload.data.interests.length === 0) {
 				setInterestModal(true);
@@ -157,7 +158,7 @@ function SignUp() {
 
 
 
-	const userDetails = useSelector((state:any)=>state?.appdata?.user);
+	const userDetails = useSelector((state: any) => state?.appdata?.user);
 	return (
 		<Container>
 			<LeftContainer>
@@ -165,12 +166,12 @@ function SignUp() {
 					<Logo onClick={handleHomeRoute}>mama.</Logo>
 				</Header>
 
-				{userDetails?._id?
+				{userDetails?._id ?
 					<MainContent>
 						<LoginText>You are already logged in , click below to redirect to your dashboard</LoginText>
-						<DashBoardBtn onClick={()=>navigate('/dashboard')}>Dashboard</DashBoardBtn>
+						<DashBoardBtn onClick={() => navigate('/dashboard')}>Dashboard</DashBoardBtn>
 					</MainContent>
-					:<MainContent>
+					: <MainContent>
 						<LoginText>Login</LoginText>
 						<div id="buttonDiv"></div>
 					</MainContent>}
