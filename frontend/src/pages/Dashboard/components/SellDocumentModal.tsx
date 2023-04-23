@@ -2,7 +2,12 @@ import { CaretDown, CaretUp, Check, X } from 'phosphor-react';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { appTypography } from '../../../config/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTags, initTags, removeTags } from '../../../Store/Reducers/notes';
 
+import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+import { storage } from '../../../firebase/firebase';
+import { _uploadNotes } from '../../../Store/Thunk/notes';
 
 const Backdrop = styled.div(({ theme }) => ({
 	position: 'fixed',
@@ -200,11 +205,41 @@ align-items: center;
 flex-wrap: wrap;
 `;
 
-function SellDocumentModal({setUploadFiles,uploadFiles}:{setUploadFiles:any,uploadFiles:any}) {
+const HeaderContainer =styled.div`
+display: flex;
+justify-content: flex-end;
+width: 100%;
+`;
+
+const CloseContainer =styled.div`
+display: flex;
+gap: 8px;
+background:${({theme})=>theme.app.neutral['800']};
+border-radius: 100px;
+align-items: center;
+padding: 8px;
+cursor: pointer;
+`;
+
+const CloseText =styled.p(({theme})=>({
+	...appTypography.paraMed.regular,
+	color:theme.app.shades.white
+}));
+
+const CloseIconMain =styled(X)(({theme})=>({
+	width:'16px',
+	height:'16px',
+	color:theme.app.shades.white,
+	cursor:'pointer'
+}));
+
+function SellDocumentModal({setUploadFiles,uploadFiles,setIsDetailsModal}:{setUploadFiles:any,uploadFiles:any,setIsDetailsModal:any}) {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
-	const [tag, setTag] = useState<string>('');
-	const [tagArr, setTagArr] = useState([]);
+	const [tag, setTag] = useState<any>('');
+	const userDetails = useSelector((state:any)=>state.appdata.user);
+	const tagArr = useSelector((state:any)=>state.notes.tags);
+	const dispatch:any = useDispatch();
 	const interestList = [
 		'Education 🎓',
 		'Yeeeah, science! ⚗️',
@@ -231,31 +266,66 @@ function SellDocumentModal({setUploadFiles,uploadFiles}:{setUploadFiles:any,uplo
 			setInterestArr(tempInterstArr);
 		}
 	}
+	const [imgUrl, setImgUrl] = useState();
+	const [progresspercent, setProgresspercent] = useState(0);
 	function handleSubmit() {
-    
+		if(interestArr.length<1&&!title){
+			console.log('sab daal gavar');
+			return;
+		}
+        
+		const storageRef = ref(storage, `files/${uploadFiles.name}`);
+		const uploadTask = uploadBytesResumable(storageRef, uploadFiles);
+
+		uploadTask.on('state_changed',
+			(snapshot) => {
+				const progress =
+            Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+				setProgresspercent(progress);
+			},
+			(error) => {
+				alert(error);
+			},
+			() => {
+				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL:any) => {                
+					setImgUrl(downloadURL);
+					dispatch(_uploadNotes({title,file:uploadFiles,fileUrl:downloadURL,userId:userDetails._id,description,category:interestArr}));
+				});
+			}
+		);
+		console.log(imgUrl);
+
+
 	}
 
 	function handleAddTags() {
 		if(tag.length>0){
-			const tempTagArr:any = tagArr;
-			tempTagArr.push(tag);
-			setTagArr(tempTagArr);
+			dispatch(addTags(tag));
 			setTag('');
 		}else{
 			return;
 		}
 	}
-	function handleDeleteTags(tagName:string) {
-		const tempTagArr:any = tagArr;
-		const arrIndeex=tempTagArr.findIndex((arrVal:string)=>arrVal===tagName);
-		tempTagArr.splice(arrIndeex,1);
-		setTagArr(tempTagArr);
+	function handleDeleteTags(index:any) {
+		dispatch(removeTags(index));
+	}
+
+	function handleCloseDropdown() {
+		dispatch(initTags());
+		setUploadFiles();
+		setIsDetailsModal(false);
 	}
         
 	return (
 		<>
 			<Backdrop />
 			<ModalMainContainer>
+				<HeaderContainer>
+					<CloseContainer onClick={handleCloseDropdown}>
+						<CloseText>Close</CloseText>
+						<CloseIconMain/>
+					</CloseContainer>
+				</HeaderContainer>
 				<InterstContainer>
 					{interestList.map((interest,index) => (
 						<SingleInterestText
@@ -277,12 +347,12 @@ function SellDocumentModal({setUploadFiles,uploadFiles}:{setUploadFiles:any,uplo
 				</TagsAddContainer>
 				{tagArr?.length>0 && <ActiveTagsContainer>
 					{
-						tagArr?.map((tag,index)=>(
+						tagArr?.map((tag:any,index:any)=>(
 							<ActiveTagMainContainer key={index}>
 								<TagText>
 									{tag}
 								</TagText>
-								<CloseIcon onClick={()=>handleDeleteTags(tag)} />
+								<CloseIcon onClick={()=>handleDeleteTags(index)} />
 							</ActiveTagMainContainer>
 						))
 					}

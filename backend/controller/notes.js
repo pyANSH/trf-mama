@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 exports.upload_notes = async (req, res) => {
-    const { fileUrl, userId, fileName, fileSize, noteTitle, fileType, category, description } = req.body;
+    const { fileUrl, userId, fileName, fileSize, noteTitle, fileType, category, description, tags } = req.body;
     const user = await userModal.findById(userId);
-    if (!fileUrl || !userId || !fileName || !fileSize || !noteTitle || !fileType || !category || !description) {
+    if (!fileUrl || !userId || !fileName || !fileSize || !noteTitle || !fileType || !category || !description || !tags) {
         return res.status(400).json({
             error: 'Please fill all the fields',
         });
@@ -21,6 +21,7 @@ exports.upload_notes = async (req, res) => {
             fileType,
             category,
             description,
+            tags
         });
         await notes.save();
         return res.status(200).json({
@@ -54,9 +55,9 @@ exports.get_notes = async (req, res) => {
     }
 };
 exports.update_notes = async (req, res) => {
-    const { noteId, userId, noteTitle, category, description } = req.body;
+    const { noteId, userId, noteTitle, category, description, tags } = req.body;
     const { token } = req.headers;
-    if (!noteId || !userId || !noteTitle || !category || !description) {
+    if (!noteId || !userId || !noteTitle || !category || !description || !tags) {
         return res.status(400).json({
             error: 'Please fill all the fields',
         });
@@ -79,6 +80,7 @@ exports.update_notes = async (req, res) => {
         notes.noteTitle = noteTitle;
         notes.category = category;
         notes.description = description;
+        notes.tags = tags;
         await notes.save();
         return res.status(200).json({
             response: "Notes updated",

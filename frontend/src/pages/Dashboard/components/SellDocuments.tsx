@@ -291,7 +291,7 @@ function SellDocuments() {
 					</UplaodContainer>
 
 
-					{isDetailsModal && <SellDocumentModal uploadFiles={uploadFiles} setUploadFiles={setUploadFiles}/>}
+					{isDetailsModal && <SellDocumentModal uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} setIsDetailsModal={setIsDetailsModal}/>}
 				</UploadDocumentContainer>
 
 				<StatsContainer>
