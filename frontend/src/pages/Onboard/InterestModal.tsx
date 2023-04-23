@@ -6,63 +6,64 @@ import { useDispatch } from 'react-redux';
 import { _updateUser } from '../../Store/Thunk/Onboard';
 import { useNavigate } from 'react-router-dom';
 const Backdrop = styled.div(({ theme }) => ({
-	position: 'fixed',
-	height: '100vh',
-	width: '100vw',
-	top: '50%',
-	left: '50%',
+  position: 'fixed',
+  height: '100vh',
+  width: '100vw',
+  top: '50%',
+  left: '50%',
 
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-	transform: 'translate(-50%, -50%)',
-	background: theme.app.neutral['500'],
-	opacity: 0.3,
-	zIndex: 2,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  transform: 'translate(-50%, -50%)',
+  background: theme.app.neutral['500'],
+  opacity: 0.3,
+  zIndex: 2,
 }));
 const BtnConfirm = styled.button(() => ({
-	color: '#fff',
-	background: '#9E4CDC',
-	borderRadius: '16px',
-	padding: '8px 16px',
-	cursor: 'pointer',
-	border: 'none',
-	outline: 'none',
+  color: '#fff',
+  background: '#9E4CDC',
+  cursor: 'pointer',
+  border: 'none',
+  outline: 'none',
+  borderRadius: '28px',
+  padding: '12px 46px',
+  fontSize: '18px',
 }));
 
 const ModalMainContainer = styled.div(({ theme }) => ({
-	display: 'flex',
-	flexDirection: 'column',
-	alignItems: 'center',
-	padding: '24px 30px 14px',
-	gap: '14px',
-	position: 'fixed',
-	top: '50%',
-	left: '50%',
-	transform: 'translate(-50%, -50%)',
-	width: '420px',
-	background: theme.app.shades.white,
-	boxShadow: '0px -4px 42px rgba(84, 84, 84, 0.03)',
-	borderRadius: '24px',
-	zIndex: 3,
-	'@media (max-width:575px)': {
-		width: '300px',
-	},
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: '30px',
+  gap: '14px',
+  position: 'fixed',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '420px',
+  background: theme.app.shades.white,
+  boxShadow: '0px -4px 42px rgba(84, 84, 84, 0.03)',
+  borderRadius: '24px',
+  zIndex: 3,
+  '@media (max-width:575px)': {
+    width: '300px',
+  },
 }));
 
 const SingleInterestContainer = styled.div``;
 const SingleInterestText = styled.p(
-	({ theme, isActive }: { theme: any; isActive: boolean }) => ({
-		...appTypography.paraMed.regular,
-		color: isActive ? theme.app.shades.white : theme.app.typography['900'],
-		background: isActive ? theme.app.primary['500'] : 'initial',
-		padding: '8px',
-		border: isActive
-			? `1px solid ${theme.app.shades.white}`
-			: `1px solid ${theme.app.neutral['800']}`,
-		borderRadius: '100px',
-		cursor: 'pointer',
-	}),
+  ({ theme, isActive }: { theme: any; isActive: boolean }) => ({
+    ...appTypography.paraMed.regular,
+    color: isActive ? theme.app.shades.white : theme.app.typography['900'],
+    background: isActive ? theme.app.primary['500'] : 'initial',
+    padding: '8px 22px',
+    border: isActive
+      ? `1px solid ${theme.app.shades.white}`
+      : `1px solid ${theme.app.neutral['800']}`,
+    borderRadius: '100px',
+    cursor: 'pointer',
+  }),
 );
 
 const InterstContainer = styled.div`
@@ -83,6 +84,7 @@ const DropDownAns = styled.div`
   justify-content: space-between;
   cursor: pointer;
   align-items: center;
+  width: 100%;
 `;
 
 const DropDownMainContainer = styled.div`
@@ -129,94 +131,94 @@ const DownArrowIcon = styled(CaretDown)`
 `;
 
 function InterestModal() {
-	const interestList = [
-		'Education 🎓',
-		'Yeeeah, science! ⚗️',
-		'Art 🎭',
-		'Sport ⚽',
-		'Games 🎮',
-		'Health 🏥',
-	];
+  const interestList = [
+    'Education 🎓',
+    'Yeeeah, science! ⚗️',
+    'Art 🎭',
+    'Sport ⚽',
+    'Games 🎮',
+    'Health 🏥',
+  ];
 
-	const [isUserTypeDropdownOpen, setIsUserTypeDropdownOpen] = useState(false);
+  const [isUserTypeDropdownOpen, setIsUserTypeDropdownOpen] = useState(false);
 
-	const [userType, setUserType] = useState('Student');
+  const [userType, setUserType] = useState('Student');
 
-	const userDropdownList = ['Student', 'Mentor'];
-	const navigate = useNavigate();
-	const [interestArr, setInterestArr] = useState<string[]>([]);
-	const dispatch: any = useDispatch();
-	function handleInterestInsert(interestName: string) {
-		if (interestArr.some((interest: string) => interest === interestName)) {
-			const interestIndex = interestArr.findIndex(
-				(interest: string) => interest === interestName,
-			);
-			const tempInterstArr = [...interestArr];
-			tempInterstArr.splice(interestIndex, 1);
-			setInterestArr(tempInterstArr);
-		} else {
-			if (interestArr.length > 2) {
-				return;
-			}
-			const tempInterstArr = [...interestArr];
-			tempInterstArr.push(interestName);
-			setInterestArr(tempInterstArr);
-		}
-	}
-	const handleSubmit = async () => {
-		const res = await dispatch(
-			_updateUser({
-				interests: interestArr,
-				isMentor: userType === 'Mentor' ? true : false,
-			}),
-		);
-		if (res.payload.status === 200) {
-			navigate('/dashboard');
-		}
-		console.warn(res);
-	};
-	return (
-		<>
-			<Backdrop />
-			<ModalMainContainer>
-				<InterstContainer>
-					{interestList.map((interest,index) => (
-						<SingleInterestText
-							isActive={interestArr.some(
-								(interestName: string) => interestName === interest,
-							)}
-							onClick={() => handleInterestInsert(interest)}
-							key={index}
-						>
-							{interest}
-						</SingleInterestText>
-					))}
-				</InterstContainer>
-				<DropDownAns
-					onClick={() => setIsUserTypeDropdownOpen(!isUserTypeDropdownOpen)}
-				>
-					<GenderText>{userType}</GenderText>
-					{isUserTypeDropdownOpen ? <UpArrowIcon /> : <DownArrowIcon />}
-				</DropDownAns>
-				{isUserTypeDropdownOpen && (
-					<DropDownMainContainer>
-						{userDropdownList.map((feed) => (
-							<DropDownOption
-								onClick={() => {
-									setUserType(feed);
-									setIsUserTypeDropdownOpen(false);
-								}}
-							>
-								<DropDownOptionText>{feed}</DropDownOptionText>
-								{userType === feed && <TickIcon />}
-							</DropDownOption>
-						))}
-					</DropDownMainContainer>
-				)}
-				<BtnConfirm onClick={handleSubmit}>Confirm</BtnConfirm>
-			</ModalMainContainer>
-		</>
-	);
+  const userDropdownList = ['Student', 'Mentor'];
+  const navigate = useNavigate();
+  const [interestArr, setInterestArr] = useState<string[]>([]);
+  const dispatch: any = useDispatch();
+  function handleInterestInsert(interestName: string) {
+    if (interestArr.some((interest: string) => interest === interestName)) {
+      const interestIndex = interestArr.findIndex(
+        (interest: string) => interest === interestName,
+      );
+      const tempInterstArr = [...interestArr];
+      tempInterstArr.splice(interestIndex, 1);
+      setInterestArr(tempInterstArr);
+    } else {
+      if (interestArr.length > 2) {
+        return;
+      }
+      const tempInterstArr = [...interestArr];
+      tempInterstArr.push(interestName);
+      setInterestArr(tempInterstArr);
+    }
+  }
+  const handleSubmit = async () => {
+    const res = await dispatch(
+      _updateUser({
+        interests: interestArr,
+        isMentor: userType === 'Mentor' ? true : false,
+      }),
+    );
+    if (res.payload.status === 200) {
+      navigate('/dashboard');
+    }
+    console.warn(res);
+  };
+  return (
+    <>
+      <Backdrop />
+      <ModalMainContainer>
+        <InterstContainer>
+          {interestList.map((interest, index) => (
+            <SingleInterestText
+              isActive={interestArr.some(
+                (interestName: string) => interestName === interest,
+              )}
+              onClick={() => handleInterestInsert(interest)}
+              key={index}
+            >
+              {interest}
+            </SingleInterestText>
+          ))}
+        </InterstContainer>
+        <DropDownAns
+          onClick={() => setIsUserTypeDropdownOpen(!isUserTypeDropdownOpen)}
+        >
+          <GenderText>{userType}</GenderText>
+          {isUserTypeDropdownOpen ? <UpArrowIcon /> : <DownArrowIcon />}
+        </DropDownAns>
+        {isUserTypeDropdownOpen && (
+          <DropDownMainContainer>
+            {userDropdownList.map((feed) => (
+              <DropDownOption
+                onClick={() => {
+                  setUserType(feed);
+                  setIsUserTypeDropdownOpen(false);
+                }}
+              >
+                <DropDownOptionText>{feed}</DropDownOptionText>
+                {userType === feed && <TickIcon />}
+              </DropDownOption>
+            ))}
+          </DropDownMainContainer>
+        )}
+        <BtnConfirm onClick={handleSubmit}>Confirm</BtnConfirm>
+      </ModalMainContainer>
+    </>
+  );
 }
 
 export default InterestModal;

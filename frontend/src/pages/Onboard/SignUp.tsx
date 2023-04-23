@@ -79,6 +79,7 @@ border-radius: 100px;
 background:${({ theme }) => theme.app.primary['500']};
 color:${({ theme }) => theme.app.shades.white};
 
+cursor:pointer;
 `;
 
 function SignUp() {
