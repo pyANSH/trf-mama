@@ -8,6 +8,7 @@ const Container =styled.div`
 display: flex;
 flex-direction: column;
 gap:40px;
+  padding-block-end: 24px;
 
 `;
 
