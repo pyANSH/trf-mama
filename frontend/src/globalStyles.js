@@ -10,6 +10,7 @@ html {
 body {
   padding: 0;
   margin: 0;
+  letter-spacing: -0.06em; //added this here because it was present in the index.css file
    /* font-family: "Work Sans", sans-serif; */
    background: #ffffff;
         /* transition: all 0.50s linear; */
