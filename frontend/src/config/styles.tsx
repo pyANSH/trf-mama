@@ -1,3 +1,7 @@
+export const ResponsiveConfigs = {
+	dashboardHeaderHeight: '100px',
+};
+
 export const lightThemeColorScheme = {
 	app: {
 		neutral: {
