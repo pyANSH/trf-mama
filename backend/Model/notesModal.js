@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const notesShcema = mongoose.Schema({
+const notesSchema = mongoose.Schema({
     fileUrl: {
         type: String,
         required: true,
@@ -35,5 +35,9 @@ const notesShcema = mongoose.Schema({
         type: String,
         required: true,
     },
+    tags: {
+        type: [String],
+        required: true,
+    },
 });
-module.exports = mongoose.model('notes', notesShcema);
+module.exports = mongoose.model('notes', notesSchema);
