@@ -141,3 +141,13 @@ exports.update_user_profile = (req, res) => {
     })
 }
 
+exports.mentors_get=async (req, res) => {
+    try {
+      const mentors = await userModal.find({ isMentor: true });
+    //   console.log(mentors);
+      res.status(200).json(mentors);
+    } catch (err) {
+    //   console.error(err);
+      res.status(500).json({ error: 'Server error' });
+    }
+  };

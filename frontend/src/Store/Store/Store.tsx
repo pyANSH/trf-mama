@@ -5,6 +5,7 @@ import appdata from '../Reducers/onboard';
 import Profile from '../Reducers/Profile';
 import notes from '../Reducers/notes';
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
+import mentors from '../Reducers/mentors';
 
 export const store = configureStore({
 	reducer: {
@@ -12,7 +13,8 @@ export const store = configureStore({
 		test: TestReducer,
 		profile: Profile,
 		appdata,
-		notes
+		notes,
+		mentors
 	},
 	// non-serializable values in the store + redux-logger
 	middleware: getDefaultMiddleware({

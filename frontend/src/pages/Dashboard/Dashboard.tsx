@@ -12,6 +12,7 @@ import SellDocuments from './components/SellDocuments';
 import { useNavigate } from 'react-router-dom';
 import { ChatCircleDots } from 'phosphor-react';
 import { SignOut } from 'phosphor-react';
+import Meeting from './components/Meeting';
 const Sup = styled.div`
   height: 100vh;
   width: 100vw;
@@ -97,22 +98,22 @@ const UserIcon = styled(User)`
 `;
 
 const OptionText = styled.p(() => ({
-  fontWeight: '500',
-  fontSize: '18px',
-  lineHeight: '26px',
+	fontWeight: '500',
+	fontSize: '18px',
+	lineHeight: '26px',
 }));
 
 const CommonIcons = {
-  height: '24px',
-  width: '24px',
+	height: '24px',
+	width: '24px',
 };
 const SidebarOptionIcon = styled.div(({}) => ({
-  ...CommonIcons,
-  color: 'inherit',
+	...CommonIcons,
+	color: 'inherit',
 }));
 const ContentContainer = styled.div(({ theme }) => ({
-  //   width: "78%",
-  //   height: "100%",
+	//   width: "78%",
+	//   height: "100%",
 }));
 
 const MainContainer = styled.div`
@@ -132,91 +133,91 @@ const LtContainer = styled.div`
 `;
 
 function Dashboard() {
-  const navigate = useNavigate();
-  const [tab, setTab] = useState(0);
+	const navigate = useNavigate();
+	const [tab, setTab] = useState(0);
 
-  const sidebarOptions = [
-    {
-      icon: <SquareFourIcon />,
-      text: 'Dashboard',
-      /* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
-    },
-    {
-      icon: <SellIcon />,
-      text: 'Sell Documents',
-      component: <SellDocuments />,
-    },
-    {
-      icon: <BooksIcon />,
-      text: 'The Notebank',
-      component: <Notebank />,
-    },
-    {
-      icon: <CapIcon />,
-      text: 'Community',
-      /* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
-    },
-    {
-      icon: <UserIcon />,
-      text: 'Profile',
-      component: <Profile />,
-    },
-  ];
+	const sidebarOptions = [
+		{
+			icon: <SquareFourIcon />,
+			text: 'Dashboard',
+			component:<Meeting/> 
+		},
+		{
+			icon: <SellIcon />,
+			text: 'Sell Documents',
+			component: <SellDocuments />,
+		},
+		{
+			icon: <BooksIcon />,
+			text: 'The Notebank',
+			component: <Notebank />,
+		},
+		{
+			icon: <CapIcon />,
+			text: 'Community',
+			/* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
+		},
+		{
+			icon: <UserIcon />,
+			text: 'Profile',
+			component: <Profile />,
+		},
+	];
 
-  function handleSidebarOptionClick(index: any, option: any) {
-    setTab(index);
-  }
+	function handleSidebarOptionClick(index: any, option: any) {
+		setTab(index);
+	}
 
-  return (
-    <Sup>
-      <Container>
-        <Header>
-          <LogoText
-            onClick={() => {
-              navigate('/dashboard');
-            }}
-          >
+	return (
+		<Sup>
+			<Container>
+				<Header>
+					<LogoText
+						onClick={() => {
+							navigate('/dashboard');
+						}}
+					>
             mama.
-          </LogoText>
-        </Header>
-        <MainContainer>
-          <LeftContainer>
-            <div>
-              {sidebarOptions.map((option, index) => {
-                if (!option) return null; //? to handle null value in array
-                return (
-                  <>
-                    <SingleMenuItem
-                      key={index}
-                      onClick={() => handleSidebarOptionClick(index, option)}
-                    >
-                      <SidebarOptionIcon>{option.icon}</SidebarOptionIcon>
-                      <OptionText>{option.text}</OptionText>
-                    </SingleMenuItem>
-                  </>
-                );
-              })}
-            </div>
-            <LtContainer>
-              <SingleMenuItem>
-                <SidebarOptionIcon>
-                  <ChatCircleDots fontSize={24} />
-                </SidebarOptionIcon>
-                <OptionText>Help Center</OptionText>
-              </SingleMenuItem>
-              <SingleMenuItem>
-                <SidebarOptionIcon>
-                  <SignOut size={24} />
-                </SidebarOptionIcon>
-                <OptionText>Logout</OptionText>
-              </SingleMenuItem>
-            </LtContainer>
-          </LeftContainer>
-          <ContentContainer>{sidebarOptions[tab]?.component}</ContentContainer>
-        </MainContainer>
-      </Container>
-    </Sup>
-  );
+					</LogoText>
+				</Header>
+				<MainContainer>
+					<LeftContainer>
+						<div>
+							{sidebarOptions.map((option, index) => {
+								if (!option) return null; //? to handle null value in array
+								return (
+									<>
+										<SingleMenuItem
+											key={index}
+											onClick={() => handleSidebarOptionClick(index, option)}
+										>
+											<SidebarOptionIcon>{option.icon}</SidebarOptionIcon>
+											<OptionText>{option.text}</OptionText>
+										</SingleMenuItem>
+									</>
+								);
+							})}
+						</div>
+						<LtContainer>
+							<SingleMenuItem>
+								<SidebarOptionIcon>
+									<ChatCircleDots fontSize={24} />
+								</SidebarOptionIcon>
+								<OptionText>Help Center</OptionText>
+							</SingleMenuItem>
+							<SingleMenuItem>
+								<SidebarOptionIcon>
+									<SignOut size={24} />
+								</SidebarOptionIcon>
+								<OptionText>Logout</OptionText>
+							</SingleMenuItem>
+						</LtContainer>
+					</LeftContainer>
+					<ContentContainer>{sidebarOptions[tab]?.component}</ContentContainer>
+				</MainContainer>
+			</Container>
+		</Sup>
+	);
 }
 
 export default Dashboard;
