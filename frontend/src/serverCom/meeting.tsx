@@ -17,3 +17,12 @@ export const getMeetings = async({ params }: any) => {
 	});
 	return response;
 };
+
+export const updateMeetingStatus= async ({ body }: any) => {
+	const response = await commonAPI({
+		path: '/meeting/update',
+		method: 'PUT',
+		body,
+	});
+	return response;
+};

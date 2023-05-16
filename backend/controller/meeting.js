@@ -18,7 +18,6 @@ exports.schedule_create = async (req, res) => {
 
         const findMentor = await userModal.find({ _id: request.mentorId })
         const findMentee = await userModal.find({ _id: request.menteeId })
-
         findMentor[0].meetings.push(meeting._id)
         findMentee[0].meetings.push(meeting._id)
         findMentor[0].save()

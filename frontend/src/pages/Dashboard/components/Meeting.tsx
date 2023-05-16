@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import MentorMeetingModal from './MentorMeetingModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { _getMentorList } from '../../../Store/Thunk/users';
-import { _getMeetings } from '../../../Store/Thunk/meeting';
+import { _AcceptInvite, _RejectInvite, _getMeetings } from '../../../Store/Thunk/meeting';
 const Container =styled.div`
 display:flex;
 flex-direction:column;
@@ -25,6 +25,27 @@ function SeperateMentor({men}:{men:any}) {
 	);
 }
 function SeperateMeetings({men}:{men:any}) {
+	const dispatch:any = useDispatch();
+
+	function handleAccept() {
+
+		const body = {
+			meetingId:men._id,
+			meetingStatus:'accepted'
+		};
+		dispatch(_AcceptInvite({body}));
+		
+	}
+
+	function handleReject() {
+		const body = {
+			meetingId:men._id,
+			meetingStatus:'rejected'
+		};
+		dispatch(_RejectInvite({body}));
+		
+		
+	}
 	return(
 		<>
 			<div  style={{display:'flex'}}>
@@ -35,6 +56,8 @@ function SeperateMeetings({men}:{men:any}) {
 				<p>{men.meetingStatus}</p>
 				<p>{men.meetingDate}</p>
 				<p>{men.meetingTime}</p>
+				<p onClick={handleAccept}>Accept</p>
+				<p onClick={handleReject}>Reject</p>
 			</div>
 			
 		</>

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getMeetings, scheduleMeeting } from '../../serverCom/meeting';
+import { getMeetings, scheduleMeeting, updateMeetingStatus } from '../../serverCom/meeting';
 
 export const _scheduleMeeting = createAsyncThunk(
 	'meeting/scheduleMeeting',
@@ -23,6 +23,38 @@ export const _getMeetings = createAsyncThunk(
 			console.log(response);
 			
 			return {response:response.data.meetings};
+      
+		} catch (error) {
+			rejectWithValue(error);
+  
+		}
+	}
+);
+
+export const _AcceptInvite = createAsyncThunk(
+	'meetings/AcceptInvite',
+	async({body}:{body:any},{rejectWithValue})=>{
+		try {
+			
+			const response =await updateMeetingStatus({body});
+			console.log(response);
+			return {meetingId:body.meetingId};
+
+      
+		} catch (error) {
+			rejectWithValue(error);
+  
+		}
+	}
+);
+export const _RejectInvite = createAsyncThunk(
+	'meetings/RejectInvite',
+	async({body}:{body:any},{rejectWithValue})=>{
+		try {
+			
+			const response =await updateMeetingStatus({body});
+			
+			return {meetingId:body.meetingId};
       
 		} catch (error) {
 			rejectWithValue(error);
