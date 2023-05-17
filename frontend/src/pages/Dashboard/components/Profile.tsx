@@ -17,6 +17,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 60px;
+  padding-block-end: 24px;
 `;
 
 const Header = styled.div`
@@ -28,7 +29,7 @@ const Header = styled.div`
 const Topic = styled.p`
   font-weight: 500;
   font-size: 36px;
-  line-height: 24px;
+  /* line-height: 24px; */
 `;
 
 const Caption = styled.p`
@@ -389,8 +390,8 @@ function Profile() {
 			</Header>
 			<MainContainer>
 				<LeftContainer>
-					{InputFeeds.map((feed) => (
-						<CommonInputContainer>
+					{InputFeeds.map((feed,index) => (
+						<CommonInputContainer key={index}>
 							<CommonInputText>{feed.label}</CommonInputText>
 							<CommonInput
 								value={feed.stateName}
@@ -410,8 +411,8 @@ function Profile() {
 						</DropDownAns>
 						{isGenderDropDownOpen && (
 							<DropDownMainContainer>
-								{dropdownFeeds.map((feed) => (
-									<DropDownOption
+								{dropdownFeeds.map((feed,index) => (
+									<DropDownOption key={index}
 										// isActive={gender===feed.text}
 										onClick={feed.onclickOption}
 									>
@@ -473,8 +474,8 @@ function Profile() {
 
 						{isInterestDropDownOpen && (
 							<DropDownMainContainer>
-								{interestDropdownFeeds.map((feed) => (
-									<DropDownOption
+								{interestDropdownFeeds.map((feed,index) => (
+									<DropDownOption key={index}
 										// isActive={gender===feed.text}
 										onClick={feed.onclickOption}
 									>

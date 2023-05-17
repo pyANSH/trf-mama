@@ -13,6 +13,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   height: 100%;
+  padding-block-end: 24px;
 `;
 
 const LeftContainer = styled.div`
