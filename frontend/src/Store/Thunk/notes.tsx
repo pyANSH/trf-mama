@@ -49,3 +49,22 @@ export const _uploadNotes = createAsyncThunk(
 	},
 );
 
+export const _deleteNotes = createAsyncThunk(
+	'notes/deleteNotes',
+	async ({noteId,userId}:{noteId?:any,userId:any}, { rejectWithValue }) => {
+		try {
+			const body={
+				noteId,
+				userId
+			};
+			const response = await uploadNotes({body});
+			console.log(response);
+			
+            
+			return {response:response.data.data};
+		} catch (error) {
+			rejectWithValue(error);
+		}
+	},
+);
+

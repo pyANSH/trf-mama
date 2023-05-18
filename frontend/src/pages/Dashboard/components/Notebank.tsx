@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {MagnifyingGlass,SquaresFour} from 'phosphor-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { _getNotes } from '../../../Store/Thunk/notes';
+import { appTypography } from '../../../config/styles';
 
 const Container =styled.div`
 display: flex;
@@ -86,24 +87,28 @@ border-radius: 12px;
 display: flex;
 flex-direction: column;
 gap: 24px;
+text-decoration: none;
+-webkit-box-shadow: 0px 0px 31px -14px #BCBCBC;
+-moz-box-shadow: 0px 0px 31px -14px #BCBCBC;
+box-shadow: 0px 0px 31px -14px #BCBCBC;
 `;
 
-const DocDesc =styled.p`
-font-weight: 400;
-font-size: 14px;
-line-height: 16px;
-`;
+const DocDesc =styled.p(({theme})=>({
+	...appTypography.paraSmall.regular,
+	color:theme.app.typography['500'],
+	textAlign:'center'
+}));
 
-const DocHeading =styled.p`
-font-weight: 500;
-font-size: 18px;
-line-height: 21px;
-`;
+const DocHeading =styled.p(({theme})=>({
+	...appTypography.paraMed.regular,
+	color:theme.app.typography['900'],
+	textAlign:'center'
+}));
 
 const DocInfo =styled.div`
 display: flex;
 flex-direction: column;
-gap: 4px;
+gap: 8px;
 width: 256px;
 
 `;
@@ -116,7 +121,15 @@ border-radius: 12px;
 `;
 
 
-
+const DeleteBtn =styled.div(({theme})=>({
+	...appTypography.paraSmall.regular,
+	background:theme.app.error['100'],
+	color:theme.app.error['500'],
+	textAlign:'center',
+	textDecoration:'none',
+	borderRadius:'16px',
+	padding:'8px'
+}));
 
 function Notebank() {
 	const userDetails = useSelector((state:any)=>state?.appdata?.user);
@@ -182,6 +195,7 @@ function Notebank() {
 								{note.description}
 							</DocDesc>
 						</DocInfo>
+						{userDetails?._id ===note?.userId &&<DeleteBtn>Delete</DeleteBtn>}
 					</SingleDocCard>
 				))}
 			</DocumentsContainer>
