@@ -6,6 +6,8 @@ import {
 	CheckSquareOffset,
 	FireSimple,
 	Medal,
+	GraduationCap,
+	MagicWand,
 } from 'phosphor-react';
 import SellDocumentModal from './SellDocumentModal';
 
@@ -50,7 +52,7 @@ const UploadContainer = styled.div`
 
   padding: 24px;
 
-  gap:24px
+  gap:12px
 `;
 const RecentUploadDiv = styled.div`
   width: 100%;
@@ -67,7 +69,7 @@ const StatsContainer = styled.div`
 const StatsCard = styled.div`
   width: 30%;
   height: 100%;
-  background: #3b4bd5;
+  /* background: #3b4bd5; */
   border: 1px solid #dcdcdc;
   border-radius: 40px;
   display: flex;
@@ -79,7 +81,7 @@ const StatsCard = styled.div`
 
 const StatIconContainer = styled.div`
   padding: 12px;
-  background: #fafafa;
+  background: #dcdcdc;
   border-radius: 14px;
   width: fit-content;
 `;
@@ -89,11 +91,21 @@ const MonitorIcon = styled(Monitor)`
   height: 24px;
 `;
 
+const StudentsIcon = styled(GraduationCap)`
+  width: 24px;
+  height: 24px;
+`;
+
+const MentorIcon = styled(MagicWand)`
+  width: 24px;
+  height: 24px;
+`;
+
 const StatsTitle = styled.p`
   font-weight: 500;
   font-size: 12px;
   line-height: 14px;
-  color: #ffffff;
+  color: #000;
 `;
 
 const StatsInfo = styled.div`
@@ -108,7 +120,7 @@ const StatsNumber = styled.p`
   text-align: center;
   line-height: 42px;
   letter-spacing: -0.06em;
-  color: #ffffff;
+  color: #000;
 `;
 
 const StatsCardContainer = styled.div`
@@ -300,7 +312,7 @@ const UploadIcon = styled(UploadSimple)`
 
 const UploadText = styled.p`
   font-weight: 500;
-  font-size: 24px;
+  font-size: 16px;
   line-height: 19px;
   color: ${({ theme }) => theme.app.typography[500]};
 `;
@@ -347,7 +359,7 @@ function SellDocuments() {
 						{/* <CommonTitleText>Upload Document</CommonTitleText> */}
 						<UploadContainer onClick={handleUploadClick}>
 						
-							<UploadIcon size={42}/>
+							<UploadIcon size={22}/>
 							<UploadText>Upload Document</UploadText>
               
 							<NoInput type='file' ref={uploadRef} onChange={handleUpload} />
@@ -373,20 +385,20 @@ function SellDocuments() {
 							</StatsCard>
 							<StatsCard>
 								<StatIconContainer>
-									<MonitorIcon />
+									<StudentsIcon />
 								</StatIconContainer>
 								<StatsInfo>
-									<StatsTitle>Total Documents</StatsTitle>
+									<StatsTitle>Total Students</StatsTitle>
       
 									<StatsNumber>43</StatsNumber>
 								</StatsInfo>
 							</StatsCard>
 							<StatsCard>
 								<StatIconContainer>
-									<MonitorIcon />
+									<MentorIcon />
 								</StatIconContainer>
 								<StatsInfo>
-									<StatsTitle>Total Documents</StatsTitle>
+									<StatsTitle>Total Mentors</StatsTitle>
       
 									<StatsNumber>43</StatsNumber>
 								</StatsInfo>
