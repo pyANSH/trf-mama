@@ -74,6 +74,9 @@ gap: 16px;
 `;
 
 const LinkInput =styled.input(({theme})=>({
+	padding: '8px 12px',
+	fontSize: '16px',
+	border: `1px solid ${theme.app.neutral[300]}`,
 
 }));
 
@@ -95,7 +98,16 @@ function AcceptMeetingModal({setIsMeetingModalOpen,meetingId}:{setIsMeetingModal
 
 
 	const [link, setLink] = useState();
-
+	const [isValidLink, setIsValidLink] = useState(false);
+	const validateGoogleMeetLink = (link:any) => {
+		const regex = /^https:\/\/meet\.google\.com\/[a-z0-9\-]+$/i;
+		return regex.test(link);
+	  };
+	const handleInputChange = (e:any) => {
+		const inputLink = e.target.value;
+		setLink(inputLink);
+		setIsValidLink(validateGoogleMeetLink(inputLink));
+	  };
 	function handleSubmit() {
 		if(!link){
 			return;
@@ -120,7 +132,12 @@ function AcceptMeetingModal({setIsMeetingModalOpen,meetingId}:{setIsMeetingModal
 					</CloseContainer>
 				</HeaderContainer>
 				<MainContainer>
-					<LinkInput value={link} onChange={(e:any)=>setLink(e.target.value)} placeholder='enter meeting link'/>
+					<LinkInput value={link} onChange={handleInputChange} placeholder='enter meeting link'/>
+					{isValidLink ? (
+						<p>Valid Google Meet link</p>
+					) : (
+						<p>Invalid Google Meet link</p>
+					)}
 					<SubmitBtn onClick={handleSubmit}>Submit</SubmitBtn>
 				</MainContainer>
 			</ModalMainContainer>
