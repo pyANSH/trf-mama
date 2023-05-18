@@ -18,6 +18,34 @@ const MainContainer = styled.div`
     margin-top: 24px;
 `;
 
+const BottomContainer =styled.div`
+display: flex;
+position: fixed;
+bottom: 10px;
+width: 70%;
+`;
+
+const MessageInput =styled.input`
+ padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  width:100%;
+`;
+
+const SendBtn=styled.div`
+padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  &:hover{
+	background-color: #45a049;
+  }
+`;
+
 function Community() {
 
 	const [message, setMessage] = useState('');
@@ -39,15 +67,23 @@ function Community() {
 		setMessage('');
 	}
 
-	
+	function handleKeyDown(event:any) {
+		if (event.key === 'Enter') {
+			// Call your desired function here
+			handleSendMessage();
+		  }
+	}
 
 
 	return (
 		<MainContainer>
 
 			<Conversations/>
-			<input value={message} onChange={(e:any)=>setMessage(e.target.value)} placeholder='type your message here' />
-			<button onClick={handleSendMessage}>Send</button>
+			<BottomContainer>
+
+				<MessageInput onKeyDown={handleKeyDown} value={message} onChange={(e:any)=>setMessage(e.target.value)} placeholder='type your message here' />
+				<SendBtn onClick={handleSendMessage}>Send</SendBtn>
+			</BottomContainer>
 		</MainContainer>
 	);
 }
