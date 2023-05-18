@@ -33,13 +33,24 @@ const UploadDocumentContainer = styled.div`
   display: flex;
   gap: 24px;
   flex-direction: column;
+
+  cursor: pointer;
 `;
-const UplaodContainer = styled.div`
+const UploadContainer = styled.div`
   width: 100%;
 
   height: 100%;
   border: 1px dashed #c8c8c8;
   border-radius: 40px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 24px;
+
+  gap:24px
 `;
 const RecentUploadDiv = styled.div`
   width: 100%;
@@ -223,10 +234,7 @@ const IconContainer = styled.div`
   border-radius: 100px;
 `;
 
-const UploadIcon = styled(UploadSimple)`
-  width: 24px;
-  height: 24px;
-`;
+
 const CheckIcon = styled(CheckSquareOffset)`
   width: 24px;
   height: 24px;
@@ -256,6 +264,47 @@ const NoInput = styled.input`
 display: none;
 `;
 
+const ContentHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  position: sticky;
+  top: 0;
+  background: #fcfcfc;
+  z-index: 1;
+`;
+
+const ContentTitle = styled.p`
+  font-weight: 500;
+  font-size: 36px;
+  /* line-height: 24px; */
+`;
+
+const ContentCaption = styled.p`
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: #7c7c7c;
+`;
+
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+`;
+
+const UploadIcon = styled(UploadSimple)`
+  color: ${({ theme }) => theme.app.typography[900]};
+`;
+
+const UploadText = styled.p`
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 19px;
+  color: ${({ theme }) => theme.app.typography[500]};
+`;
+
 function SellDocuments() {
 	const [uploadFiles, setUploadFiles] = useState();
 	const [isDetailsModal, setIsDetailsModal] = useState(false);
@@ -282,136 +331,150 @@ function SellDocuments() {
 	console.log(uploadFiles);
   
 	return (
-		<Container>
-			<LeftContainer>
-				<UploadDocumentContainer>
-					<CommonTitleText>Upload Document</CommonTitleText>
-					<UplaodContainer onClick={handleUploadClick}>
-          
-						<NoInput type='file' ref={uploadRef} onChange={handleUpload} />
-					</UplaodContainer>
-
-
-					{isDetailsModal && <SellDocumentModal uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} setIsDetailsModal={setIsDetailsModal}/>}
-				</UploadDocumentContainer>
-
-				<StatsContainer>
-					<CommonTitleText>Statistics</CommonTitleText>
-
-					<StatsCardContainer>
-						<StatsCard>
-							<StatIconContainer>
-								<MonitorIcon />
-							</StatIconContainer>
-							<StatsInfo>
-								<StatsTitle>Total Documents</StatsTitle>
-
-								<StatsNumber>43</StatsNumber>
-							</StatsInfo>
-						</StatsCard>
-						<StatsCard>
-							<StatIconContainer>
-								<MonitorIcon />
-							</StatIconContainer>
-							<StatsInfo>
-								<StatsTitle>Total Documents</StatsTitle>
-
-								<StatsNumber>43</StatsNumber>
-							</StatsInfo>
-						</StatsCard>
-						<StatsCard>
-							<StatIconContainer>
-								<MonitorIcon />
-							</StatIconContainer>
-							<StatsInfo>
-								<StatsTitle>Total Documents</StatsTitle>
-
-								<StatsNumber>43</StatsNumber>
-							</StatsInfo>
-						</StatsCard>
-					</StatsCardContainer>
-				</StatsContainer>
-
-				<RecentUploadContainer>
-					<CommonTitleText>Recent Uploads</CommonTitleText>
-
-					<RecentUploadDiv />
-				</RecentUploadContainer>
-			</LeftContainer>
-			<RightContainer>
-				<RankingContainer>
-					<PlaceContainer>
-						<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
-						<ProfileName>Dianna</ProfileName>
-						<SecondPlaceBar>
-							<PlaceText>2nd</PlaceText>
-							<PlaceTextDesc>43 PTS 60$</PlaceTextDesc>
-						</SecondPlaceBar>
-					</PlaceContainer>
-
-					{/* //first place */}
-					<PlaceContainer>
-						<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
-						<ProfileName>Wade</ProfileName>
-						<FirstPlaceBar>
-							<PlaceText>1st</PlaceText>
-							<PlaceTextDesc>61 PTS 100$</PlaceTextDesc>
-						</FirstPlaceBar>
-					</PlaceContainer>
-
-					{/* third place  */}
-
-					<PlaceContainer>
-						<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
-						<ProfileName>Prantosh</ProfileName>
-						<ThirdPlaceBar>
-							<PlaceText>3rd</PlaceText>
-							<PlaceTextDesc>29 PTS 60$</PlaceTextDesc>
-						</ThirdPlaceBar>
-					</PlaceContainer>
-				</RankingContainer>
-
-				<HowWorksContainer>
-					<HowItWorksTitle>How it works</HowItWorksTitle>
-					<HowWorksSingleMainContainer>
-						<HowWorksSingleContainer>
-							<IconContainer>
-								<UploadIcon />
-							</IconContainer>
-							<HowWorksSingleCaption>
-                Upload your work. You can share class notes, study guides and
-                much more.
-							</HowWorksSingleCaption>
-						</HowWorksSingleContainer>
-						<HowWorksSingleContainer>
-							<IconContainer>
-								<CheckIcon />
-							</IconContainer>
-							<HowWorksSingleCaption>
-                Our systems and mentors will review it for quality checks.
-							</HowWorksSingleCaption>
-						</HowWorksSingleContainer>
-						<HowWorksSingleContainer>
-							<IconContainer>
-								<FlameIcon />
-							</IconContainer>
-							<HowWorksSingleCaption>
-                Your work is made available to students around the globe.
-							</HowWorksSingleCaption>
-						</HowWorksSingleContainer>
-						<HowWorksSingleContainer>
-							<IconContainer>
-								<BadgeIcon />
-							</IconContainer>
-							<HowWorksSingleCaption>
-                Your work will earn you credits which can be redeemed for
-                exciting rewards.
-							</HowWorksSingleCaption>
-						</HowWorksSingleContainer>
-					</HowWorksSingleMainContainer>
-				</HowWorksContainer>
-			</RightContainer>
-		</Container>
+		<MainContainer>
+			<ContentHeader>
+				<ContentHeader>
+					<ContentTitle>{'Sell Documents'}</ContentTitle>
+					<ContentCaption>{'In this dashboard you can find various things blah blah blah! fix this text @anmol'}</ContentCaption>
+				</ContentHeader>
+			</ContentHeader> 
+			<Container>
+      
+				
+      
+				<LeftContainer>
+					<UploadDocumentContainer>
+						{/* <CommonTitleText>Upload Document</CommonTitleText> */}
+						<UploadContainer onClick={handleUploadClick}>
+						
+							<UploadIcon size={42}/>
+							<UploadText>Upload Document</UploadText>
+              
+							<NoInput type='file' ref={uploadRef} onChange={handleUpload} />
+						</UploadContainer>
+      
+      
+						{isDetailsModal && <SellDocumentModal uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} setIsDetailsModal={setIsDetailsModal}/>}
+					</UploadDocumentContainer>
+      
+					<StatsContainer>
+						<CommonTitleText>Statistics</CommonTitleText>
+      
+						<StatsCardContainer>
+							<StatsCard>
+								<StatIconContainer>
+									<MonitorIcon />
+								</StatIconContainer>
+								<StatsInfo>
+									<StatsTitle>Total Documents</StatsTitle>
+      
+									<StatsNumber>43</StatsNumber>
+								</StatsInfo>
+							</StatsCard>
+							<StatsCard>
+								<StatIconContainer>
+									<MonitorIcon />
+								</StatIconContainer>
+								<StatsInfo>
+									<StatsTitle>Total Documents</StatsTitle>
+      
+									<StatsNumber>43</StatsNumber>
+								</StatsInfo>
+							</StatsCard>
+							<StatsCard>
+								<StatIconContainer>
+									<MonitorIcon />
+								</StatIconContainer>
+								<StatsInfo>
+									<StatsTitle>Total Documents</StatsTitle>
+      
+									<StatsNumber>43</StatsNumber>
+								</StatsInfo>
+							</StatsCard>
+						</StatsCardContainer>
+					</StatsContainer>
+      
+					<RecentUploadContainer>
+						<CommonTitleText>Recent Uploads</CommonTitleText>
+      
+						<RecentUploadDiv />
+					</RecentUploadContainer>
+				</LeftContainer>
+				<RightContainer>
+					<RankingContainer>
+						<PlaceContainer>
+							<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
+							<ProfileName>Dianna</ProfileName>
+							<SecondPlaceBar>
+								<PlaceText>2nd</PlaceText>
+								<PlaceTextDesc>43 PTS 60$</PlaceTextDesc>
+							</SecondPlaceBar>
+						</PlaceContainer>
+      
+						{/* //first place */}
+						<PlaceContainer>
+							<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
+							<ProfileName>Wade</ProfileName>
+							<FirstPlaceBar>
+								<PlaceText>1st</PlaceText>
+								<PlaceTextDesc>61 PTS 100$</PlaceTextDesc>
+							</FirstPlaceBar>
+						</PlaceContainer>
+      
+						{/* third place  */}
+      
+						<PlaceContainer>
+							<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
+							<ProfileName>Prantosh</ProfileName>
+							<ThirdPlaceBar>
+								<PlaceText>3rd</PlaceText>
+								<PlaceTextDesc>29 PTS 60$</PlaceTextDesc>
+							</ThirdPlaceBar>
+						</PlaceContainer>
+					</RankingContainer>
+      
+					<HowWorksContainer>
+						<HowItWorksTitle>How it works</HowItWorksTitle>
+						<HowWorksSingleMainContainer>
+							<HowWorksSingleContainer>
+								<IconContainer>
+									<UploadIcon size={24} />
+								</IconContainer>
+								<HowWorksSingleCaption>
+                    Upload your work. You can share class notes, study guides and
+                    much more.
+								</HowWorksSingleCaption>
+							</HowWorksSingleContainer>
+							<HowWorksSingleContainer>
+								<IconContainer>
+									<CheckIcon />
+								</IconContainer>
+								<HowWorksSingleCaption>
+                    Our systems and mentors will review it for quality checks.
+								</HowWorksSingleCaption>
+							</HowWorksSingleContainer>
+							<HowWorksSingleContainer>
+								<IconContainer>
+									<FlameIcon />
+								</IconContainer>
+								<HowWorksSingleCaption>
+                    Your work is made available to students around the globe.
+								</HowWorksSingleCaption>
+							</HowWorksSingleContainer>
+							<HowWorksSingleContainer>
+								<IconContainer>
+									<BadgeIcon />
+								</IconContainer>
+								<HowWorksSingleCaption>
+                    Your work will earn you credits which can be redeemed for
+                    exciting rewards.
+								</HowWorksSingleCaption>
+							</HowWorksSingleContainer>
+						</HowWorksSingleMainContainer>
+					</HowWorksContainer>
+				</RightContainer>
+			</Container>
+		</MainContainer>
 	);
 }
 
