@@ -289,7 +289,7 @@ function SellDocumentModal({setUploadFiles,uploadFiles,setIsDetailsModal}:{setUp
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL:any) => {                
 					setImgUrl(downloadURL);
-					dispatch(_uploadNotes({title,file:uploadFiles,fileUrl:downloadURL,userId:userDetails._id,description,category:interestArr}));
+					dispatch(_uploadNotes({title,file:uploadFiles,fileUrl:downloadURL,userId:userDetails._id,description,category:interestArr,tags:tagArr}));
 				});
 			}
 		);

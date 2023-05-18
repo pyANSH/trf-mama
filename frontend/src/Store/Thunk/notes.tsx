@@ -25,7 +25,7 @@ export const _getNotes = createAsyncThunk(
 
 export const _uploadNotes = createAsyncThunk(
 	'notes/uploadNotes',
-	async ({title,file,fileUrl,userId,description,category}:{category?:any,userId:any,title:any,file:any,fileUrl:any,description:any}, { rejectWithValue }) => {
+	async ({title,file,fileUrl,userId,description,category,tags}:{category?:any,userId:any,title:any,file:any,fileUrl:any,description:any,tags:any}, { rejectWithValue }) => {
 		try {
 			const body={
 				userId,
@@ -35,7 +35,8 @@ export const _uploadNotes = createAsyncThunk(
 				fileName:file.name,
 				fileSize:file.size,
 				description,
-				fileType:'PDF'
+				fileType:'PDF',
+				tags
 			};
 			const response = await uploadNotes({body});
 			console.log(response);
