@@ -34,7 +34,7 @@ const MessageInput = styled.input`
   font-size: 16px;
   border: none;
   border-radius: 20px;
-  background: transparent;
+  background: whtie;
   outline: none;
   ::placeholder {
     color: #c7c7c7;
