@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const { checkKey, checkToken } = require('./middleware/header');
 const userRoute = require('./router/user/userRoute');
+const globalRoute = require('./router/global/GlobalRoute');
 const meetingRoute = require('./router/meeting/meetingRoute');
 const notesRoute = require('./router/notes/notesRoute');
 const searchRoute = require('./router/search/searchRoute');
@@ -18,6 +19,7 @@ app.use(cors());
 app.post('/', checkKey, (req, res) => {
   res.sendStatus(200);
 });
+app.use('/global', checkKey, globalRoute);
 
 app.use('/user', checkKey, userRoute);
 app.use('/meeting', checkKey, checkToken, meetingRoute);

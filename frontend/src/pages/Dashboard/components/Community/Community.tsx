@@ -94,7 +94,17 @@ function Community() {
 			uid: user?._id,
 		});
 		console.log(res);
+		const res = await addDoc(collection(firebaseDb, 'messages'), {
+			text: message,
+			name: user?.userFullName,
+			createdAt: serverTimestamp(),
+			isMentor: user?.isMentor,
+			uid: user?._id,
+		});
+		console.log(res);
 
+		setMessage('');
+	}
 		setMessage('');
 	}
 

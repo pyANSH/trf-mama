@@ -54,8 +54,8 @@ const ModalHeader = styled.div(({ theme }) => ({
   padding: '12px 24px',
   gap: '10px',
   width: '100%',
-  background: theme.app.shades.white,
-  borderBottom: `0.4px solid ${theme.app.neutral[100]}`,
+  background: 'white',
+
   borderRadius: '24px 24px 0px 0px',
   boxSizing: 'border-box',
 }));
@@ -130,7 +130,7 @@ const SaveBTN = styled.button<{ isValid?: boolean; isLoading?: boolean }>(
     ...(BTNCommon as any),
     ...(appTypography.paraSmall.regular as any),
     padding: isLoading ? '3.5px 16px' : '10px 16px',
-    color: !isValid ? theme.app.typography[300] : theme.app.shades.white,
+    color: !isValid ? theme.app.typography[300] : '#8330c2',
     background: !isValid ? theme.app.neutral[100] : theme.app.neutral[900],
   }),
 );
@@ -144,12 +144,10 @@ const FooterContainer = styled.div`
   padding: 12px 24px;
   gap: 16px;
   width: 100%;
-  background: ${({ theme }) => theme.app.shades.white};
-  border-top: 0.4px solid ${({ theme }) => theme.app.neutral[300]};
+  background: ${({ theme }) => 'white'};
+
   border-radius: 0px 0px 24px 24px;
   z-index: 1;
-  /* position: absolute; */
-  /* bottom: 0px; */
 `;
 
 const DragText = styled.p(({ theme }) => ({
