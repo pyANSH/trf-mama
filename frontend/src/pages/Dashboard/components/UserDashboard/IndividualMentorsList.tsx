@@ -7,6 +7,7 @@ import { Trash } from 'phosphor-react';
 import { useParams } from 'react-router-dom';
 import { appTypography } from '../../../../config/styles';
 import Avvvatars from 'avvvatars-react';
+import MentorMeetingModal from '../MentorMeetingModal';
 
 const MainContainer = styled.div`
   display: flex;
@@ -149,20 +150,19 @@ const DeleteIcon = styled(Trash)(({ theme }) => ({
 }));
 
 type propsType = {
-  userName: string;
-  userId: string;
+	men:any
 };
 
 function IndividualMentorsList(props:propsType) {
-	const {userId,userName } = props;
+	const {men } = props;
 
 	const [isRequestSent, setIsRequestSent] = useState(false);
+	const [openMeeting, setOpenMeeting] = useState(false);
 
 	function handleRequestClick() {
-		setIsRequestSent(true);
+		setOpenMeeting(true);
 	}
 
-	const Initials = userName.split(' ').map((n) => n[0]).join('');
 
 	return (
 		<>
@@ -175,19 +175,9 @@ function IndividualMentorsList(props:propsType) {
 								: userSelector?.displayPicture?.lowres?.url
 						}
 					/> */}
-					<Avvvatars 
-						// value={userId} 
-						value={Initials} 
-						// style={'shape'}  
-						shadow={true}   
-						// border={true} 
-						size={32} 
-						// borderColor='black'
-						// radius={8} 
-                        
-					/>
+					
 					<ModeratorUsernameText>
-						{userName}
+						{men?.userFullName}
 					</ModeratorUsernameText>
 					{
 						// <>
@@ -208,25 +198,14 @@ function IndividualMentorsList(props:propsType) {
 				</RightContainer>
 				{ 
 					<BTNsContainer onClick={handleRequestClick}>
-						<ManageBTN onClick={()=>console.log('')}>{isRequestSent?'Request Sent':'Send Request'}</ManageBTN>
+						<ManageBTN>{isRequestSent?'Request Sent':'Send Request'}</ManageBTN>
 						{/* <RejectBTN onClick={()=>console.log('')}>
 							<DeleteIcon size={20} />
 						</RejectBTN> */}
 					</BTNsContainer>
 				}
 			</MainContainer>
-			{/* {isDeleteModalOpen && (
-				<ConfirmDeleteModal
-					setIsDeleteModalOpen={setIsDeleteModalOpen}
-					title={`Are you sure you want to remove ${
-						userSelector?.fullname || userSelector?.username
-					} from the role ‘${userSelector?.role?.title}’?`}
-					// subTitle={'You can always add them back later.'}
-					cancelBTNText={'No, don’t remove'}
-					deleteBTNText={'Yes'}
-					handleDelete={handleRemoveStaffClick}
-				/>
-			)} */}
+			{openMeeting && <MentorMeetingModal setOpenMeeting={setOpenMeeting} mentorId={men._id}  />}
 		</>
 	);
 }

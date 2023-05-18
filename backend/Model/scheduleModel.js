@@ -42,6 +42,14 @@ const scheduleSchema = new mongoose.Schema({
     },
     meetingURL:{
         type: String,
+    },
+    userFullnameMentee:{
+        type: String,
+
+    },
+    userFullnameMentor:{
+        type: String,
+
     }
 
 

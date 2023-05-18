@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import IndividualMentorsList from './IndividualMentorsList';
+import AcceptMeetingModal from '../AcceptMeetingModal';
+import MentorMeetingModal from '../MentorMeetingModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { _RejectInvite, _getMeetings } from '../../../../Store/Thunk/meeting';
+import { _getMentorList } from '../../../../Store/Thunk/users';
+import MeetingInfo from './MeetingInfo';
+import { appTypography } from '../../../../config/styles';
 
 
 const MainContainer =  styled.div`
@@ -40,95 +47,33 @@ box-sizing: border-box;
 `;
 
 
+const InfoText =styled.p(({theme})=>({
+	...appTypography.paraMed.regular,
+	color:theme.app.typography['700']
+}));
+
+
+
+
+
 function UserDashboard() {
-	const MentorsData = [
-		[
-			{
-				'name': 'Samay Raina',
-				'userId': '1'
-			},
-			{
-				'name': 'Gaurav Gupta',
-				'userId': '2'
-			},
-			{
-				'name': 'Zakir Khan',
-				'userId': '3'
-			},
-			{
-				'name': 'Biswa Kalyan Rath',
-				'userId': '4'
-			},
-			{
-				'name': 'Aditi Mittal',
-				'userId': '5'
-			},
-			{
-				'name': 'Kenny Sebastian',
-				'userId': '6'
-			},
-			{
-				'name': 'Atul Khatri',
-				'userId': '7'
-			},
-			{
-				'name': 'Sumukhi Suresh',
-				'userId': '8'
-			},
-			{
-				'name': 'Rahul Subramanian',
-				'userId': '9'
-			},
-			{
-				'name': 'Varun Grover',
-				'userId': '10'
-			},
-			{
-				'name': 'Vir Das',
-				'userId': '11'
-			},
-			{
-				'name': 'Aditi Bhatia',
-				'userId': '12'
-			},
-			{
-				'name': 'Zakhir Mushtaq',
-				'userId': '13'
-			},
-			{
-				'name': 'Amit Tandon',
-				'userId': '14'
-			},
-			{
-				'name': 'Neeti Palta',
-				'userId': '15'
-			},
-			{
-				'name': 'Abhishek Upmanyu',
-				'userId': '16'
-			},
-			{
-				'name': 'Aadar Malik',
-				'userId': '17'
-			},
-			{
-				'name': 'Gursimran Khamba',
-				'userId': '18'
-			},
-			{
-				'name': 'Tanmay Bhatt',
-				'userId': '19'
-			},
-			{
-				'name': 'Nishant Tanwar',
-				'userId': '20'
-			},
-			{
-				'name': 'Anmol Bajpai',
-				'userId': '20'
-			}
-		]
-	];
+
+	
+	const dispatch:any = useDispatch();
+	const userDetails = useSelector((state:any)=>state?.appdata?.user?._id);
+	const user =useSelector((state:any)=>state?.appdata?.user);
+	useEffect(() => {
+		dispatch(_getMentorList({type:'as'}));
+		if(userDetails){
+
+			dispatch(_getMeetings({userId:userDetails}));
+		}
+  
+	}, [userDetails]);
+
+	const mentors = useSelector((state:any)=>state.mentors.mentorList);
+	const meetings = useSelector((state:any)=>state.meetings.meetingDetails);
+
 	return (
 		<MainContainer>
 			<ContentHeader>
@@ -137,18 +82,34 @@ function UserDashboard() {
 					<ContentCaption>{'In this dashboard you can find various things blah blah blah! fix this text @anmol'}</ContentCaption>
 				</ContentHeader>
 			</ContentHeader>
+			
 			<MentorsListContainer>
-				{
-					MentorsData[0].map((mentor) => {
+				{meetings?.length>0 &&<>
+					<InfoText>Your Scheduled Meetings</InfoText>
+					{meetings?.map((men:any,index:any)=>(
+						<MeetingInfo key={index} men={men} />
+					))}
+
+				</>}
+				
+				<InfoText>Schedule call</InfoText>
+				{user?.isMentor===false &&	mentors.map((men:any,index:any)=>(
+					<IndividualMentorsList key={index} men={men} />
+				))
+				}
+				
+
+				{/* {
+					mentors.map((mentor) => {
 						return (
-							<IndividualMentorsList 
+							< 
 								key={mentor.userId}
 								userId={mentor.userId}
 								userName={mentor.name}
 							/>
 						);
 					})
-				}
+				} */}
 			</MentorsListContainer>
 
 		</MainContainer>

@@ -85,15 +85,47 @@ display: flex;
 flex-direction: column;
 gap: 16px;
 `;
+const DatePicker = styled.input`
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  outline:none;
+  font-size: 14px;
+  color: #333;
+  /* Additional styles */
+`;
 
-const DatePicker =styled.input``;
+const TimePicker = styled.input`
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+  color: #333;
+  outline:none;
+  /* Additional styles */
+`;
 
-const TimePicker =styled.input``;
+const MeetingTitle = styled.input`
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 8px;
+  font-size: 16px;
+  color: #333;
+  outline:none;
 
+  /* Additional styles */
+`;
 
-const MeetingTitle =styled.input``;
+const MeetingDesc = styled.input`
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 8px;
+  outline:none;
+  font-size: 14px;
+  color: #333;
+  /* Additional styles */
+`;
 
-const MeetingDesc =styled.input``;
 
 function MentorMeetingModal({setOpenMeeting,mentorId}:{setOpenMeeting:any,mentorId:any}) {
 	
@@ -105,7 +137,7 @@ function MentorMeetingModal({setOpenMeeting,mentorId}:{setOpenMeeting:any,mentor
 	const [desc, setDesc] = useState();
 	const userDetails =useSelector((state:any)=>state?.appdata?.user);
 	const dispatch:any = useDispatch();
-	function handleClick() {
+	async function handleClick() {
 		const body={
 			mentorId,
 			menteeId:userDetails?._id,
@@ -116,10 +148,14 @@ function MentorMeetingModal({setOpenMeeting,mentorId}:{setOpenMeeting:any,mentor
 			meetingDuration:1
 
 		};
-		dispatch(_scheduleMeeting({body:body}));
+		const res = await dispatch(_scheduleMeeting({body:body}));
+		console.log(res);
+		if(res?.meta?.requestStatus==='fulfilled'){
+			setOpenMeeting(false);
+		}else{
+			setOpenMeeting(false);
 
-		
-		console.log(date,time,title,desc,mentorId,userDetails?._id);
+		}
 		
 	}
 	return (
