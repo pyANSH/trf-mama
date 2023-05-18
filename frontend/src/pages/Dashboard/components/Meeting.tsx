@@ -92,7 +92,7 @@ function Meeting() {
 				<SeperateMeetings key={index} men={men} />
 			))}
 
-			{user?.isMenotr===false &&	mentors.map((men:any,index:any)=>(
+			{user?.isMentor===false &&	mentors.map((men:any,index:any)=>(
 				<SeperateMentor key={index} men={men} />
 			))
 			}
