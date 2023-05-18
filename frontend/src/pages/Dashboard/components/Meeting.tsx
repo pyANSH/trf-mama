@@ -67,7 +67,7 @@ function SeperateMeetings({men}:{men:any}) {
 					men.meetingStatus==='rejected' && <p style={{color:'red'}}>Rejected</p>
 				}
 
-				<a href={men.meetingURL} target='_blank' rel='noreferrer'>{men.meetingURL}</a>
+				{men.meetingStatus==='accepted' &&<a href={men.meetingURL} target='_blank' rel='noreferrer'>{men.meetingURL}</a>}
 				
 			</div>
 			{ismeetingModalOpen && <AcceptMeetingModal meetingId={men._id} setIsMeetingModalOpen={setIsMeetingModalOpen}/>}
