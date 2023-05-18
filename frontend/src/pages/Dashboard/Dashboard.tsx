@@ -184,7 +184,7 @@ function Dashboard() {
 	const navigate = useNavigate();
 	const [tab, setTab] = useState('dashboard');
 	const user =useSelector((state:any)=>state?.appdata?.JWT);
-	const [cookies, setCookie, removeCookie] = useCookies();
+	const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
 	const {dashTab} = useParams();
 
