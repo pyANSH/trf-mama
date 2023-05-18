@@ -14,6 +14,7 @@ import { ChatCircleDots } from 'phosphor-react';
 import { SignOut } from 'phosphor-react';
 import HelpCentre from './components/HelpCentre/HelpCentre';
 import UserDashboard from './components/UserDashboard/UserDashboard';
+import Community from './components/Community/Community';
 // import Meeting from './components/Meeting';
 const Sup = styled.div`
   height: 100vh;
@@ -173,6 +174,8 @@ function Dashboard() {
 		{
 			icon: <CapIcon />,
 			text: 'Community',
+			component: <Community />,
+			
 			/* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
 		},
 		{
