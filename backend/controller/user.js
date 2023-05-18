@@ -23,7 +23,7 @@ require('dotenv').config();
 
 
 exports.login = async (req, res) => {
-    const { userEmail, userFullName, socialRefererId, isMentor } = req.body;
+    const { userEmail, userFullName, socialRefererId, isMentor, profileImg } = req.body;
 
     if (!userEmail || !userFullName || !socialRefererId) {
         res.statusCode = 400;
@@ -37,14 +37,14 @@ exports.login = async (req, res) => {
             socialRefererId: socialRefererId
         }, process.env.JWT_SECRET)
         res.statusCode = 200;
-        return res.send({ response: 'User Successfully logged In', userId: userExists._id, userEmail: userEmail, token: token, isMentor: userExists.isMentor, interests: userExists.interests });
+        return res.send({ response: 'User Successfully logged In', userId: userExists._id, userEmail: userEmail, token: token, isMentor: userExists.isMentor, interests: userExists.interests, profileImg: userExists.profileImg });
     }
     const user = new userModal({
         userEmail: userEmail,
         userFullName: userFullName,
         socialRefererId: socialRefererId,
-        isMentor: isMentor
-
+        isMentor: isMentor,
+        profileImg: profileImg
     })
     try {
         const dbUpdate = await user.save()
@@ -54,7 +54,7 @@ exports.login = async (req, res) => {
             socialRefererId: socialRefererId
         }, process.env.JWT_SECRET)
         res.statusCode = 201;
-        return res.send({ response: 'User created', userId: dbUpdate._id, userEmail: userEmail, token: token, isMentor: dbUpdate.isMentor, interests: dbUpdate.interests });
+        return res.send({ response: 'User created', userId: dbUpdate._id, userEmail: userEmail, token: token, isMentor: dbUpdate.isMentor, interests: dbUpdate.interests, profileImg: profileImg });
     } catch (err) {
         res.statusCode = 400;
         return res.send({ response: 'User not created', err });
@@ -116,10 +116,10 @@ exports.update_user_status = (req, res) => {
     })
 }
 exports.update_user_profile = (req, res) => {
-    const { college, userFullName, gender } = req.body;
+    const { college, userFullName, gender, profileImg } = req.body;
     const token = req.headers['token'];
-    if (!college && !userFullName && !gender) {
-        return res.status(400).send('Please fill all the fields');
+    if (!college && !userFullName && !gender && !profileImg) {
+        return res.status(400).send('Please fill at least one field(s)');
     }
     if (!token) {
         return res.status(400).send('token missing');
@@ -129,7 +129,7 @@ exports.update_user_profile = (req, res) => {
             return res.status(423).send({ error: 'Invalid token' });
         }
         else {
-            userModal.findOneAndUpdate({ socialRefererId: decoded.socialRefererId }, { college: college, userFullName: userFullName, gender: gender }, { new: true }).then((user) => {
+            userModal.findOneAndUpdate({ socialRefererId: decoded.socialRefererId }, { college: college, userFullName: userFullName, gender: gender, profileImg: profileImg }, { new: true }).then((user) => {
                 if (user) {
                     return res.status(200).send({ response: 'User profile updated', user });
                 }
