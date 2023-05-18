@@ -1,17 +1,21 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getUserDetails } from '../../serverCom/user';
-import { getNotes, uploadNotes } from '../../serverCom/notes';
+import { deleteNotes, getNotes, uploadNotes } from '../../serverCom/notes';
 
 export const _getNotes = createAsyncThunk(
 	'notes/getNotes',
-	async ({category,allNotes}:{category?:any,allNotes:any}, { rejectWithValue }) => {
+	async ({category,allNotes,userId}:{category?:any,allNotes?:any,userId?:any}, { rejectWithValue }) => {
 		try {
 			const params={
 				category:'',
-				allNotes
+				allNotes,
+				userId
 			};
 			if(category){
 				params.category=category;
+			}
+			if(userId){
+				params.userId=userId;
 			}
 			const response = await getNotes({params});
 			console.log(response);
@@ -42,7 +46,15 @@ export const _uploadNotes = createAsyncThunk(
 			console.log(response);
 			
             
-			return {response:response.data.data};
+			return {userId,
+				category,
+				noteTitle:title,
+				fileUrl,
+				fileName:file.name,
+				fileSize:file.size,
+				description,
+				fileType:'PDF',
+				tags};
 		} catch (error) {
 			rejectWithValue(error);
 		}
@@ -57,11 +69,11 @@ export const _deleteNotes = createAsyncThunk(
 				noteId,
 				userId
 			};
-			const response = await uploadNotes({body});
+			const response = await deleteNotes({body});
 			console.log(response);
 			
             
-			return {response:response.data.data};
+			return {noteId};
 		} catch (error) {
 			rejectWithValue(error);
 		}

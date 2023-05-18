@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {MagnifyingGlass,SquaresFour} from 'phosphor-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { _getNotes } from '../../../Store/Thunk/notes';
+import { _deleteNotes, _getNotes } from '../../../Store/Thunk/notes';
 import { appTypography } from '../../../config/styles';
 
 const Container =styled.div`
@@ -79,6 +79,7 @@ const DocumentsContainer =styled.div`
 display: flex;
 align-items: center;
 justify-content: space-between;
+flex-wrap: wrap;
 `;
 
 const SingleDocCard =styled.a`
@@ -154,6 +155,9 @@ function Notebank() {
 		dispatch(_getNotes({category:type==='All'?null:type,allNotes:type==='All'?true:false}));
 	}
 
+	async function handleDelete(noteId:any){
+		const res =await dispatch(_deleteNotes({noteId,userId:userDetails?._id}));
+	}
 	return (
 		<Container>
 			<SearchContainer>
@@ -195,7 +199,7 @@ function Notebank() {
 								{note.description}
 							</DocDesc>
 						</DocInfo>
-						{userDetails?._id ===note?.userId &&<DeleteBtn>Delete</DeleteBtn>}
+						{userDetails?._id ===note?.userId &&<DeleteBtn onClick={()=>handleDelete(note._id)}>Delete</DeleteBtn>}
 					</SingleDocCard>
 				))}
 			</DocumentsContainer>

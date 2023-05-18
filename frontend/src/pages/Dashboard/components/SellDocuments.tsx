@@ -8,8 +8,12 @@ import {
 	Medal,
 	GraduationCap,
 	MagicWand,
+	Trash,
 } from 'phosphor-react';
 import SellDocumentModal from './SellDocumentModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { _deleteNotes, _getNotes } from '../../../Store/Thunk/notes';
+import { appTypography } from '../../../config/styles';
 
 const Container = styled.div`
   display: flex;
@@ -55,10 +59,9 @@ const UploadContainer = styled.div`
   gap:12px
 `;
 const RecentUploadDiv = styled.div`
-  width: 100%;
-  height: 100%;
   border: 1px dashed #c8c8c8;
   border-radius: 40px;
+  padding:8px;
 `;
 
 const StatsContainer = styled.div`
@@ -317,10 +320,41 @@ const UploadText = styled.p`
   color: ${({ theme }) => theme.app.typography[500]};
 `;
 
+const AllDocs =styled.div`
+display: flex;
+flex-direction: column;
+gap: 8px;
+`;
+
+const NONoteText =styled.p(({theme})=>({
+	...appTypography.paraSmall.regular,
+	color:theme.app.typography['500']
+}));
+
+const Note =styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+`;
+
+const DeleteIcon = styled(Trash)(({theme})=>({
+	width:'18px',
+	height:'18px',
+	color:theme.app.error['500'],
+	cursor:'pointer'
+}));
+
+const NoteTitle=styled.p(({theme})=>({
+	...appTypography.paraMed.regular,
+	color:theme.app.typography['900']
+}));
+
 function SellDocuments() {
 	const [uploadFiles, setUploadFiles] = useState();
 	const [isDetailsModal, setIsDetailsModal] = useState(false);
+	const user =useSelector((state:any)=>state?.appdata?.user);
 	const uploadRef:any=useRef();
+	const dispatch:any =useDispatch();
 
 	function handleUploadClick() {
 		uploadRef.current.click();
@@ -339,9 +373,18 @@ function SellDocuments() {
 
 	}, [uploadFiles]);
 
-
+	useEffect(() => {
+		dispatch(_getNotes({userId:user?._id}));
+	}, []);
 	console.log(uploadFiles);
+
+	const getNotes =useSelector((state:any)=>state?.notes?.notes);
   
+
+	async	function handleDelete(noteId:any){
+		const res =await dispatch(_deleteNotes({noteId,userId:user?._id}));
+	}
+
 	return (
 		<MainContainer>
 			<ContentHeader>
@@ -380,7 +423,7 @@ function SellDocuments() {
 								<StatsInfo>
 									<StatsTitle>Total Documents</StatsTitle>
       
-									<StatsNumber>43</StatsNumber>
+									<StatsNumber>{user?.notesCount}</StatsNumber>
 								</StatsInfo>
 							</StatsCard>
 							<StatsCard>
@@ -390,7 +433,7 @@ function SellDocuments() {
 								<StatsInfo>
 									<StatsTitle>Total Students</StatsTitle>
       
-									<StatsNumber>43</StatsNumber>
+									<StatsNumber>{user?.studentCount}</StatsNumber>
 								</StatsInfo>
 							</StatsCard>
 							<StatsCard>
@@ -400,7 +443,7 @@ function SellDocuments() {
 								<StatsInfo>
 									<StatsTitle>Total Mentors</StatsTitle>
       
-									<StatsNumber>43</StatsNumber>
+									<StatsNumber>{user?.mentorCount}</StatsNumber>
 								</StatsInfo>
 							</StatsCard>
 						</StatsCardContainer>
@@ -408,8 +451,26 @@ function SellDocuments() {
       
 					<RecentUploadContainer>
 						<CommonTitleText>Recent Uploads</CommonTitleText>
-      
-						<RecentUploadDiv />
+						<RecentUploadDiv>
+							<AllDocs>
+            
+								{getNotes?.length>0 ? 
+									<>
+										{getNotes.map((note:any,index:any)=>(
+											<Note key={index}>
+												<NoteTitle>{note?.noteTitle}</NoteTitle>
+												<DeleteIcon onClick={()=>handleDelete(note._id)}/>
+											</Note>
+										))}
+									</>
+									:
+									<NONoteText>
+                  Upload notes to see you recent notes here
+									</NONoteText>
+								}
+
+							</AllDocs>
+						</RecentUploadDiv>
 					</RecentUploadContainer>
 				</LeftContainer>
 				<RightContainer>
