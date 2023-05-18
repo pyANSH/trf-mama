@@ -25,24 +25,7 @@ const meetingModal = require('../Model/scheduleModel');
 exports.login = async (req, res) => {
   const { userEmail, userFullName, socialRefererId, isMentor, profileImg } =
     req.body;
-  const getALlGlobalCount = async () => {
-    const isMentorCount = await userModal.countDocuments({ isMentor: true });
-    const isStudentCount = await userModal.countDocuments({ isMentor: false });
-    const usersCount = await userModal.countDocuments();
 
-    const notesCount = await notesModal.countDocuments();
-    const meetingsCount = await meetingModal.countDocuments();
-    let res = {
-      mentorCount: isMentorCount,
-      studentCount: isStudentCount,
-      usersCount: usersCount,
-      notesCount: notesCount,
-      meetingsCount: meetingsCount,
-    };
-    return res;
-  };
-  const count = await getALlGlobalCount();
-  console.log(count);
   if (!userEmail || !userFullName || !socialRefererId) {
     res.statusCode = 400;
     return res.send('Please fill all the fields');
@@ -68,7 +51,6 @@ exports.login = async (req, res) => {
       isMentor: userExists.isMentor,
       interests: userExists.interests,
       profileImg: userExists.profileImg,
-      count: count,
     });
   }
   const user = new userModal({
@@ -97,7 +79,6 @@ exports.login = async (req, res) => {
       isMentor: dbUpdate.isMentor,
       interests: dbUpdate.interests,
       profileImg: profileImg,
-      count: count,
     });
   } catch (err) {
     res.statusCode = 400;
@@ -105,11 +86,28 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.user_get = (req, res) => {
+exports.user_get = async (req, res) => {
   const { token } = req.headers;
   if (!token) {
     return res.status(400).json({ response: 'Please fill all the fields' });
   }
+  const getALlGlobalCount = async () => {
+    const isMentorCount = await userModal.countDocuments({ isMentor: true });
+    const isStudentCount = await userModal.countDocuments({ isMentor: false });
+    const usersCount = await userModal.countDocuments();
+
+    const notesCount = await notesModal.countDocuments();
+    const meetingsCount = await meetingModal.countDocuments();
+    let res = {
+      mentorCount: isMentorCount,
+      studentCount: isStudentCount,
+      usersCount: usersCount,
+      notesCount: notesCount,
+      meetingsCount: meetingsCount,
+    };
+    return res;
+  };
+  const count = await getALlGlobalCount();
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.status(423).json({ error: 'Invalid token' });
@@ -121,7 +119,7 @@ exports.user_get = (req, res) => {
           })
           .then((user) => {
             if (user.length > 0) {
-              return res.status(200).json(user);
+              return res.status(200).json([user[0], count]);
             } else {
               return res.status(400).json({ response: 'User not found' });
             }
