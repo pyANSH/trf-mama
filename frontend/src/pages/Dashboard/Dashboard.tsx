@@ -17,6 +17,7 @@ import UserDashboard from './components/UserDashboard/UserDashboard';
 import Community from './components/Community/Community';
 import { useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
+import { ToastContainer } from 'react-toastify';
 // import Meeting from './components/Meeting';
 const Sup = styled.div`
   height: 100vh;
@@ -152,6 +153,7 @@ const SidebarOptionIcon = styled.div(({}) => ({
 const ContentContainer = styled.div(({ theme }) => ({
 	
 	overflowY : 'scroll',
+	paddingInlineEnd:'24px'
 	//   width: "78%",
 	//   height: "100%",
 }));
@@ -196,7 +198,6 @@ function Dashboard() {
 		}  
 
 	}, []);
-
 
 
 	const handleLogout = () => {
@@ -262,6 +263,20 @@ function Dashboard() {
 
 	return (
 		<>
+
+			{/* <ToastContainer
+				position="top-center"
+				autoClose={2000}
+				hideProgressBar={false}
+				newestOnTop
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="light"
+			/> */}
+		
 			{user?<Sup>
 				<Container>
 					<Header>
@@ -270,7 +285,7 @@ function Dashboard() {
 								navigate('/dashboard');
 							}}
 						>
-            mama.
+							{'mama.'}
 						</LogoText>
 					</Header>
 					<MainContainer>
@@ -321,8 +336,9 @@ function Dashboard() {
 			</Sup>:<LoginDiv>
 				
 				Please login to view this page😊
-				<BTN_SignUp onClick={()=>navigate('/onboard')}>Login</BTN_SignUp>
+				<BTN_SignUp onClick={()=>navigate('/onboard')}>{'Login'}</BTN_SignUp>
 			</LoginDiv>}
+			
 		</>
 
 	);
