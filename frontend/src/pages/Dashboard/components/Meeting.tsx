@@ -4,6 +4,7 @@ import MentorMeetingModal from './MentorMeetingModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { _getMentorList } from '../../../Store/Thunk/users';
 import { _AcceptInvite, _RejectInvite, _getMeetings } from '../../../Store/Thunk/meeting';
+import AcceptMeetingModal from './AcceptMeetingModal';
 const Container =styled.div`
 display:flex;
 flex-direction:column;
@@ -27,13 +28,11 @@ function SeperateMentor({men}:{men:any}) {
 function SeperateMeetings({men}:{men:any}) {
 	const dispatch:any = useDispatch();
 
+	const [ismeetingModalOpen, setIsMeetingModalOpen] = useState(false);
+
 	function handleAccept() {
 
-		const body = {
-			meetingId:men._id,
-			meetingStatus:'accepted'
-		};
-		dispatch(_AcceptInvite({body}));
+		setIsMeetingModalOpen(true);
 		
 	}
 
@@ -59,7 +58,7 @@ function SeperateMeetings({men}:{men:any}) {
 				<p onClick={handleAccept}>Accept</p>
 				<p onClick={handleReject}>Reject</p>
 			</div>
-			
+			{ismeetingModalOpen && <AcceptMeetingModal meetingId={men._id} setIsMeetingModalOpen={setIsMeetingModalOpen}/>}
 		</>
 	);
 }
