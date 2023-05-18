@@ -12,24 +12,23 @@ import SellDocuments from './components/SellDocuments';
 import { useNavigate } from 'react-router-dom';
 import { ChatCircleDots } from 'phosphor-react';
 import { SignOut } from 'phosphor-react';
-import Community from './components/Community/Community';
-import { ResponsiveConfigs } from '../../config/styles';
+import HelpCentre from './components/HelpCentre/HelpCentre';
+import UserDashboard from './components/UserDashboard/UserDashboard';
+// import Meeting from './components/Meeting';
 const Sup = styled.div`
   height: 100vh;
-  max-height: 100vh;
-  /* width: 100vw; */ //? why do we need this?
+  width: 100vw;
   background: #fff;
-  display:flex;
-  overflow: hidden;
-`;
 
+  overflow-x: hidden;
+`;
 const Container = styled.div`
   display: grid;
-  grid-template-rows: ${ResponsiveConfigs.dashboardHeaderHeight} calc( 100vh - ${ResponsiveConfigs.dashboardHeaderHeight});
-  height: 100%;
-  width: 100%;
+  grid-template-rows: 12% 86%;
+  height: 99%;
+  width: 99%;
   margin: auto;
-  /* border-radius: 30px; */
+  border-radius: 30px;
   background: #fcfcfc;
 `;
 
@@ -38,10 +37,9 @@ const Header = styled.header`
 
   display: flex;
   align-items: center;
-  padding: 12px 68px;
+  padding: 52px 68px;
   width: 100%;
-  /* height: 100%; */
-  height: ${ResponsiveConfigs.dashboardHeaderHeight};
+  height: 100%;
   z-index: 100;
 `;
 
@@ -55,56 +53,41 @@ const LogoText = styled.h1`
 `;
 
 const LeftContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  /* grid-template-rows: 0.8fr 0.2fr; */
+  display: grid;
+  grid-template-rows: 70% 30%;
   gap: 30px;
-  /* align-items: center; */
-  justify-content: space-between;
-  /* align-items: baseline; */
-  max-height: calc(100vh - ${ResponsiveConfigs.dashboardHeaderHeight});
-  padding-block-end: 24px;
-`;
-
-const UpperDashboardOptionsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  overflow-y: scroll;
+  align-items: baseline;
 `;
 
 const SingleMenuItem = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-  /* height: 60px; */
+  height: 60px;
   color: #7c7c7c;
-  padding: 16px 44px;
-  cursor: pointer;
   &:hover {
     color: #3b4bd5;
+    cursor: pointer;
   }
-  border-radius:8px;
-  /* background-color: #cdd2fc; */
 `;
 
 const SquareFourIcon = styled(SquaresFour)`
   width: 26px;
   height: 26px;
   color: #7c7c7c;
-  `;
+`;
 
 const SellIcon = styled(Coins)`
   width: 26px;
   height: 26px;
   color: #7c7c7c;
-  `;
+`;
 
 const BooksIcon = styled(Books)`
   width: 26px;
   height: 26px;
   color: #7c7c7c;
-  `;
+`;
 
 const CapIcon = styled(GraduationCap)`
   width: 26px;
@@ -118,18 +101,22 @@ const UserIcon = styled(User)`
   color: #7c7c7c;
 `;
 
-const OptionText = styled.p<{noOfLinesToDisplay?:number}>(({noOfLinesToDisplay}) => ({
+const SignoutIcon = styled(SignOut)`
+  width: 26px;
+  height: 26px;
+  color: #7c7c7c;
+`;
+
+const HelpIcon = styled(ChatCircleDots)`
+  width: 26px;
+  height: 26px;	
+  color: #7c7c7c;
+`;
+
+const OptionText = styled.p(() => ({
 	fontWeight: '500',
 	fontSize: '18px',
-
-	//overflowWrap: 'anywhere', //add this to break long non-breaking texts  
-	
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-	display: '-webkit-box',
-	lineClamp: noOfLinesToDisplay ? noOfLinesToDisplay : 1,
-	WebkitLineClamp: noOfLinesToDisplay ? noOfLinesToDisplay : 1,
-	WebkitBoxOrient: 'vertical'
+	lineHeight: '26px',
 }));
 
 const CommonIcons = {
@@ -143,26 +130,25 @@ const SidebarOptionIcon = styled.div(({}) => ({
 const ContentContainer = styled.div(({ theme }) => ({
 	//   width: "78%",
 	//   height: "100%",
-	overflowY: 'scroll',
 }));
 
 const MainContainer = styled.div`
   display: grid;
-  grid-template-columns: 0.2fr 0.8fr;
-  padding: 0 0 0 24px;
-  width: 100%;
-  /* margin: 0 auto; */
+  grid-template-columns: 20% 80%;
+  width: 90%;
+  margin: 0 auto;
   height: 100%;
-  max-height: calc(100vh - ${ResponsiveConfigs.dashboardHeaderHeight});
 `;
 const LtContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   width: 100%;
   margin: 0 auto;
-  gap:6px;
+  height: 47%;
+  justify-content: flex-end;
 `;
+
+
 
 function Dashboard() {
 	const navigate = useNavigate();
@@ -172,7 +158,7 @@ function Dashboard() {
 		{
 			icon: <SquareFourIcon />,
 			text: 'Dashboard',
-			/* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
+			component:<UserDashboard/> 
 		},
 		{
 			icon: <SellIcon />,
@@ -187,18 +173,37 @@ function Dashboard() {
 		{
 			icon: <CapIcon />,
 			text: 'Community',
-			component: <Community />,
+			/* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
 		},
 		{
 			icon: <UserIcon />,
 			text: 'Profile',
 			component: <Profile />,
 		},
+		{
+			icon: <HelpIcon />,
+			text: 'Help Centre',
+			component : <HelpCentre/>,
+			isFooterItem : true,
+		},
+		{
+			icon: <SignoutIcon />,
+			text: 'Logout',
+			isFooterItem : true,
+
+			// onClick: handleLogoutClick,
+		},
 	];
 
 	function handleSidebarOptionClick(index: any, option: any) {
 		setTab(index);
 	}
+
+	// const [isHelpCentreToggled, setIsHelpCentreToggled] = useState(false);
+
+	// function handleHelpCentreClick () {
+	// 	navigate('/help');
+	// }
 
 	return (
 		<Sup>
@@ -214,9 +219,10 @@ function Dashboard() {
 				</Header>
 				<MainContainer>
 					<LeftContainer>
-						<UpperDashboardOptionsContainer>
+						<div>
 							{sidebarOptions.map((option, index) => {
 								if (!option) return null; //? to handle null value in array
+								if (option.isFooterItem) return null;
 								return (
 									<>
 										<SingleMenuItem
@@ -229,20 +235,25 @@ function Dashboard() {
 									</>
 								);
 							})}
-						</UpperDashboardOptionsContainer>
+						</div>
 						<LtContainer>
-							<SingleMenuItem>
-								<SidebarOptionIcon>
-									<ChatCircleDots fontSize={24} />
-								</SidebarOptionIcon>
-								<OptionText>Help Center</OptionText>
-							</SingleMenuItem>
-							<SingleMenuItem>
-								<SidebarOptionIcon>
-									<SignOut size={24} />
-								</SidebarOptionIcon>
-								<OptionText>Logout</OptionText>
-							</SingleMenuItem>
+							<div>
+								{sidebarOptions.map((option, index) => {
+									if (!option) return null; //? to handle null value in array
+									if (!option.isFooterItem) return null;
+									return (
+										<>
+											<SingleMenuItem
+												key={index}
+												onClick={() => handleSidebarOptionClick(index, option)}
+											>
+												<SidebarOptionIcon>{option.icon}</SidebarOptionIcon>
+												<OptionText>{option.text}</OptionText>
+											</SingleMenuItem>
+										</>
+									);
+								})}
+							</div>
 						</LtContainer>
 					</LeftContainer>
 					<ContentContainer>{sidebarOptions[tab]?.component}</ContentContainer>
