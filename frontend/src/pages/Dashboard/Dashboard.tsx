@@ -12,6 +12,7 @@ import SellDocuments from './components/SellDocuments';
 import { useNavigate } from 'react-router-dom';
 import { ChatCircleDots } from 'phosphor-react';
 import { SignOut } from 'phosphor-react';
+import Meeting from './components/Meeting';
 import HelpCentre from './components/HelpCentre/HelpCentre';
 import UserDashboard from './components/UserDashboard/UserDashboard';
 import Community from './components/Community/Community';
@@ -159,7 +160,7 @@ function Dashboard() {
 		{
 			icon: <SquareFourIcon />,
 			text: 'Dashboard',
-			component:<UserDashboard/> 
+	  component:<Meeting/> 
 		},
 		{
 			icon: <SellIcon />,
@@ -174,27 +175,12 @@ function Dashboard() {
 		{
 			icon: <CapIcon />,
 			text: 'Community',
-			component: <Community />,
-			
-			/* component: isWhiteLabel ? <ManageGroupChannels /> : <ManageChannels />, */
+	  component: <Community />,
 		},
 		{
 			icon: <UserIcon />,
 			text: 'Profile',
 			component: <Profile />,
-		},
-		{
-			icon: <HelpIcon />,
-			text: 'Help Centre',
-			component : <HelpCentre/>,
-			isFooterItem : true,
-		},
-		{
-			icon: <SignoutIcon />,
-			text: 'Logout',
-			isFooterItem : true,
-
-			// onClick: handleLogoutClick,
 		},
 	];
 
