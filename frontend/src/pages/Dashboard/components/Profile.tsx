@@ -23,7 +23,7 @@ const Container = styled.div`
 const Header = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
 `;
 
 const Topic = styled.p`
@@ -381,12 +381,8 @@ function Profile() {
 	return (
 		<Container>
 			<Header>
-				<Topic>User Information</Topic>
-
-				<Caption>
-          Here you can edit public information about yourself. Changes made may
-          take some time to reflect
-				</Caption>
+				<Topic>{'User Information'}</Topic>
+				<Caption>{'Here you can edit public information about yourself. Changes made may take some time to reflect'}</Caption>
 			</Header>
 			<MainContainer>
 				<LeftContainer>
