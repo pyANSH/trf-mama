@@ -200,7 +200,9 @@ function Dashboard() {
 
 
 	const handleLogout = () => {
+		removeCookie('token', { path: '/dashboard', sameSite: true });
 		removeCookie('token', { path: '/', sameSite: true });
+
 		window.location.reload();
 	  };
 	const sidebarOptions:any = {
