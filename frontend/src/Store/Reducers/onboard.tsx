@@ -36,7 +36,8 @@ const appdata = createSlice({
 				email: response.data.userEmail,
 				fullname: response.data.userFullName,
 				isMentor:response.data.isMentor,
-				interests:response.data.interests
+				interests:response.data.interests,
+				totalRes: response.data,
 			};
 			state.JWT = response.data.token;
 			state.status = 'fullfilled';

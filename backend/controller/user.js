@@ -119,7 +119,7 @@ exports.user_get = async (req, res) => {
           })
           .then((user) => {
             if (user.length > 0) {
-              return res.status(200).json([user[0], count]);
+              return res.status(200).json([{ ...user[0]._doc, ...count }]);
             } else {
               return res.status(400).json({ response: 'User not found' });
             }
