@@ -171,10 +171,10 @@ function InterestModal() {
         interests: interestArr,
         isMentor: userType === 'Mentor' ? true : false,
       }),
-    );
-    if (res.payload.status === 200) {
+    ).then((response: any) => {
       navigate('/dashboard');
-    }
+    });
+
     console.warn(res);
   };
   return (

@@ -69,12 +69,11 @@ function UserDashboard() {
 	const user =useSelector((state:any)=>state?.appdata?.user);
 	useEffect(() => {
 		dispatch(_getMentorList({type:'as'}));
-		if(userDetails){
 
-			dispatch(_getMeetings({userId:userDetails}));
-		}
+
+		dispatch(_getMeetings({userId:userDetails}));
   
-	}, [userDetails]);
+	}, []);
 
 	const mentors = useSelector((state:any)=>state.mentors.mentorList);
 	const meetings = useSelector((state:any)=>state.meetings.meetingDetails);
@@ -99,7 +98,7 @@ function UserDashboard() {
 				</>}
 				
 				<InfoText>Schedule call</InfoText>
-				{user?.isMentor===false &&	mentors.map((men:any,index:any)=>(
+				{user?.isMentor&&user?.isMentor===false &&	mentors.map((men:any,index:any)=>(
 					<IndividualMentorsList key={index} men={men} />
 				))
 				}

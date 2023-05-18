@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { _getMeetings } from '../Thunk/meeting';
+import { _AcceptInvite, _RejectInvite, _getMeetings } from '../Thunk/meeting';
 
 const mentors = createSlice({
 	name: 'meetings',
@@ -12,7 +12,19 @@ const mentors = createSlice({
 			const {response} = action.payload;
 			state.meetingDetails=response;
 		});
+		builder.addCase(_AcceptInvite.fulfilled,(state:any,action:any)=>{
+			const {meetingId} = action.payload;
+			const meetingIndex = state.meetingDetails.findIndex((meeting:any) => meeting._id === meetingId);
+			state.meetingDetails[meetingIndex].meetingStatus='accepted';
+		});
+		builder.addCase(_RejectInvite.fulfilled,(state:any,action:any)=>{
+			const {meetingId} = action.payload;
+			const meetingIndex = state.meetingDetails.findIndex((meeting:any) => meeting._id === meetingId);
+			state.meetingDetails[meetingIndex].meetingStatus='rejected';
+		});
+		
 	},
+	
 });
 
 export default mentors.reducer;

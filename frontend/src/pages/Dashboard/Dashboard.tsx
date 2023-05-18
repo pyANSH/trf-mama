@@ -63,8 +63,8 @@ const LeftContainer = styled.div`
   align-items: baseline;
 `;
 
-const Button =styled.div`
- background: transparent;
+const Button = styled.div`
+  background: transparent;
   border: none;
   outline: none;
   background: #8330c2;
@@ -87,7 +87,8 @@ const SingleMenuItem = styled.div`
   align-items: center;
   gap: 20px;
   height: 60px;
-  color:${({isActive}:{isActive:any})=>isActive?'#3b4bd5':'#7c7c7c'} ;
+  color: ${({ isActive }: { isActive: any }) =>
+		isActive ? '#3b4bd5' : '#7c7c7c'};
   &:hover {
     color: #3b4bd5;
     cursor: pointer;
@@ -132,7 +133,7 @@ const SignoutIcon = styled(SignOut)`
 
 const HelpIcon = styled(ChatCircleDots)`
   width: 26px;
-  height: 26px;	
+  height: 26px;
   color: #7c7c7c;
 `;
 
@@ -173,30 +174,28 @@ const LtContainer = styled.div`
   height: 47%;
   justify-content: flex-end;
 `;
-const LoginDiv =styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-height: 100vh;
-width: 100vw;
-justify-content: center;
-gap:16px;
+const LoginDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  gap: 16px;
 `;
-
 
 function Dashboard() {
 	const navigate = useNavigate();
 	const [tab, setTab] = useState('dashboard');
-	const user =useSelector((state:any)=>state?.appdata?.JWT);
+	const user = useSelector((state: any) => state?.appdata?.JWT);
 	const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
-	const {dashTab} = useParams();
+	const { dashTab } = useParams();
 
 	useEffect(() => {
-		if(dashTab){
+		if (dashTab) {
 			setTab(dashTab);
-		}  
-
+		}
 	}, []);
 
 
@@ -205,49 +204,47 @@ function Dashboard() {
 
 		window.location.href = '/onboard';
 	};
-	const sidebarOptions:any = {
-		dashboard:{
+	const sidebarOptions: any = {
+		dashboard: {
 			icon: <SquareFourIcon />,
 			text: 'Dashboard',
-			component:<UserDashboard/> 
+			component: <UserDashboard />,
 		},
-		sell:{
+		sell: {
 			icon: <SellIcon />,
 			text: 'Sell Documents',
 			component: <SellDocuments />,
 		},
-		notebank:{
+		notebank: {
 			icon: <BooksIcon />,
 			text: 'The Notebank',
 			component: <Notebank />,
 		},
-		chat:{
+		chat: {
 			icon: <CapIcon />,
 			text: 'Community',
 			component: <Community />,
 		},
-		profile:{
+		profile: {
 			icon: <UserIcon />,
 			text: 'Profile',
 			component: <Profile />,
 		},
-		help:{
+		help: {
 			icon: <HelpIcon />,
 			text: 'Help Centre',
-			component : <HelpCentre/>,
-			isFooterItem : true,
+			component: <HelpCentre />,
+			isFooterItem: true,
 		},
-		logout:{
+		logout: {
 			icon: <SignoutIcon />,
 			text: 'Logout',
-			isFooterItem : true,
+			isFooterItem: true,
 		},
 	};
 
-
-
 	function handleSidebarOptionClick(index: any, option: any) {
-		if(option==='logout'){
+		if (option === 'logout') {
 			handleLogout();
 			return;
 		}

@@ -108,7 +108,7 @@ function AcceptMeetingModal({setIsMeetingModalOpen,meetingId}:{setIsMeetingModal
 		setLink(inputLink);
 		setIsValidLink(validateGoogleMeetLink(inputLink));
 	  };
-	function handleSubmit() {
+	async function handleSubmit() {
 		if(!link){
 			return;
 		}
@@ -117,7 +117,12 @@ function AcceptMeetingModal({setIsMeetingModalOpen,meetingId}:{setIsMeetingModal
 			meetingStatus:'accepted',
 			meetingURL:link
 		};
-		dispatch(_AcceptInvite({body}));
+		const res = await dispatch(_AcceptInvite({body}));
+		if(res?.meta?.requestStatus==='fulfilled'){
+			setIsMeetingModalOpen(false);
+		}else{
+			setIsMeetingModalOpen(false);
+		}
 	}
 
 
