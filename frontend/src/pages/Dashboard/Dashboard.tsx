@@ -198,9 +198,8 @@ function Dashboard() {
 
 
 	const handleLogout = () => {
-		removeCookie('token');
-
-		window.location.href = '/onboard';
+		removeCookie('token', { path: '/', sameSite: true });
+		window.location.reload();
 	  };
 	const sidebarOptions:any = {
 		dashboard:{
