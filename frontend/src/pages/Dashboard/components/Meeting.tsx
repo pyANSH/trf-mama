@@ -56,10 +56,18 @@ function SeperateMeetings({men}:{men:any}) {
 				<p>{men.meetingStatus}</p>
 				<p>{men.meetingDate}</p>
 				<p>{men.meetingTime}</p>
-				{user?.isMentor &&<>
+				{user?.isMentor && men.meetingStatus==='pending' && <>
 					<p onClick={handleAccept}>Accept</p>
 					<p onClick={handleReject}>Reject</p>
 				</>}
+				{
+					men.meetingStatus==='accepted' && <p style={{color:'green'}}>Accepted</p>
+				}
+				{
+					men.meetingStatus==='rejected' && <p style={{color:'red'}}>Rejected</p>
+				}
+
+				<a href={men.meetingURL} target='_blank' rel='noreferrer'>{men.meetingURL}</a>
 				
 			</div>
 			{ismeetingModalOpen && <AcceptMeetingModal meetingId={men._id} setIsMeetingModalOpen={setIsMeetingModalOpen}/>}
