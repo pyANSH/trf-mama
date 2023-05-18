@@ -7,5 +7,9 @@ export const dashboardRoutes = [
 	{
 		path: '/dashboard',
 		element: <Dashboard />,
+	},
+	{
+		path: '/dashboard/:dashTab',
+		element: <Dashboard />,
 	}
 ];

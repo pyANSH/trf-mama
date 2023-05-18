@@ -3,13 +3,13 @@ import { Books } from 'phosphor-react';
 import { Coins } from 'phosphor-react';
 import { GraduationCap } from 'phosphor-react';
 import { User } from 'phosphor-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import './App.css';
 import Notebank from './components/Notebank';
 import Profile from './components/Profile';
 import SellDocuments from './components/SellDocuments';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ChatCircleDots } from 'phosphor-react';
 import { SignOut } from 'phosphor-react';
 import HelpCentre from './components/HelpCentre/HelpCentre';
@@ -86,7 +86,7 @@ const SingleMenuItem = styled.div`
   align-items: center;
   gap: 20px;
   height: 60px;
-  color: #7c7c7c;
+  color:${({isActive}:{isActive:any})=>isActive?'#3b4bd5':'#7c7c7c'} ;
   &:hover {
     color: #3b4bd5;
     cursor: pointer;
@@ -182,59 +182,74 @@ gap:16px;
 
 function Dashboard() {
 	const navigate = useNavigate();
-	const [tab, setTab] = useState(0);
+	const [tab, setTab] = useState('dashboard');
 	const user =useSelector((state:any)=>state?.appdata?.JWT);
 	const [cookies, setCookie, removeCookie] = useCookies();
+
+	const {dashTab} = useParams();
+
+	useEffect(() => {
+		if(dashTab){
+			setTab(dashTab);
+		}  
+
+	}, []);
+
+
+
 	const handleLogout = () => {
 		removeCookie('token');
 
 		window.location.href = '/onboard';
 	  };
-	const sidebarOptions = [
-		{
+	const sidebarOptions:any = {
+		dashboard:{
 			icon: <SquareFourIcon />,
 			text: 'Dashboard',
 	  		component:<UserDashboard/> 
 		},
-		{
+		sell:{
 			icon: <SellIcon />,
 			text: 'Sell Documents',
 			component: <SellDocuments />,
 		},
-		{
+		notebank:{
 			icon: <BooksIcon />,
 			text: 'The Notebank',
 			component: <Notebank />,
 		},
-		{
+		chat:{
 			icon: <CapIcon />,
 			text: 'Community',
 	  		component: <Community />,
 		},
-		{
+		profile:{
 			icon: <UserIcon />,
 			text: 'Profile',
 			component: <Profile />,
 		},
-		{
+		help:{
 			icon: <HelpIcon />,
 			text: 'Help Centre',
 			component : <HelpCentre/>,
 			isFooterItem : true,
 		},
-		{
+		logout:{
 			icon: <SignoutIcon />,
 			text: 'Logout',
 			isFooterItem : true,
 		},
-	];
+	};
+
+
 
 	function handleSidebarOptionClick(index: any, option: any) {
-		if(sidebarOptions?.length-1===index){
+		if(option==='logout'){
 			handleLogout();
 			return;
 		}
-		setTab(index);
+		setTab(option);
+		navigate(`/dashboard/${option}`, { replace: true });
 	}
 
 	// const [isHelpCentreToggled, setIsHelpCentreToggled] = useState(false);
@@ -259,17 +274,19 @@ function Dashboard() {
 					<MainContainer>
 						<LeftContainer>
 							<div>
-								{sidebarOptions.map((option, index) => {
-									if (!option) return null; //? to handle null value in array
-									if (option.isFooterItem) return null;
+								{Object.keys(sidebarOptions).map((option, index) => {
+									if (!sidebarOptions[option]) return null; //? to handle null value in array
+									if (sidebarOptions[option].isFooterItem) return null;
+									
 									return (
 										<>
 											<SingleMenuItem
+												isActive={option===tab}
 												key={index}
 												onClick={() => handleSidebarOptionClick(index, option)}
 											>
-												<SidebarOptionIcon>{option.icon}</SidebarOptionIcon>
-												<OptionText>{option.text}</OptionText>
+												<SidebarOptionIcon>{sidebarOptions[option].icon}</SidebarOptionIcon>
+												<OptionText>{sidebarOptions[option].text}</OptionText>
 											</SingleMenuItem>
 										</>
 									);
@@ -277,17 +294,18 @@ function Dashboard() {
 							</div>
 							<LtContainer>
 								<div>
-									{sidebarOptions.map((option, index) => {
-										if (!option) return null; //? to handle null value in array
-										if (!option.isFooterItem) return null;
+									{Object.keys(sidebarOptions).map((option:any, index:any) => {
+										if (!sidebarOptions[option]) return null; //? to handle null value in array
+										if (!sidebarOptions[option].isFooterItem) return null;
 										return (
 											<>
 												<SingleMenuItem
+													isActive={option===tab}
 													key={index}
 													onClick={() => handleSidebarOptionClick(index, option)}
 												>
-													<SidebarOptionIcon>{option.icon}</SidebarOptionIcon>
-													<OptionText>{option.text}</OptionText>
+													<SidebarOptionIcon>{sidebarOptions[option].icon}</SidebarOptionIcon>
+													<OptionText>{sidebarOptions[option].text}</OptionText>
 												</SingleMenuItem>
 											</>
 										);
@@ -295,7 +313,7 @@ function Dashboard() {
 								</div>
 							</LtContainer>
 						</LeftContainer>
-						<ContentContainer>{sidebarOptions[tab]?.component}</ContentContainer>
+						<ContentContainer>{sidebarOptions[tab].component}</ContentContainer>
 					</MainContainer>
 				</Container>
 			</Sup>:<LoginDiv>
