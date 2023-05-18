@@ -150,6 +150,8 @@ const SidebarOptionIcon = styled.div(({}) => ({
 	color: 'inherit',
 }));
 const ContentContainer = styled.div(({ theme }) => ({
+	
+	overflowY : 'scroll',
 	//   width: "78%",
 	//   height: "100%",
 }));
@@ -205,7 +207,7 @@ function Dashboard() {
 		dashboard:{
 			icon: <SquareFourIcon />,
 			text: 'Dashboard',
-	  		component:<UserDashboard/> 
+			component:<UserDashboard/> 
 		},
 		sell:{
 			icon: <SellIcon />,
@@ -220,7 +222,7 @@ function Dashboard() {
 		chat:{
 			icon: <CapIcon />,
 			text: 'Community',
-	  		component: <Community />,
+			component: <Community />,
 		},
 		profile:{
 			icon: <UserIcon />,
