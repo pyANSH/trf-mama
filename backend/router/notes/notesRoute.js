@@ -7,7 +7,6 @@ router.post('/upload', notesController.upload_notes);
 router.get('/getNotes', notesController.get_notes);
 router.put('/updateNotes', notesController.update_notes);
 
-
 router.delete('/deleteNotes', notesController.delete_notes);
 
 module.exports = router;
