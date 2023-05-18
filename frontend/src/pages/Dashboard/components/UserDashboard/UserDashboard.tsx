@@ -69,12 +69,11 @@ function UserDashboard() {
 	const user =useSelector((state:any)=>state?.appdata?.user);
 	useEffect(() => {
 		dispatch(_getMentorList({type:'as'}));
-		if(userDetails){
 
-			dispatch(_getMeetings({userId:userDetails}));
-		}
+
+		dispatch(_getMeetings({userId:userDetails}));
   
-	}, [userDetails]);
+	}, []);
 
 	const mentors = useSelector((state:any)=>state.mentors.mentorList);
 	const meetings = useSelector((state:any)=>state.meetings.meetingDetails);
