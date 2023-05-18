@@ -63,6 +63,7 @@ exports.get_notes = async (req, res) => {
   ) {
     return res.status(400).json({
       error: 'no query found',
+      data: [],
     });
   }
   if (allNotes === 'true') {
@@ -73,8 +74,9 @@ exports.get_notes = async (req, res) => {
         data: notes,
       });
     } else {
-      return res.status(401).json({
-        error: 'User not found',
+      return res.status(201).json({
+        response: 'Notes found',
+        data: [],
       });
     }
   } else {
@@ -87,8 +89,9 @@ exports.get_notes = async (req, res) => {
         data: notes,
       });
     } else {
-      return res.status(401).json({
-        error: 'User not found',
+      return res.status(204).json({
+        response: 'Notes found',
+        data: [],
       });
     }
   }
