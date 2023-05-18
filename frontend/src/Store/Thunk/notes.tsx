@@ -4,11 +4,11 @@ import { getNotes, uploadNotes } from '../../serverCom/notes';
 
 export const _getNotes = createAsyncThunk(
 	'notes/getNotes',
-	async ({category,userId}:{category?:any,userId:any}, { rejectWithValue }) => {
+	async ({category,allNotes}:{category?:any,allNotes:any}, { rejectWithValue }) => {
 		try {
 			const params={
-				userId,
-				category:''
+				category:'',
+				allNotes
 			};
 			if(category){
 				params.category=category;

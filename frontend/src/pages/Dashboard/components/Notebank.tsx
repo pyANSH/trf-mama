@@ -145,13 +145,13 @@ function Notebank() {
 	const dispatch:any =useDispatch();
 
 	useEffect(() => {
-		dispatch(_getNotes({userId:userDetails?._id}));
+		dispatch(_getNotes({allNotes:true}));
 	}, []);
     
 
 	function handleTabChange(type:string) {
 		setCurrentTab(type);
-		dispatch(_getNotes({userId:userDetails?._id,category:type==='All'?null:type}));
+		dispatch(_getNotes({category:type==='All'?null:type,allNotes:type==='All'?true:false}));
 	}
 
 	return (
