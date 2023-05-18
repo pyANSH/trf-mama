@@ -25,6 +25,11 @@ const Header = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+
+  position: sticky;
+  top: 0;
+  background: #fcfcfc;
+  z-index: 1;
 `;
 
 const Topic = styled.p`
@@ -38,6 +43,7 @@ const Caption = styled.p`
   font-size: 18px;
   line-height: 24px;
   color: #7c7c7c;
+  background: #fcfcfc;
 `;
 
 const MainContainer = styled.div`
@@ -46,6 +52,8 @@ const MainContainer = styled.div`
 
   width: 100%;
   height: 90%;
+
+  padding-block-end: 64px;
 `;
 
 const LeftContainer = styled.div`

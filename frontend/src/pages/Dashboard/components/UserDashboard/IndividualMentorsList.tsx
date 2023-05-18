@@ -150,11 +150,15 @@ const DeleteIcon = styled(Trash)(({ theme }) => ({
 }));
 
 type propsType = {
-	men:any
+	men:{
+		userFullName:string,
+		_id:string,
+		interests:string[],
+	}
 };
 
 function IndividualMentorsList(props:propsType) {
-	const {men } = props;
+	const {men} = props;
 
 	const [isRequestSent, setIsRequestSent] = useState(false);
 	const [openMeeting, setOpenMeeting] = useState(false);
@@ -163,6 +167,7 @@ function IndividualMentorsList(props:propsType) {
 		setOpenMeeting(true);
 	}
 
+	const Initials = (men?.userFullName).split(' ').map((n) => n[0]).join('');
 
 	return (
 		<>
@@ -175,25 +180,39 @@ function IndividualMentorsList(props:propsType) {
 								: userSelector?.displayPicture?.lowres?.url
 						}
 					/> */}
+
+					<Avvvatars 
+						// value={userId} 
+						value={Initials} 
+						// style={'shape'}  
+						shadow={true}   
+						// border={true} 
+						size={32} 
+						// borderColor='black'
+						// radius={8} 
+                        
+					/>
 					
 					<ModeratorUsernameText>
 						{men?.userFullName}
 					</ModeratorUsernameText>
 					{
-						// <>
-						// 	<RoleBTN 
-						// 	// roleTagColorBG={roleTagColorBG}
-						// 	// isCreator={isCreator}
-						// 		isCreator={true}
-						// 	>
-						// 		<RoleBTNText
-						// 		// roleTagColorText={roleTagColorText}
-						// 		>
-						// 			{/* {isCreator ? 'Creator 👑' : userSelector?.role?.title} */}
-						// 			{'Mentor 🧑‍🏫'}
-						// 		</RoleBTNText>
-						// 	</RoleBTN>
-						// </>
+						(men?.interests)?.map((int,index)=>(
+							<>
+								<RoleBTN 
+									// roleTagColorBG={roleTagColorBG}
+									// isCreator={isCreator}
+									isCreator={true}
+								>
+									<RoleBTNText
+										// roleTagColorText={roleTagColorText}
+									>
+										{/* {isCreator ? 'Creator 👑' : userSelector?.role?.title} */}
+										{int}
+									</RoleBTNText>
+								</RoleBTN>
+							</>
+						))
 					}
 				</RightContainer>
 				{ 

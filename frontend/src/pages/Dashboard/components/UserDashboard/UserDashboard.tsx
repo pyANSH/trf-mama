@@ -21,6 +21,11 @@ const ContentHeader = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+
+  position: sticky;
+  top: 0;
+  background: #fcfcfc;
+  z-index: 1;
 `;
 
 const ContentTitle = styled.p`
@@ -74,6 +79,7 @@ function UserDashboard() {
 	const mentors = useSelector((state:any)=>state.mentors.mentorList);
 	const meetings = useSelector((state:any)=>state.meetings.meetingDetails);
 
+	console.log('mentors : ',mentors);
 	return (
 		<MainContainer>
 			<ContentHeader>
@@ -99,17 +105,16 @@ function UserDashboard() {
 				}
 				
 
-				{/* {
-					mentors.map((mentor) => {
+				{
+					mentors.map((men:any,index:number) => {
 						return (
-							< 
-								key={mentor.userId}
-								userId={mentor.userId}
-								userName={mentor.name}
+							<IndividualMentorsList
+								key={index}
+								men={men}
 							/>
 						);
 					})
-				} */}
+				}
 			</MentorsListContainer>
 
 		</MainContainer>
