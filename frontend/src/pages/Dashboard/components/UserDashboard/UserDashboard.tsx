@@ -101,14 +101,14 @@ function UserDashboard() {
 
 				</>}
 				
-				<InfoText>Schedule call</InfoText>
-				{user?.isMentor&&user?.isMentor===false &&	mentors.map((men:any,index:any)=>(
+				{user?.isMentor===false && <InfoText>Schedule call</InfoText>}
+				{ user?.isMentor===false &&	mentors.map((men:any,index:any)=>(
 					<IndividualMentorsList key={index} men={men} />
 				))
 				}
 				
 
-				{
+				{/* {
 					mentors.map((men:any,index:number) => {
 						return (
 							<IndividualMentorsList
@@ -117,7 +117,7 @@ function UserDashboard() {
 							/>
 						);
 					})
-				}
+				} */}
 			</MentorsListContainer>
 
 		</MainContainer>
