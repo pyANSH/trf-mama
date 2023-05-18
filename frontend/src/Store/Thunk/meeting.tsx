@@ -20,7 +20,6 @@ export const _getMeetings = createAsyncThunk(
 		try {
 			
 			const response =await getMeetings({params:{userId}});
-			console.log(response);
 			
 			return {response:response.data.meetings};
       

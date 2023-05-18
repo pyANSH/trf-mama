@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import IndividualMentorsList from './IndividualMentorsList';
 import AcceptMeetingModal from '../AcceptMeetingModal';
@@ -69,11 +69,15 @@ function UserDashboard() {
 	const user =useSelector((state:any)=>state?.appdata?.user);
 	useEffect(() => {
 		dispatch(_getMentorList({type:'as'}));
-
-
-		dispatch(_getMeetings({userId:userDetails}));
   
 	}, []);
+
+	useLayoutEffect(() => {
+		dispatch(_getMeetings({userId:userDetails}));
+	}, [userDetails]);
+	useEffect(() => {
+		dispatch(_getMeetings({userId:userDetails}));
+	}, [userDetails]);
 
 	const mentors = useSelector((state:any)=>state.mentors.mentorList);
 	const meetings = useSelector((state:any)=>state.meetings.meetingDetails);
