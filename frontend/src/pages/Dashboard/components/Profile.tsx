@@ -12,6 +12,7 @@ import { _updateUser } from '../../../Store/Thunk/Onboard';
 import { _updateUserDetails } from '../../../Store/Thunk/users';
 import { showToast } from '../../../Store/Reducers/onboard';
 import img from '../../../assets/SweetGirl.png';
+import Avvvatars from 'avvvatars-react';
 
 const Container = styled.div`
   display: flex;
@@ -378,6 +379,10 @@ function Profile() {
 			dispatch(showToast('Profile Updated Successfully'));
 		});
 	};
+
+	const [profilePic, setProfilePic] = useState('');
+	const userNameInitials = user?.userFullName ? (user?.userFullName).split(' ').map((n: any) => n[0]).join(''): 'NA';
+
 	return (
 		<Container>
 			<Header>
@@ -426,11 +431,25 @@ function Profile() {
 
 				<RightContainer>
 					<ProfilePhotoContainer>
-						<ProfilePic
-							src={
-								'https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg'
-							}
+						{
+							profilePic && 
+							<ProfilePic src={profilePic}/>
+						}
+
+						
+						<Avvvatars
+							// value={userId} 
+							value={userNameInitials} 
+							// style={'shape'}  
+							shadow={true}   
+							// border={true} 
+							size={120} 
+							// borderColor='black'
+							// radius={8} 
+							
 						/>
+						
+
 						<ProfilePicText>Profile Picture</ProfilePicText>
 
 						<input
