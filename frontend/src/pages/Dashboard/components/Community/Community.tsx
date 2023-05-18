@@ -12,7 +12,7 @@ const MainContainer = styled.div`
   width: 100%;
   height: 100%;
   padding: 0 24px 0 0;
-  margin-top: 24px;
+
   overflow: scroll;
 `;
 
@@ -53,6 +53,29 @@ const SendBtn = styled.div`
     background-color: #9e4cdc;
   }
 `;
+const ContentHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  position: sticky;
+  top: 0;
+  background: #fcfcfc;
+  z-index: 1;
+`;
+
+const ContentTitle = styled.p`
+  font-weight: 500;
+  font-size: 36px;
+  /* line-height: 24px; */
+`;
+
+const ContentCaption = styled.p`
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: #7c7c7c;
+`;
 
 function Community() {
   const [message, setMessage] = useState('');
@@ -83,6 +106,13 @@ function Community() {
 
   return (
     <MainContainer>
+      <ContentHeader>
+        <ContentTitle>{'Community'}</ContentTitle>
+        <ContentCaption>
+          In this Community you can find various things blah blah blah! fix this
+          text @anmol
+        </ContentCaption>
+      </ContentHeader>
       <Conversations />
       <BottomContainer>
         <MessageInput
