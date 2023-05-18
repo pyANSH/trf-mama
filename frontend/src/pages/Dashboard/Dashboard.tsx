@@ -62,8 +62,8 @@ const LeftContainer = styled.div`
   align-items: baseline;
 `;
 
-const Button =styled.div`
- background: transparent;
+const Button = styled.div`
+  background: transparent;
   border: none;
   outline: none;
   background: #8330c2;
@@ -86,7 +86,8 @@ const SingleMenuItem = styled.div`
   align-items: center;
   gap: 20px;
   height: 60px;
-  color:${({isActive}:{isActive:any})=>isActive?'#3b4bd5':'#7c7c7c'} ;
+  color: ${({ isActive }: { isActive: any }) =>
+    isActive ? '#3b4bd5' : '#7c7c7c'};
   &:hover {
     color: #3b4bd5;
     cursor: pointer;
@@ -131,29 +132,28 @@ const SignoutIcon = styled(SignOut)`
 
 const HelpIcon = styled(ChatCircleDots)`
   width: 26px;
-  height: 26px;	
+  height: 26px;
   color: #7c7c7c;
 `;
 
 const OptionText = styled.p(() => ({
-	fontWeight: '500',
-	fontSize: '18px',
-	lineHeight: '26px',
+  fontWeight: '500',
+  fontSize: '18px',
+  lineHeight: '26px',
 }));
 
 const CommonIcons = {
-	height: '24px',
-	width: '24px',
+  height: '24px',
+  width: '24px',
 };
 const SidebarOptionIcon = styled.div(({}) => ({
-	...CommonIcons,
-	color: 'inherit',
+  ...CommonIcons,
+  color: 'inherit',
 }));
 const ContentContainer = styled.div(({ theme }) => ({
-	
-	overflowY : 'scroll',
-	//   width: "78%",
-	//   height: "100%",
+  //   width: "78%",
+  //   height: "100%",
+  overflow: 'hidden',
 }));
 
 const MainContainer = styled.div`
@@ -171,162 +171,171 @@ const LtContainer = styled.div`
   height: 47%;
   justify-content: flex-end;
 `;
-const LoginDiv =styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-height: 100vh;
-width: 100vw;
-justify-content: center;
-gap:16px;
+const LoginDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  gap: 16px;
 `;
 
-
 function Dashboard() {
-	const navigate = useNavigate();
-	const [tab, setTab] = useState('dashboard');
-	const user =useSelector((state:any)=>state?.appdata?.JWT);
-	const [cookies, setCookie, removeCookie] = useCookies(['token']);
+  const navigate = useNavigate();
+  const [tab, setTab] = useState('dashboard');
+  const user = useSelector((state: any) => state?.appdata?.JWT);
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
-	const {dashTab} = useParams();
+  const { dashTab } = useParams();
 
-	useEffect(() => {
-		if(dashTab){
-			setTab(dashTab);
-		}  
+  useEffect(() => {
+    if (dashTab) {
+      setTab(dashTab);
+    }
+  }, []);
 
-	}, []);
+  const handleLogout = () => {
+    removeCookie('token');
 
+    window.location.href = '/onboard';
+  };
+  const sidebarOptions: any = {
+    dashboard: {
+      icon: <SquareFourIcon />,
+      text: 'Dashboard',
+      component: <UserDashboard />,
+    },
+    sell: {
+      icon: <SellIcon />,
+      text: 'Sell Documents',
+      component: <SellDocuments />,
+    },
+    notebank: {
+      icon: <BooksIcon />,
+      text: 'The Notebank',
+      component: <Notebank />,
+    },
+    chat: {
+      icon: <CapIcon />,
+      text: 'Community',
+      component: <Community />,
+    },
+    profile: {
+      icon: <UserIcon />,
+      text: 'Profile',
+      component: <Profile />,
+    },
+    help: {
+      icon: <HelpIcon />,
+      text: 'Help Centre',
+      component: <HelpCentre />,
+      isFooterItem: true,
+    },
+    logout: {
+      icon: <SignoutIcon />,
+      text: 'Logout',
+      isFooterItem: true,
+    },
+  };
 
+  function handleSidebarOptionClick(index: any, option: any) {
+    if (option === 'logout') {
+      handleLogout();
+      return;
+    }
+    setTab(option);
+    navigate(`/dashboard/${option}`, { replace: true });
+  }
 
-	const handleLogout = () => {
-		removeCookie('token', { path: '/dashboard', sameSite: true });
-		removeCookie('token', { path: '/', sameSite: true });
+  // const [isHelpCentreToggled, setIsHelpCentreToggled] = useState(false);
 
-		window.location.reload();
-	  };
-	const sidebarOptions:any = {
-		dashboard:{
-			icon: <SquareFourIcon />,
-			text: 'Dashboard',
-			component:<UserDashboard/> 
-		},
-		sell:{
-			icon: <SellIcon />,
-			text: 'Sell Documents',
-			component: <SellDocuments />,
-		},
-		notebank:{
-			icon: <BooksIcon />,
-			text: 'The Notebank',
-			component: <Notebank />,
-		},
-		chat:{
-			icon: <CapIcon />,
-			text: 'Community',
-			component: <Community />,
-		},
-		profile:{
-			icon: <UserIcon />,
-			text: 'Profile',
-			component: <Profile />,
-		},
-		help:{
-			icon: <HelpIcon />,
-			text: 'Help Centre',
-			component : <HelpCentre/>,
-			isFooterItem : true,
-		},
-		logout:{
-			icon: <SignoutIcon />,
-			text: 'Logout',
-			isFooterItem : true,
-		},
-	};
+  // function handleHelpCentreClick () {
+  // 	navigate('/help');
+  // }
 
+  return (
+    <>
+      {user ? (
+        <Sup>
+          <Container>
+            <Header>
+              <LogoText
+                onClick={() => {
+                  navigate('/dashboard');
+                }}
+              >
+                mama.
+              </LogoText>
+            </Header>
+            <MainContainer>
+              <LeftContainer>
+                <div>
+                  {Object.keys(sidebarOptions).map((option, index) => {
+                    if (!sidebarOptions[option]) return null; //? to handle null value in array
+                    if (sidebarOptions[option].isFooterItem) return null;
 
-
-	function handleSidebarOptionClick(index: any, option: any) {
-		if(option==='logout'){
-			handleLogout();
-			return;
-		}
-		setTab(option);
-		navigate(`/dashboard/${option}`, { replace: true });
-	}
-
-	// const [isHelpCentreToggled, setIsHelpCentreToggled] = useState(false);
-
-	// function handleHelpCentreClick () {
-	// 	navigate('/help');
-	// }
-
-	return (
-		<>
-			{user?<Sup>
-				<Container>
-					<Header>
-						<LogoText
-							onClick={() => {
-								navigate('/dashboard');
-							}}
-						>
-            mama.
-						</LogoText>
-					</Header>
-					<MainContainer>
-						<LeftContainer>
-							<div>
-								{Object.keys(sidebarOptions).map((option, index) => {
-									if (!sidebarOptions[option]) return null; //? to handle null value in array
-									if (sidebarOptions[option].isFooterItem) return null;
-									
-									return (
-										<>
-											<SingleMenuItem
-												isActive={option===tab}
-												key={index}
-												onClick={() => handleSidebarOptionClick(index, option)}
-											>
-												<SidebarOptionIcon>{sidebarOptions[option].icon}</SidebarOptionIcon>
-												<OptionText>{sidebarOptions[option].text}</OptionText>
-											</SingleMenuItem>
-										</>
-									);
-								})}
-							</div>
-							<LtContainer>
-								<div>
-									{Object.keys(sidebarOptions).map((option:any, index:any) => {
-										if (!sidebarOptions[option]) return null; //? to handle null value in array
-										if (!sidebarOptions[option].isFooterItem) return null;
-										return (
-											<>
-												<SingleMenuItem
-													isActive={option===tab}
-													key={index}
-													onClick={() => handleSidebarOptionClick(index, option)}
-												>
-													<SidebarOptionIcon>{sidebarOptions[option].icon}</SidebarOptionIcon>
-													<OptionText>{sidebarOptions[option].text}</OptionText>
-												</SingleMenuItem>
-											</>
-										);
-									})}
-								</div>
-							</LtContainer>
-						</LeftContainer>
-						<ContentContainer>{sidebarOptions[tab].component}</ContentContainer>
-					</MainContainer>
-				</Container>
-			</Sup>:<LoginDiv>
-				
-				Please login to view this page😊
-				<BTN_SignUp onClick={()=>navigate('/onboard')}>Login</BTN_SignUp>
-			</LoginDiv>}
-		</>
-
-	);
+                    return (
+                      <>
+                        <SingleMenuItem
+                          isActive={option === tab}
+                          key={index}
+                          onClick={() =>
+                            handleSidebarOptionClick(index, option)
+                          }
+                        >
+                          <SidebarOptionIcon>
+                            {sidebarOptions[option].icon}
+                          </SidebarOptionIcon>
+                          <OptionText>{sidebarOptions[option].text}</OptionText>
+                        </SingleMenuItem>
+                      </>
+                    );
+                  })}
+                </div>
+                <LtContainer>
+                  <div>
+                    {Object.keys(sidebarOptions).map(
+                      (option: any, index: any) => {
+                        if (!sidebarOptions[option]) return null; //? to handle null value in array
+                        if (!sidebarOptions[option].isFooterItem) return null;
+                        return (
+                          <>
+                            <SingleMenuItem
+                              isActive={option === tab}
+                              key={index}
+                              onClick={() =>
+                                handleSidebarOptionClick(index, option)
+                              }
+                            >
+                              <SidebarOptionIcon>
+                                {sidebarOptions[option].icon}
+                              </SidebarOptionIcon>
+                              <OptionText>
+                                {sidebarOptions[option].text}
+                              </OptionText>
+                            </SingleMenuItem>
+                          </>
+                        );
+                      },
+                    )}
+                  </div>
+                </LtContainer>
+              </LeftContainer>
+              <ContentContainer>
+                {sidebarOptions[tab].component}
+              </ContentContainer>
+            </MainContainer>
+          </Container>
+        </Sup>
+      ) : (
+        <LoginDiv>
+          Please login to view this page😊
+          <BTN_SignUp onClick={() => navigate('/onboard')}>Login</BTN_SignUp>
+        </LoginDiv>
+      )}
+    </>
+  );
 }
 
 export default Dashboard;
