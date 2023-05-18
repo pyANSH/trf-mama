@@ -7,7 +7,9 @@ export const _scheduleMeeting = createAsyncThunk(
 		try {
 			console.log(body);
 			
-			await scheduleMeeting({body});
+			const res =await scheduleMeeting({body});
+			console.log(res);
+			
 		} catch (error) {
 			rejectWithValue(error);
 		}

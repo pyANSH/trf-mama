@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { _AcceptInvite, _RejectInvite, _getMeetings } from '../Thunk/meeting';
+import { _AcceptInvite, _RejectInvite, _getMeetings, _scheduleMeeting } from '../Thunk/meeting';
 
 const mentors = createSlice({
 	name: 'meetings',
@@ -22,6 +22,8 @@ const mentors = createSlice({
 			const meetingIndex = state.meetingDetails.findIndex((meeting:any) => meeting._id === meetingId);
 			state.meetingDetails[meetingIndex].meetingStatus='rejected';
 		});
+
+		
 		
 	},
 	
