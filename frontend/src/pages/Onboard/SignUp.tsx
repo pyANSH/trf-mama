@@ -281,6 +281,8 @@ function SignUp() {
 				setInterestModal(true);
 			} else {
 				navigate('/dashboard');
+				window.location.reload();
+
 			}
 		}
 		console.warn(res.payload.data);
