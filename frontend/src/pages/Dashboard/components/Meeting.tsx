@@ -27,6 +27,7 @@ function SeperateMentor({men}:{men:any}) {
 }
 function SeperateMeetings({men}:{men:any}) {
 	const dispatch:any = useDispatch();
+	const user =useSelector((state:any)=>state?.appdata?.user);
 
 	const [ismeetingModalOpen, setIsMeetingModalOpen] = useState(false);
 
@@ -55,8 +56,11 @@ function SeperateMeetings({men}:{men:any}) {
 				<p>{men.meetingStatus}</p>
 				<p>{men.meetingDate}</p>
 				<p>{men.meetingTime}</p>
-				<p onClick={handleAccept}>Accept</p>
-				<p onClick={handleReject}>Reject</p>
+				{user?.isMentor &&<>
+					<p onClick={handleAccept}>Accept</p>
+					<p onClick={handleReject}>Reject</p>
+				</>}
+				
 			</div>
 			{ismeetingModalOpen && <AcceptMeetingModal meetingId={men._id} setIsMeetingModalOpen={setIsMeetingModalOpen}/>}
 		</>
@@ -66,6 +70,7 @@ function SeperateMeetings({men}:{men:any}) {
 function Meeting() {
 	const dispatch:any = useDispatch();
 	const userDetails = useSelector((state:any)=>state?.appdata?.user?._id);
+	const user =useSelector((state:any)=>state?.appdata?.user);
 	useEffect(() => {
 		dispatch(_getMentorList({type:'as'}));
 		if(userDetails){
@@ -87,10 +92,9 @@ function Meeting() {
 				<SeperateMeetings key={index} men={men} />
 			))}
 
-			{
-				mentors.map((men:any,index:any)=>(
-					<SeperateMentor key={index} men={men} />
-				))
+			{user?.isMenotr===false &&	mentors.map((men:any,index:any)=>(
+				<SeperateMentor key={index} men={men} />
+			))
 			}
 
 		</Container>
