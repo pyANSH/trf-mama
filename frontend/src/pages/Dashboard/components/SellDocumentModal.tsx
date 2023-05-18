@@ -285,15 +285,20 @@ function SellDocumentModal({setUploadFiles,uploadFiles,setIsDetailsModal}:{setUp
 			},
 			(error) => {
 				alert(error);
+				setIsDetailsModal(false);
 			},
-			() => {
-				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL:any) => {                
+			 () => {
+				getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL:any) => {                
 					setImgUrl(downloadURL);
-					dispatch(_uploadNotes({title,file:uploadFiles,fileUrl:downloadURL,userId:userDetails._id,description,category:interestArr,tags:tagArr}));
+					const res = await dispatch(_uploadNotes({title,file:uploadFiles,fileUrl:downloadURL,userId:userDetails._id,description,category:interestArr,tags:tagArr}));
+					if(res?.meta?.requestStatus==='fulfilled'){
+						setIsDetailsModal(false);
+					}else{
+						setIsDetailsModal(false);
+					}
 				});
 			}
 		);
-		console.log(imgUrl);
 
 
 	}
@@ -357,7 +362,7 @@ function SellDocumentModal({setUploadFiles,uploadFiles,setIsDetailsModal}:{setUp
 						))
 					}
 				</ActiveTagsContainer>}
-				<BtnConfirm onClick={handleSubmit}>Confirm</BtnConfirm>
+				<BtnConfirm onClick={handleSubmit}>{progresspercent>0?`${progresspercent}% Done`:'Confirm'}</BtnConfirm>
 			</ModalMainContainer>
 		</>
 	);
