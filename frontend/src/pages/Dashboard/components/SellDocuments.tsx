@@ -33,13 +33,24 @@ const UploadDocumentContainer = styled.div`
   display: flex;
   gap: 24px;
   flex-direction: column;
+
+  cursor: pointer;
 `;
-const UplaodContainer = styled.div`
+const UploadContainer = styled.div`
   width: 100%;
 
   height: 100%;
   border: 1px dashed #c8c8c8;
   border-radius: 40px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 24px;
+
+  gap:24px
 `;
 const RecentUploadDiv = styled.div`
   width: 100%;
@@ -223,10 +234,7 @@ const IconContainer = styled.div`
   border-radius: 100px;
 `;
 
-const UploadIcon = styled(UploadSimple)`
-  width: 24px;
-  height: 24px;
-`;
+
 const CheckIcon = styled(CheckSquareOffset)`
   width: 24px;
   height: 24px;
@@ -286,6 +294,17 @@ const MainContainer = styled.div`
   gap: 60px;
 `;
 
+const UploadIcon = styled(UploadSimple)`
+  color: ${({ theme }) => theme.app.typography[900]};
+`;
+
+const UploadText = styled.p`
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 19px;
+  color: ${({ theme }) => theme.app.typography[500]};
+`;
+
 function SellDocuments() {
 	const [uploadFiles, setUploadFiles] = useState();
 	const [isDetailsModal, setIsDetailsModal] = useState(false);
@@ -326,10 +345,13 @@ function SellDocuments() {
 				<LeftContainer>
 					<UploadDocumentContainer>
 						{/* <CommonTitleText>Upload Document</CommonTitleText> */}
-						<UplaodContainer onClick={handleUploadClick}>
+						<UploadContainer onClick={handleUploadClick}>
+						
+							<UploadIcon size={42}/>
+							<UploadText>Upload Document</UploadText>
               
 							<NoInput type='file' ref={uploadRef} onChange={handleUpload} />
-						</UplaodContainer>
+						</UploadContainer>
       
       
 						{isDetailsModal && <SellDocumentModal uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} setIsDetailsModal={setIsDetailsModal}/>}
@@ -416,7 +438,7 @@ function SellDocuments() {
 						<HowWorksSingleMainContainer>
 							<HowWorksSingleContainer>
 								<IconContainer>
-									<UploadIcon />
+									<UploadIcon size={24} />
 								</IconContainer>
 								<HowWorksSingleCaption>
                     Upload your work. You can share class notes, study guides and
