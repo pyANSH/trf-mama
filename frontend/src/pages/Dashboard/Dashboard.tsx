@@ -199,11 +199,14 @@ function Dashboard() {
 	}, []);
 
 
+	
 	const handleLogout = () => {
-		removeCookie('token');
+		removeCookie('token', { path: '/dashboard', sameSite: true });
+		removeCookie('token', { path: '/', sameSite: true });
 
-		window.location.href = '/onboard';
+		window.location.reload();
 	};
+
 	const sidebarOptions: any = {
 		dashboard: {
 			icon: <SquareFourIcon />,
