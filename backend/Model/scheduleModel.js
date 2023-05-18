@@ -40,6 +40,9 @@ const scheduleSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid status`
         }
     },
+    meetingURL:{
+        type: String,
+    }
 
 
 })
