@@ -215,7 +215,8 @@ const CloseContainer =styled.div`
 display: flex;
 gap: 8px;
 background:${({theme})=>theme.app.neutral['800']};
-border-radius: 100px;
+/* border-radius: 100px; */
+border-radius: 50%;
 align-items: center;
 padding: 8px;
 cursor: pointer;
@@ -327,7 +328,7 @@ function SellDocumentModal({setUploadFiles,uploadFiles,setIsDetailsModal}:{setUp
 			<ModalMainContainer>
 				<HeaderContainer>
 					<CloseContainer onClick={handleCloseDropdown}>
-						<CloseText>Close</CloseText>
+						{/* <CloseText>Close</CloseText> */}
 						<CloseIconMain/>
 					</CloseContainer>
 				</HeaderContainer>

@@ -154,7 +154,8 @@ const SidebarOptionIcon = styled.div(({}) => ({
 const ContentContainer = styled.div(({ theme }) => ({
 	
 	overflowY : 'scroll',
-	paddingInlineEnd:'24px'
+	paddingInlineEnd:'24px',
+	paddingInlineStart:'4px',
 	//   width: "78%",
 	//   height: "100%",
 }));
@@ -204,7 +205,8 @@ function Dashboard() {
 		removeCookie('token', { path: '/dashboard', sameSite: true });
 		removeCookie('token', { path: '/', sameSite: true });
 
-		window.location.reload();
+		window.location.href = '/';
+
 	};
 
 	const sidebarOptions: any = {
