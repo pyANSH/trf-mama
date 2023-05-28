@@ -113,7 +113,6 @@ exports.user_get = async (req, res) => {
       notesCount: notesCount,
       meetingsCount: meetingsCount,
       totalViewCount: totalViewCount
-
     };
     return res;
   };
