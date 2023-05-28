@@ -97,7 +97,7 @@ exports.get_notes = async (req, res) => {
   }
 };
 exports.update_notes = async (req, res) => {
-  const { noteId, userId, noteTitle, category, description, tags } = req.body;
+  const { noteId, userId, noteTitle, category, description, tags, viewCount } = req.body;
   const { token } = req.headers;
   if (!noteId || !userId || !noteTitle || !category || !description || !tags) {
     return res.status(400).json({
@@ -123,6 +123,9 @@ exports.update_notes = async (req, res) => {
     notes.category = category;
     notes.description = description;
     notes.tags = tags;
+    if (viewCount) {
+      notes.viewCount = viewCount;
+    }
     await notes.save();
     return res.status(200).json({
       response: 'Notes updated',

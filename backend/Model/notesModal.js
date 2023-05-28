@@ -44,5 +44,10 @@ const notesSchema = mongoose.Schema({
         default: 0,
 
     },
+    viewCount: {
+        type: Number,
+        default: 0,
+
+    },
 });
 module.exports = mongoose.model('notes', notesSchema);
