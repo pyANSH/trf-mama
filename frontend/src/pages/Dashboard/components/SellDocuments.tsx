@@ -6,8 +6,14 @@ import {
 	CheckSquareOffset,
 	FireSimple,
 	Medal,
+	GraduationCap,
+	MagicWand,
+	Trash,
 } from 'phosphor-react';
 import SellDocumentModal from './SellDocumentModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { _deleteNotes, _getNotes } from '../../../Store/Thunk/notes';
+import { appTypography } from '../../../config/styles';
 
 const Container = styled.div`
   display: flex;
@@ -33,19 +39,29 @@ const UploadDocumentContainer = styled.div`
   display: flex;
   gap: 24px;
   flex-direction: column;
+
+  cursor: pointer;
 `;
-const UplaodContainer = styled.div`
+const UploadContainer = styled.div`
   width: 100%;
 
   height: 100%;
   border: 1px dashed #c8c8c8;
   border-radius: 40px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 24px;
+
+  gap:12px
 `;
 const RecentUploadDiv = styled.div`
-  width: 100%;
-  height: 100%;
   border: 1px dashed #c8c8c8;
   border-radius: 40px;
+  padding:8px;
 `;
 
 const StatsContainer = styled.div`
@@ -56,7 +72,7 @@ const StatsContainer = styled.div`
 const StatsCard = styled.div`
   width: 30%;
   height: 100%;
-  background: #3b4bd5;
+  /* background: #3b4bd5; */
   border: 1px solid #dcdcdc;
   border-radius: 40px;
   display: flex;
@@ -68,7 +84,7 @@ const StatsCard = styled.div`
 
 const StatIconContainer = styled.div`
   padding: 12px;
-  background: #fafafa;
+  background: #dcdcdc;
   border-radius: 14px;
   width: fit-content;
 `;
@@ -78,11 +94,21 @@ const MonitorIcon = styled(Monitor)`
   height: 24px;
 `;
 
+const StudentsIcon = styled(GraduationCap)`
+  width: 24px;
+  height: 24px;
+`;
+
+const MentorIcon = styled(MagicWand)`
+  width: 24px;
+  height: 24px;
+`;
+
 const StatsTitle = styled.p`
   font-weight: 500;
   font-size: 12px;
   line-height: 14px;
-  color: #ffffff;
+  color: #000;
 `;
 
 const StatsInfo = styled.div`
@@ -97,7 +123,7 @@ const StatsNumber = styled.p`
   text-align: center;
   line-height: 42px;
   letter-spacing: -0.06em;
-  color: #ffffff;
+  color: #000;
 `;
 
 const StatsCardContainer = styled.div`
@@ -223,10 +249,7 @@ const IconContainer = styled.div`
   border-radius: 100px;
 `;
 
-const UploadIcon = styled(UploadSimple)`
-  width: 24px;
-  height: 24px;
-`;
+
 const CheckIcon = styled(CheckSquareOffset)`
   width: 24px;
   height: 24px;
@@ -256,10 +279,82 @@ const NoInput = styled.input`
 display: none;
 `;
 
+const ContentHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  position: sticky;
+  top: 0;
+  background: #fcfcfc;
+  z-index: 1;
+`;
+
+const ContentTitle = styled.p`
+  font-weight: 500;
+  font-size: 36px;
+  /* line-height: 24px; */
+`;
+
+const ContentCaption = styled.p`
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: #7c7c7c;
+`;
+
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+`;
+
+const UploadIcon = styled(UploadSimple)`
+  color: ${({ theme }) => theme.app.typography[900]};
+`;
+
+const UploadText = styled.p`
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: ${({ theme }) => theme.app.typography[500]};
+`;
+
+const AllDocs =styled.div`
+display: flex;
+flex-direction: column;
+gap: 8px;
+`;
+
+const NONoteText =styled.p(({theme})=>({
+	...appTypography.paraSmall.regular,
+	color:theme.app.typography['500']
+}));
+
+const Note =styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+`;
+
+const DeleteIcon = styled(Trash)(({theme})=>({
+	width:'18px',
+	height:'18px',
+	color:theme.app.error['500'],
+	cursor:'pointer'
+}));
+
+const NoteTitle=styled.p(({theme})=>({
+	...appTypography.paraMed.regular,
+	color:theme.app.typography['900']
+}));
+
 function SellDocuments() {
 	const [uploadFiles, setUploadFiles] = useState();
 	const [isDetailsModal, setIsDetailsModal] = useState(false);
+	const user =useSelector((state:any)=>state?.appdata?.user);
 	const uploadRef:any=useRef();
+	const dispatch:any =useDispatch();
 
 	function handleUploadClick() {
 		uploadRef.current.click();
@@ -278,140 +373,181 @@ function SellDocuments() {
 
 	}, [uploadFiles]);
 
-
+	useEffect(() => {
+		dispatch(_getNotes({userId:user?._id}));
+	}, []);
 	console.log(uploadFiles);
+
+	const getNotes =useSelector((state:any)=>state?.notes?.notes);
   
+
+	async	function handleDelete(noteId:any){
+		const res =await dispatch(_deleteNotes({noteId,userId:user?._id}));
+	}
+
 	return (
-		<Container>
-			<LeftContainer>
-				<UploadDocumentContainer>
-					<CommonTitleText>Upload Document</CommonTitleText>
-					<UplaodContainer onClick={handleUploadClick}>
-          
-						<NoInput type='file' ref={uploadRef} onChange={handleUpload} />
-					</UplaodContainer>
+		<MainContainer>
+			<ContentHeader>
+				<ContentHeader>
+					<ContentTitle>{'Sell Documents'}</ContentTitle>
+					<ContentCaption>{'In this dashboard you can find various things blah blah blah! fix this text @anmol'}</ContentCaption>
+				</ContentHeader>
+			</ContentHeader> 
+			<Container>
+      
+				
+      
+				<LeftContainer>
+					<UploadDocumentContainer>
+						{/* <CommonTitleText>Upload Document</CommonTitleText> */}
+						<UploadContainer onClick={handleUploadClick}>
+						
+							<UploadIcon size={22}/>
+							<UploadText>Upload Document</UploadText>
+              
+							<NoInput type='file' ref={uploadRef} onChange={handleUpload} />
+						</UploadContainer>
+      
+      
+						{isDetailsModal && <SellDocumentModal uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} setIsDetailsModal={setIsDetailsModal}/>}
+					</UploadDocumentContainer>
+      
+					<StatsContainer>
+						<CommonTitleText>Statistics</CommonTitleText>
+      
+						<StatsCardContainer>
+							<StatsCard>
+								<StatIconContainer>
+									<MonitorIcon />
+								</StatIconContainer>
+								<StatsInfo>
+									<StatsTitle>Total Documents</StatsTitle>
+      
+									<StatsNumber>{user?.notesCount}</StatsNumber>
+								</StatsInfo>
+							</StatsCard>
+							<StatsCard>
+								<StatIconContainer>
+									<StudentsIcon />
+								</StatIconContainer>
+								<StatsInfo>
+									<StatsTitle>Total Students</StatsTitle>
+      
+									<StatsNumber>{user?.studentCount}</StatsNumber>
+								</StatsInfo>
+							</StatsCard>
+							<StatsCard>
+								<StatIconContainer>
+									<MentorIcon />
+								</StatIconContainer>
+								<StatsInfo>
+									<StatsTitle>Total Mentors</StatsTitle>
+      
+									<StatsNumber>{user?.mentorCount}</StatsNumber>
+								</StatsInfo>
+							</StatsCard>
+						</StatsCardContainer>
+					</StatsContainer>
+      
+					<RecentUploadContainer>
+						<CommonTitleText>Recent Uploads</CommonTitleText>
+						<RecentUploadDiv>
+							<AllDocs>
+            
+								{getNotes?.length>0 ? 
+									<>
+										{getNotes.map((note:any,index:any)=>(
+											<Note key={index}>
+												<NoteTitle>{note?.noteTitle}</NoteTitle>
+												<DeleteIcon onClick={()=>handleDelete(note._id)}/>
+											</Note>
+										))}
+									</>
+									:
+									<NONoteText>
+                  Upload notes to see you recent notes here
+									</NONoteText>
+								}
 
-
-					{isDetailsModal && <SellDocumentModal uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} setIsDetailsModal={setIsDetailsModal}/>}
-				</UploadDocumentContainer>
-
-				<StatsContainer>
-					<CommonTitleText>Statistics</CommonTitleText>
-
-					<StatsCardContainer>
-						<StatsCard>
-							<StatIconContainer>
-								<MonitorIcon />
-							</StatIconContainer>
-							<StatsInfo>
-								<StatsTitle>Total Documents</StatsTitle>
-
-								<StatsNumber>43</StatsNumber>
-							</StatsInfo>
-						</StatsCard>
-						<StatsCard>
-							<StatIconContainer>
-								<MonitorIcon />
-							</StatIconContainer>
-							<StatsInfo>
-								<StatsTitle>Total Documents</StatsTitle>
-
-								<StatsNumber>43</StatsNumber>
-							</StatsInfo>
-						</StatsCard>
-						<StatsCard>
-							<StatIconContainer>
-								<MonitorIcon />
-							</StatIconContainer>
-							<StatsInfo>
-								<StatsTitle>Total Documents</StatsTitle>
-
-								<StatsNumber>43</StatsNumber>
-							</StatsInfo>
-						</StatsCard>
-					</StatsCardContainer>
-				</StatsContainer>
-
-				<RecentUploadContainer>
-					<CommonTitleText>Recent Uploads</CommonTitleText>
-
-					<RecentUploadDiv />
-				</RecentUploadContainer>
-			</LeftContainer>
-			<RightContainer>
-				<RankingContainer>
-					<PlaceContainer>
-						<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
-						<ProfileName>Dianna</ProfileName>
-						<SecondPlaceBar>
-							<PlaceText>2nd</PlaceText>
-							<PlaceTextDesc>43 PTS 60$</PlaceTextDesc>
-						</SecondPlaceBar>
-					</PlaceContainer>
-
-					{/* //first place */}
-					<PlaceContainer>
-						<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
-						<ProfileName>Wade</ProfileName>
-						<FirstPlaceBar>
-							<PlaceText>1st</PlaceText>
-							<PlaceTextDesc>61 PTS 100$</PlaceTextDesc>
-						</FirstPlaceBar>
-					</PlaceContainer>
-
-					{/* third place  */}
-
-					<PlaceContainer>
-						<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
-						<ProfileName>Prantosh</ProfileName>
-						<ThirdPlaceBar>
-							<PlaceText>3rd</PlaceText>
-							<PlaceTextDesc>29 PTS 60$</PlaceTextDesc>
-						</ThirdPlaceBar>
-					</PlaceContainer>
-				</RankingContainer>
-
-				<HowWorksContainer>
-					<HowItWorksTitle>How it works</HowItWorksTitle>
-					<HowWorksSingleMainContainer>
-						<HowWorksSingleContainer>
-							<IconContainer>
-								<UploadIcon />
-							</IconContainer>
-							<HowWorksSingleCaption>
-                Upload your work. You can share class notes, study guides and
-                much more.
-							</HowWorksSingleCaption>
-						</HowWorksSingleContainer>
-						<HowWorksSingleContainer>
-							<IconContainer>
-								<CheckIcon />
-							</IconContainer>
-							<HowWorksSingleCaption>
-                Our systems and mentors will review it for quality checks.
-							</HowWorksSingleCaption>
-						</HowWorksSingleContainer>
-						<HowWorksSingleContainer>
-							<IconContainer>
-								<FlameIcon />
-							</IconContainer>
-							<HowWorksSingleCaption>
-                Your work is made available to students around the globe.
-							</HowWorksSingleCaption>
-						</HowWorksSingleContainer>
-						<HowWorksSingleContainer>
-							<IconContainer>
-								<BadgeIcon />
-							</IconContainer>
-							<HowWorksSingleCaption>
-                Your work will earn you credits which can be redeemed for
-                exciting rewards.
-							</HowWorksSingleCaption>
-						</HowWorksSingleContainer>
-					</HowWorksSingleMainContainer>
-				</HowWorksContainer>
-			</RightContainer>
-		</Container>
+							</AllDocs>
+						</RecentUploadDiv>
+					</RecentUploadContainer>
+				</LeftContainer>
+				<RightContainer>
+					<RankingContainer>
+						<PlaceContainer>
+							<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
+							<ProfileName>Dianna</ProfileName>
+							<SecondPlaceBar>
+								<PlaceText>2nd</PlaceText>
+								<PlaceTextDesc>43 PTS 60$</PlaceTextDesc>
+							</SecondPlaceBar>
+						</PlaceContainer>
+      
+						{/* //first place */}
+						<PlaceContainer>
+							<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
+							<ProfileName>Wade</ProfileName>
+							<FirstPlaceBar>
+								<PlaceText>1st</PlaceText>
+								<PlaceTextDesc>61 PTS 100$</PlaceTextDesc>
+							</FirstPlaceBar>
+						</PlaceContainer>
+      
+						{/* third place  */}
+      
+						<PlaceContainer>
+							<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
+							<ProfileName>Prantosh</ProfileName>
+							<ThirdPlaceBar>
+								<PlaceText>3rd</PlaceText>
+								<PlaceTextDesc>29 PTS 60$</PlaceTextDesc>
+							</ThirdPlaceBar>
+						</PlaceContainer>
+					</RankingContainer>
+      
+					<HowWorksContainer>
+						<HowItWorksTitle>How it works</HowItWorksTitle>
+						<HowWorksSingleMainContainer>
+							<HowWorksSingleContainer>
+								<IconContainer>
+									<UploadIcon size={24} />
+								</IconContainer>
+								<HowWorksSingleCaption>
+                    Upload your work. You can share class notes, study guides and
+                    much more.
+								</HowWorksSingleCaption>
+							</HowWorksSingleContainer>
+							<HowWorksSingleContainer>
+								<IconContainer>
+									<CheckIcon />
+								</IconContainer>
+								<HowWorksSingleCaption>
+                    Our systems and mentors will review it for quality checks.
+								</HowWorksSingleCaption>
+							</HowWorksSingleContainer>
+							<HowWorksSingleContainer>
+								<IconContainer>
+									<FlameIcon />
+								</IconContainer>
+								<HowWorksSingleCaption>
+                    Your work is made available to students around the globe.
+								</HowWorksSingleCaption>
+							</HowWorksSingleContainer>
+							<HowWorksSingleContainer>
+								<IconContainer>
+									<BadgeIcon />
+								</IconContainer>
+								<HowWorksSingleCaption>
+                    Your work will earn you credits which can be redeemed for
+                    exciting rewards.
+								</HowWorksSingleCaption>
+							</HowWorksSingleContainer>
+						</HowWorksSingleMainContainer>
+					</HowWorksContainer>
+				</RightContainer>
+			</Container>
+		</MainContainer>
 	);
 }
 

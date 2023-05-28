@@ -1,8 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useMemo } from 'react';
 import styled from 'styled-components';
 import {MagnifyingGlass,SquaresFour} from 'phosphor-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { _getNotes } from '../../../Store/Thunk/notes';
+import { _deleteNotes, _getNotes } from '../../../Store/Thunk/notes';
+import { appTypography } from '../../../config/styles';
+
+import dummyBanner_1 from '../../../assets/banner_defaults/banner_b_1.png';
+import dummyBanner_2 from '../../../assets/banner_defaults/banner_b_5.png';
+import dummyBanner_3 from '../../../assets/banner_defaults/banner_g_1.png';
+import dummyBanner_4 from '../../../assets/banner_defaults/banner_g_5.png';
+import dummyBanner_5 from '../../../assets/banner_defaults/banner_o_1.png';
+import dummyBanner_6 from '../../../assets/banner_defaults/banner_o_4.png';
+import dummyBanner_7 from '../../../assets/banner_defaults/banner_p_1.png';
+import dummyBanner_8 from '../../../assets/banner_defaults/banner_p_3.png';
+import dummyBanner_9 from '../../../assets/banner_defaults/banner_y_3.png';
+import dummyBanner_10 from '../../../assets/banner_defaults/banner_y_5.png';
 
 const Container =styled.div`
 display: flex;
@@ -67,17 +79,21 @@ gap:24px;
 
 const SingleInterest = styled.p`
 border: 1px solid #E1E3E6;
-border-radius: 8px;
+border-radius: 32px;
 padding: 12px 43px;
 cursor:pointer;
-background-color: ${({isActive,theme}:{isActive:any,theme:any})=>isActive?theme.app.primary['500']:'initial'};
+background-color: ${({isActive,theme}:{isActive:any,theme:any})=>isActive?'#9e4cdc':'initial'};
 color: ${({isActive,theme}:{isActive:any,theme:any})=>isActive?theme.app.shades.white:theme.app.typography['900']};
 `;
 
 const DocumentsContainer =styled.div`
 display: flex;
 align-items: center;
-justify-content: space-between;
+justify-content: flex-start;
+flex-wrap: wrap;
+height: 360px;
+min-height: 360px;
+gap:12px;
 `;
 
 const SingleDocCard =styled.a`
@@ -86,37 +102,54 @@ border-radius: 12px;
 display: flex;
 flex-direction: column;
 gap: 24px;
+text-decoration: none;
+box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+height: 100%;
 `;
 
-const DocDesc =styled.p`
-font-weight: 400;
-font-size: 14px;
-line-height: 16px;
-`;
+const DocDesc =styled.p(({theme})=>({
+	...appTypography.paraSmall.regular,
+	color:theme.app.typography['500'],
+	textAlign:'center'
+}));
 
-const DocHeading =styled.p`
-font-weight: 500;
-font-size: 18px;
-line-height: 21px;
-`;
+const DocHeading =styled.p(({theme})=>({
+	...appTypography.paraMed.regular,
+	color:theme.app.typography['900'],
+	textAlign:'center'
+}));
 
 const DocInfo =styled.div`
 display: flex;
 flex-direction: column;
-gap: 4px;
+gap: 8px;
 width: 256px;
 
 `;
 
-const DocImage =styled.div`
+const DocImage =styled.div<{
+	src:string
+}>`
 width: 256px;
 height: 173px;
-background: #DEDEDE;
+background: url(${({src})=>src});
+background-size: cover;
+background-position: center;
+
 border-radius: 12px;
 `;
 
 
-
+const DeleteBtn =styled.div(({theme})=>({
+	...appTypography.paraSmall.regular,
+	background:theme.app.error['100'],
+	color:theme.app.error['500'],
+	textAlign:'center',
+	textDecoration:'none',
+	borderRadius:'16px',
+	padding:'8px'
+}));
 
 function Notebank() {
 	const userDetails = useSelector((state:any)=>state?.appdata?.user);
@@ -132,20 +165,67 @@ function Notebank() {
 	const dispatch:any =useDispatch();
 
 	useEffect(() => {
-		dispatch(_getNotes({userId:userDetails?._id}));
+		dispatch(_getNotes({allNotes:true}));
 	}, []);
     
 
 	function handleTabChange(type:string) {
 		setCurrentTab(type);
-		dispatch(_getNotes({userId:userDetails?._id,category:type==='All'?null:type}));
+		dispatch(_getNotes({category:type==='All'?null:type,allNotes:type==='All'?true:false}));
 	}
+
+	async function handleDelete(noteId:any){
+		const res =await dispatch(_deleteNotes({noteId,userId:userDetails?._id}));
+	}
+
+
+	const getRandomBanner = useMemo(() => {
+		const banners = [
+			dummyBanner_1,
+			dummyBanner_2,
+			dummyBanner_3,
+			dummyBanner_4,
+			dummyBanner_5,
+			dummyBanner_6,
+			dummyBanner_7,
+			dummyBanner_8,
+			dummyBanner_9,
+			dummyBanner_10
+		];
+		const randomIndex = Math.floor(Math.random() * banners.length);
+		return banners[randomIndex];
+	}, []);
+
+
+	const [searchQuery, setSearchQuery] = useState('');
+
+	function handleSearchChange(e:any){
+		const _searchQuery = e.target.value;
+		setSearchQuery(_searchQuery);
+	}
+
+	const [filteredNotes, setFilteredNotes] = useState(allNotes);
+
+	useEffect(() => {
+		if(searchQuery.length>0){
+			// dispatch(_getNotes({searchQuery}));
+			setFilteredNotes(allNotes?.filter((note:any)=>note?.noteTitle?.toLowerCase().includes(searchQuery?.toLowerCase())));
+		}
+		else{
+			setFilteredNotes(allNotes);
+		}
+
+	}, [searchQuery,allNotes]);
+
+
+	console.log(allNotes);
+
 
 	return (
 		<Container>
 			<SearchContainer>
 				<SearchBox>
-					<SearchInput placeholder='Search'/>
+					<SearchInput placeholder='Search' onChange={handleSearchChange} />
 
 					<SearchBtn>
 						<SearchIcon/>
@@ -169,20 +249,28 @@ function Notebank() {
 			</InterestContainer>
 
 			<DocumentsContainer>
-				{allNotes?.map((note:any,index:number)=>(
+				{filteredNotes?.map((note:any,index:number)=>(
 
-					<SingleDocCard href={note.fileUrl} target='_blank' key={index}>
-						<DocImage/>
-
-						<DocInfo>
-							<DocHeading>
-								{note.noteTitle}
-							</DocHeading>
-							<DocDesc>
-								{note.description}
-							</DocDesc>
-						</DocInfo>
-					</SingleDocCard>
+					<>
+						<>
+							{
+								console.log(note)
+							}
+						</>
+						<SingleDocCard href={note.fileUrl} target='_blank' key={index}>
+							<DocImage src={getRandomBanner}/>
+						
+							<DocInfo>
+								<DocHeading>
+									{note.noteTitle}
+								</DocHeading>
+								<DocDesc>
+									{note.description}
+								</DocDesc>
+							</DocInfo>
+							{userDetails?._id ===note?.userId &&<DeleteBtn onClick={()=>handleDelete(note._id)}>Delete</DeleteBtn>}
+						</SingleDocCard>
+					</>
 				))}
 			</DocumentsContainer>
 

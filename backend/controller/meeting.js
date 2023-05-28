@@ -18,7 +18,8 @@ exports.schedule_create = async (req, res) => {
 
         const findMentor = await userModal.find({ _id: request.mentorId })
         const findMentee = await userModal.find({ _id: request.menteeId })
-
+        const mentorFullname = findMentor[0].userFullName;
+        const menteeFullname = findMentee[0].userFullName;
         findMentor[0].meetings.push(meeting._id)
         findMentee[0].meetings.push(meeting._id)
         findMentor[0].save()
@@ -26,6 +27,9 @@ exports.schedule_create = async (req, res) => {
         if (findMentor[0].isMentor === false || findMentee[0].isMentor === true) {
             return res.status(400).send({ response: 'Please enter valid mentor and mentee' });
         }
+         meeting.userFullnameMentor = mentorFullname;
+        meeting.userFullnameMentee = menteeFullname;
+        console.log(meeting);
         meeting.save()
         return res.status(201).send({ response: 'Meeting scheduled', meetingId: meeting._id })
     }
@@ -49,12 +53,12 @@ exports.get_meeting = async (req, res) => {
     }
 }
 exports.update_meeting = async (req, res) => {
-    const { meetingId, meetingStatus } = req.body;
-    if (!meetingId, !meetingStatus) {
+    const { meetingId, meetingStatus,meetingURL } = req.body;
+    if (!meetingId, !meetingStatus,!meetingURL) {
         return res.status(400).send({ response: 'Please fill all the fields' });
     }
     try {
-        const meetingUpdate = await meetingModal.updateOne({ _id: meetingId }, { $set: { meetingStatus: meetingStatus } })
+        const meetingUpdate = await meetingModal.updateOne({ _id: meetingId }, { $set: { meetingStatus: meetingStatus,meetingURL:meetingURL } })
         res.status(200).send({ response: 'Meeting updated', meetingUpdate })
     }
     catch (err) {

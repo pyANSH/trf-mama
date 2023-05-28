@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npm i && concurrently \"cd backend && npm i && npm run start\" \"cd frontend && npm i && npm run dev\" ",
+    "dev:force": "npm i --force && concurrently \"cd backend && npm i --force && npm run start\" \"cd frontend && npm i --force && npm run dev\" ",
     "clean:frontend": "rm -rf frontend/node_modules",
     "clean:backend": "rm -rf backend/node_modules",
     "clean:root": "rm -rf node_modules",

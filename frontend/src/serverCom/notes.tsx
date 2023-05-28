@@ -17,3 +17,12 @@ export const uploadNotes = async ({ body }: any) => {
 	});
 	return response;
 };
+
+export const deleteNotes =async ({ body }: any) => {
+	const response = await commonAPI({
+		path: '/notes/deleteNotes',
+		method: 'DELETE',
+		body,
+	});
+	return response;
+}; 

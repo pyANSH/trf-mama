@@ -215,7 +215,8 @@ const CloseContainer =styled.div`
 display: flex;
 gap: 8px;
 background:${({theme})=>theme.app.neutral['800']};
-border-radius: 100px;
+/* border-radius: 100px; */
+border-radius: 50%;
 align-items: center;
 padding: 8px;
 cursor: pointer;
@@ -285,15 +286,20 @@ function SellDocumentModal({setUploadFiles,uploadFiles,setIsDetailsModal}:{setUp
 			},
 			(error) => {
 				alert(error);
+				setIsDetailsModal(false);
 			},
-			() => {
-				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL:any) => {                
+			 () => {
+				getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL:any) => {                
 					setImgUrl(downloadURL);
-					dispatch(_uploadNotes({title,file:uploadFiles,fileUrl:downloadURL,userId:userDetails._id,description,category:interestArr}));
+					const res = await dispatch(_uploadNotes({title,file:uploadFiles,fileUrl:downloadURL,userId:userDetails._id,description,category:interestArr,tags:tagArr}));
+					if(res?.meta?.requestStatus==='fulfilled'){
+						setIsDetailsModal(false);
+					}else{
+						setIsDetailsModal(false);
+					}
 				});
 			}
 		);
-		console.log(imgUrl);
 
 
 	}
@@ -322,7 +328,7 @@ function SellDocumentModal({setUploadFiles,uploadFiles,setIsDetailsModal}:{setUp
 			<ModalMainContainer>
 				<HeaderContainer>
 					<CloseContainer onClick={handleCloseDropdown}>
-						<CloseText>Close</CloseText>
+						{/* <CloseText>Close</CloseText> */}
 						<CloseIconMain/>
 					</CloseContainer>
 				</HeaderContainer>
@@ -357,7 +363,7 @@ function SellDocumentModal({setUploadFiles,uploadFiles,setIsDetailsModal}:{setUp
 						))
 					}
 				</ActiveTagsContainer>}
-				<BtnConfirm onClick={handleSubmit}>Confirm</BtnConfirm>
+				<BtnConfirm onClick={handleSubmit}>{progresspercent>0?`${progresspercent}% Done`:'Confirm'}</BtnConfirm>
 			</ModalMainContainer>
 		</>
 	);

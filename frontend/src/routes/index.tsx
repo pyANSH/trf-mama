@@ -4,7 +4,7 @@ import { landingPageRoutes } from './landingPage';
 import { onboardRoutes } from './onboard';
 
 export const router = createBrowserRouter([
-  ...landingPageRoutes,
-  ...onboardRoutes,
-  ...dashboardRoutes,
+	...landingPageRoutes,
+	...onboardRoutes,
+	...dashboardRoutes,
 ]);

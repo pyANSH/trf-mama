@@ -1,5 +1,5 @@
 export const ResponsiveConfigs = {
-	dashboardHeaderHeight: '100px',
+	dashboardHeaderHeight: '104px',
 };
 
 export const lightThemeColorScheme = {
@@ -2011,5 +2011,7 @@ export const appTypography = {
 	},
 
 };
+
+
 
 

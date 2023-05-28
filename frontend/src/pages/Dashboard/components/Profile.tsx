@@ -12,6 +12,7 @@ import { _updateUser } from '../../../Store/Thunk/Onboard';
 import { _updateUserDetails } from '../../../Store/Thunk/users';
 import { showToast } from '../../../Store/Reducers/onboard';
 import img from '../../../assets/SweetGirl.png';
+import Avvvatars from 'avvvatars-react';
 
 const Container = styled.div`
   display: flex;
@@ -23,7 +24,12 @@ const Container = styled.div`
 const Header = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
+
+  position: sticky;
+  top: 0;
+  background: #fcfcfc;
+  z-index: 1;
 `;
 
 const Topic = styled.p`
@@ -37,6 +43,7 @@ const Caption = styled.p`
   font-size: 18px;
   line-height: 24px;
   color: #7c7c7c;
+  background: #fcfcfc;
 `;
 
 const MainContainer = styled.div`
@@ -45,6 +52,8 @@ const MainContainer = styled.div`
 
   width: 100%;
   height: 90%;
+
+  padding-block-end: 64px;
 `;
 
 const LeftContainer = styled.div`
@@ -378,15 +387,15 @@ function Profile() {
 			dispatch(showToast('Profile Updated Successfully'));
 		});
 	};
+
+	const [profilePic, setProfilePic] = useState('');
+	const userNameInitials = user?.userFullName ? (user?.userFullName).split(' ').map((n: any) => n[0]).join(''): 'NA';
+
 	return (
 		<Container>
 			<Header>
-				<Topic>User Information</Topic>
-
-				<Caption>
-          Here you can edit public information about yourself. Changes made may
-          take some time to reflect
-				</Caption>
+				<Topic>{'User Information'}</Topic>
+				<Caption>{'Here you can edit public information about yourself. Changes made may take some time to reflect'}</Caption>
 			</Header>
 			<MainContainer>
 				<LeftContainer>
@@ -430,11 +439,25 @@ function Profile() {
 
 				<RightContainer>
 					<ProfilePhotoContainer>
-						<ProfilePic
-							src={
-								'https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg'
-							}
+						{
+							profilePic && 
+							<ProfilePic src={profilePic}/>
+						}
+
+						
+						<Avvvatars
+							// value={userId} 
+							value={userNameInitials} 
+							// style={'shape'}  
+							shadow={true}   
+							// border={true} 
+							size={120} 
+							// borderColor='black'
+							// radius={8} 
+							
 						/>
+						
+
 						<ProfilePicText>Profile Picture</ProfilePicText>
 
 						<input

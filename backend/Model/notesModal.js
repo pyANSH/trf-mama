@@ -39,5 +39,15 @@ const notesSchema = mongoose.Schema({
         type: [String],
         required: true,
     },
+    rating: {
+        type: Number,
+        default: 0,
+
+    },
+    viewCount: {
+        type: Number,
+        default: 0,
+
+    },
 });
 module.exports = mongoose.model('notes', notesSchema);
