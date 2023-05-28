@@ -90,7 +90,7 @@ exports.get_notes = async (req, res) => {
       });
     } else {
       return res.status(204).json({
-        response: 'Notes found',
+        response: 'Notes not found',
         data: [],
       });
     }
