@@ -91,33 +91,40 @@ exports.user_get = async (req, res) => {
   if (!token) {
     return res.status(400).json({ response: 'Please fill all the fields' });
   }
-  const getALlGlobalCount = async () => {
-    const isMentorCount = await userModal.countDocuments({ isMentor: true });
-    const isStudentCount = await userModal.countDocuments({ isMentor: false });
-    const usersCount = await userModal.countDocuments();
+  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+    const getALlGlobalCount = async () => {
+      const isMentorCount = await userModal.countDocuments({ isMentor: true });
+      const isStudentCount = await userModal.countDocuments({ isMentor: false });
+      const usersCount = await userModal.countDocuments();
 
-    const notesCount = await notesModal.countDocuments();
-    const meetingsCount = await meetingModal.countDocuments();
-    const totalViewCount = await notesModal.aggregate([
-      {
-        $group: {
-          _id: null,
-          total: { $sum: "$viewCount" }
-        }
-      }
-    ]);
-    let res = {
-      mentorCount: isMentorCount,
-      studentCount: isStudentCount,
-      usersCount: usersCount,
-      notesCount: notesCount,
-      meetingsCount: meetingsCount,
-      totalViewCount: totalViewCount
+      const notesCount = await notesModal.countDocuments();
+      const meetingsCount = await meetingModal.countDocuments();
+
+      const totalViewCount = await notesModal.aggregate([
+        {
+          $match: {
+            userId: decoded.id,
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            total: { $sum: '$viewCount' },
+          },
+        },
+      ]);
+
+      let res = {
+        mentorCount: isMentorCount,
+        studentCount: isStudentCount,
+        usersCount: usersCount,
+        notesCount: notesCount,
+        meetingsCount: meetingsCount,
+        totalViewCount: totalViewCount
+      };
+      return res;
     };
-    return res;
-  };
-  const count = await getALlGlobalCount();
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    const count = await getALlGlobalCount();
     if (err) {
       return res.status(423).json({ error: 'Invalid token' });
     } else {

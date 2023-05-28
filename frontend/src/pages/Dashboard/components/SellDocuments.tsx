@@ -10,6 +10,7 @@ import {
   MagicWand,
   Trash,
   Eye,
+  Coin,
 } from 'phosphor-react';
 import SellDocumentModal from './SellDocumentModal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -440,12 +441,16 @@ function SellDocuments() {
               </StatsCard>
               <StatsCard>
                 <StatIconContainer>
-                  <MentorIcon />
+                  <Coin size={28} />
                 </StatIconContainer>
                 <StatsInfo>
-                  <StatsTitle>Total Mentors</StatsTitle>
+                  <StatsTitle>Coins Earned</StatsTitle>
 
-                  <StatsNumber>{user?.mentorCount}</StatsNumber>
+                  <StatsNumber>
+                    {user?.totalViewCount?.length > 0
+                      ? user?.totalViewCount[0]?.total
+                      : 0}
+                  </StatsNumber>
                 </StatsInfo>
               </StatsCard>
             </StatsCardContainer>
