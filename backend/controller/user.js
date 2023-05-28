@@ -98,12 +98,22 @@ exports.user_get = async (req, res) => {
 
     const notesCount = await notesModal.countDocuments();
     const meetingsCount = await meetingModal.countDocuments();
+    const totalViewCount = await notesModal.aggregate([
+      {
+        $group: {
+          _id: null,
+          total: { $sum: "$viewCount" }
+        }
+      }
+    ]);
     let res = {
       mentorCount: isMentorCount,
       studentCount: isStudentCount,
       usersCount: usersCount,
       notesCount: notesCount,
       meetingsCount: meetingsCount,
+      totalViewCount: totalViewCount
+
     };
     return res;
   };
