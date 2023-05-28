@@ -261,8 +261,8 @@ function Notebank() {
       <DocumentsContainer>
         {filteredNotes?.map((note: any, index: number) => (
           <SingleDocCard
-            // href={note.fileUrl}
-            // target="_blank"
+            href={note.fileUrl}
+            target="_blank"
             key={index}
             onClick={async () => {
               if (userDetails?._id !== note?.userId) {
