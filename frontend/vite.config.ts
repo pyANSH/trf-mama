@@ -6,6 +6,7 @@ import checker from 'vite-plugin-checker';
 export default defineConfig({
 	build: {
 		outDir: 'build',
+		chunkSizeWarningLimit: 1600,
 	},
 	server:{
 		host:'localhost',
