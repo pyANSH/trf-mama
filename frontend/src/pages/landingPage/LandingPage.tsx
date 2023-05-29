@@ -504,7 +504,7 @@ const FooterHeroText = styled.p`
   flex-shrink: 0;
 `;
 
-const FooterHeroText_Span = styled(FooterHeroText)<{ bgColor?: string }>`
+const FooterHeroText_Span = styled(FooterHeroText) <{ bgColor?: string }>`
   background-color: ${(props) => (props.bgColor ? props.bgColor : '#7dfbb1')};
   border-radius: 32px;
   padding: 0 12px 0 2px;
@@ -740,48 +740,80 @@ function LandingPage() {
 			id: 1,
 			text: 'Why Mama',
 			link: '#',
-			onClick: () => console.log('why mama clicked'),
-		},
-		{
-			id: 2,
-			text: 'The Zone',
-			link: '#',
-			onClick: () => console.log('the zone clicked'),
+			onClick: () => {
+				const pricingElement = document.getElementById('testimonial') as HTMLElement | null;
+				if (pricingElement) {
+					const scrollOffset = pricingElement.getBoundingClientRect().top - 15;
+					window.scrollTo({
+						top: scrollOffset,
+						behavior: 'smooth'
+					});
+				}
+			}
 		},
 		{
 			id: 3,
 			text: 'Pricing',
 			link: '#',
-			onClick: () => console.log('pricing clicked'),
+			onClick: () => {
+				const pricingElement = document.getElementById('pricing') as HTMLElement | null;
+				if (pricingElement) {
+					const scrollOffset = pricingElement.getBoundingClientRect().top - 157;
+					window.scrollTo({
+						top: scrollOffset,
+						behavior: 'smooth'
+					});
+				}
+			}
+		},
+		{
+			id: 2,
+			text: 'The Zone',
+			link: '#',
+			onClick: () => {
+				const pricingElement = document.getElementById('add_value') as HTMLElement | null;
+				if (pricingElement) {
+					const scrollOffset = pricingElement.getBoundingClientRect().top - 157;
+					window.scrollTo({
+						top: scrollOffset,
+						behavior: 'smooth'
+					});
+				}
+			}
 		},
 		{
 			id: 4,
 			text: 'FAQs',
 			link: '#',
-			onClick: () => console.log('faqs clicked'),
+			onClick: () => {
+				const pricingElement = document.getElementById('old_way_learning') as HTMLElement | null;
+				if (pricingElement) {
+					const scrollOffset = pricingElement.getBoundingClientRect().top - 157;
+					window.scrollTo({
+						top: scrollOffset,
+						behavior: 'smooth'
+					});
+				}
+			}
 		},
 	];
 
 	const FeaturesData = {
 		free: [
-			'Unlimited access to static videos',
-			'Unlimited static videos',
-			'Unlimited access to static videos',
-			'Unlimited static videos',
-			'Unlimited access to static videos',
-			'Unlimited static videos',
-			'Unlimited access to static videos',
-			'Unlimited static videos',
+			'📺 Unlimited static videos',
+			'📚 Unlimited access to notes',
+			'🎮 Basic gamification',
+			'🤝 5 Free Mentor sessions',
+			'🌍 Access to Mama\'s community',
+			'📧 Email support',
 		],
 		premium: [
-			'Unlimited access to static videos',
-			'Unlimited static videos',
-			'Unlimited access to static videos',
-			'Unlimited static videos',
-			'Unlimited access to static videos',
-			'Unlimited static videos',
-			'Unlimited access to static videos',
-			'Unlimited static videos',
+			'🔒 All Free plan features',
+			'🎮 Advanced gamification',
+			'🤝 Access to all mentors',
+			'🎓 Access to live classes',
+			'📖 AI Readability Scores',
+			'⭐ Priority support',
 		],
 	};
 
@@ -881,7 +913,7 @@ function LandingPage() {
 					</VideoContainer>
 				</HeroContainer>
 			</HeroMainContainer>
-			<ConnectWithTutorsTextContainer>
+			<ConnectWithTutorsTextContainer id="testimonial">
 				<ConnectWithTutorsText>
 					{'Connect with tutors across🌏'}
 				</ConnectWithTutorsText>
@@ -1016,7 +1048,7 @@ function LandingPage() {
 					);
 				})}
 			</Marquee>
-			<PricingTextContainer>
+			<PricingTextContainer id="pricing">
 				<PricingTextLarge>{'Choose a plan'}</PricingTextLarge>
 				<PricingTextSmall>
 					{'No Credit card required to start'}
@@ -1026,11 +1058,11 @@ function LandingPage() {
 				<PricingAndFeaturesListContainer>
 					<PricingCard>
 						<PCT_Category>{'Free'}</PCT_Category>
-						<PCT_Price>{'$0'}</PCT_Price>
+						<PCT_Price>{'₹ 0'}</PCT_Price>
 						<PCT_Description>
 							{'Free Forever. As long as you hustle. No credit card required'}
 						</PCT_Description>
-						<PricingContainer_CTABTN>
+						<PricingContainer_CTABTN onClick={handleLoginClick}>
 							{'Sign up for free'}
 						</PricingContainer_CTABTN>
 					</PricingCard>
@@ -1048,11 +1080,11 @@ function LandingPage() {
 				<PricingAndFeaturesListContainer>
 					<PricingCard styleType={'v2'}>
 						<PCT_Category>{'Premium'}</PCT_Category>
-						<PCT_Price>{'$10'}</PCT_Price>
+						<PCT_Price>{'₹ 199'}</PCT_Price>
 						<PCT_Description>
 							{'30-day opt out guarantee. Cancel anytime.'}
 						</PCT_Description>
-						<PricingContainer_CTABTN styleType={'v2'}>
+						<PricingContainer_CTABTN styleType={'v2'} onClick={handleLoginClick}>
 							{'Sign up for free'}
 						</PricingContainer_CTABTN>
 					</PricingCard>
@@ -1068,7 +1100,7 @@ function LandingPage() {
 					</FeaturesComparisonContainer>
 				</PricingAndFeaturesListContainer>
 			</PricingCardsContainer>
-			<FooterHeroContainer styleType={'v2'}>
+			<FooterHeroContainer styleType={'v2'} id="add_value">
 				<FooterTextContainer>
 					<FooterHeroText>{'Use mama to '}</FooterHeroText>
 					<FooterHeroText_Span>{'add'}</FooterHeroText_Span>
@@ -1087,7 +1119,7 @@ function LandingPage() {
 							{'Concept Videos'}
 						</FooterHeroFeaturesTextGridItem_Title>
 						<FooterHeroFeaturesTextGridItem_Description>
-							{'All videos are suited well for your needs.'}
+							{'Perfect videos tailored for you!'}
 						</FooterHeroFeaturesTextGridItem_Description>
 					</FooterHeroFeaturesTextGridItem>
 					<FooterHeroFeaturesTextGridItem>
@@ -1095,7 +1127,7 @@ function LandingPage() {
 							{'Study Guides'}
 						</FooterHeroFeaturesTextGridItem_Title>
 						<FooterHeroFeaturesTextGridItem_Description>
-							{'All videos are suited well for your needs.'}
+							{'Your ultimate study companion!'}
 						</FooterHeroFeaturesTextGridItem_Description>
 					</FooterHeroFeaturesTextGridItem>
 					<FooterHeroFeaturesTextGridItem>
@@ -1103,7 +1135,7 @@ function LandingPage() {
 							{'Note Banks'}
 						</FooterHeroFeaturesTextGridItem_Title>
 						<FooterHeroFeaturesTextGridItem_Description>
-							{'All videos are suited well for your needs.'}
+							{'Organize your notes effortlessly!'}
 						</FooterHeroFeaturesTextGridItem_Description>
 					</FooterHeroFeaturesTextGridItem>
 					<FooterHeroFeaturesTextGridItem>
@@ -1111,12 +1143,12 @@ function LandingPage() {
 							{'Sell Docs'}
 						</FooterHeroFeaturesTextGridItem_Title>
 						<FooterHeroFeaturesTextGridItem_Description>
-							{'All videos are suited well for your needs.'}
+							{'Turn your documents into profit!'}
 						</FooterHeroFeaturesTextGridItem_Description>
 					</FooterHeroFeaturesTextGridItem>
 				</FooterHeroFeaturesTextGrid>
 			</FooterHeroContainer>
-			<FooterHeroContainer>
+			<FooterHeroContainer id="old_way_learning">
 				<FooterTextContainer>
 					<FooterHeroText>{'Don\'t learn the '}</FooterHeroText>
 					<FooterHeroText_Span>{'old'}</FooterHeroText_Span>
