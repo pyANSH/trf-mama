@@ -14,6 +14,8 @@ exports.upload_notes = async (req, res) => {
     category,
     description,
     tags,
+    quality,
+    readabilityScore,
   } = req.body;
   const user = await userModal.findById(userId);
   if (
@@ -42,6 +44,8 @@ exports.upload_notes = async (req, res) => {
       category,
       description,
       tags,
+      quality: quality || 0,
+      readabilityScore: readabilityScore || 0,
     });
     await notes.save();
     return res.status(200).json({
@@ -97,7 +101,7 @@ exports.get_notes = async (req, res) => {
   }
 };
 exports.update_notes = async (req, res) => {
-  const { noteId, userId, noteTitle, category, description, tags, viewCount } = req.body;
+  const { noteId, userId, noteTitle, category, description, tags, viewCount, readabilityScore, quality } = req.body;
   const { token } = req.headers;
   if (!noteId || !userId || !noteTitle || !category || !description || !tags) {
     return res.status(400).json({
@@ -123,6 +127,12 @@ exports.update_notes = async (req, res) => {
     notes.category = category;
     notes.description = description;
     notes.tags = tags;
+    if (readabilityScore) {
+      notes.readabilityScore = readabilityScore;
+    }
+    if (quality) {
+      notes.quality = quality;
+    }
     if (viewCount) {
       notes.viewCount = viewCount;
     }

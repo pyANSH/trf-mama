@@ -37,6 +37,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: '',
 
+    },
+    totalViewCount: {
+        type: Number,
+        default: 0,
+
     }
 
 

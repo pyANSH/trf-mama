@@ -39,10 +39,14 @@ const notesSchema = mongoose.Schema({
         type: [String],
         required: true,
     },
-    rating: {
+    readabilityScore: {
         type: Number,
         default: 0,
 
+    },
+    quality: {
+        type: Number,
+        default: 0,
     },
     viewCount: {
         type: Number,
