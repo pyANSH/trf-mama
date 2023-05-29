@@ -94,7 +94,9 @@ exports.user_get = async (req, res) => {
   jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
     const getALlGlobalCount = async () => {
       const isMentorCount = await userModal.countDocuments({ isMentor: true });
-      const isStudentCount = await userModal.countDocuments({ isMentor: false });
+      const isStudentCount = await userModal.countDocuments({
+        isMentor: false,
+      });
       const usersCount = await userModal.countDocuments();
 
       const notesCount = await notesModal.countDocuments();
@@ -103,7 +105,7 @@ exports.user_get = async (req, res) => {
       const totalViewCount = await notesModal.aggregate([
         {
           $match: {
-            userId: decoded.id,
+            userId: decoded._id,
           },
         },
         {
@@ -120,7 +122,7 @@ exports.user_get = async (req, res) => {
         usersCount: usersCount,
         notesCount: notesCount,
         meetingsCount: meetingsCount,
-        totalViewCount: totalViewCount
+        totalViewCount: totalViewCount,
       };
       return res;
     };
