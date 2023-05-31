@@ -6,7 +6,7 @@ require('dotenv').config();
 router.post('/upload', notesController.upload_notes);
 router.get('/getNotes', notesController.get_notes);
 router.put('/updateNotes', notesController.update_notes);
-
+router.get('/ranking',notesController.getRanking);
 router.delete('/deleteNotes', notesController.delete_notes);
 
 module.exports = router;

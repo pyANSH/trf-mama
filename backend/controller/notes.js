@@ -1,6 +1,7 @@
 const userModal = require('../Model/userModal');
 const notesModel = require('../Model/notesModal');
 const jwt = require('jsonwebtoken');
+const notesModal = require('../Model/notesModal');
 require('dotenv').config();
 
 exports.upload_notes = async (req, res) => {
@@ -178,5 +179,36 @@ exports.delete_notes = async (req, res) => {
     return res.status(401).json({
       error: 'Notes not found',
     });
+  }
+};
+
+
+exports.getRanking = async (req, res) => {
+  try {
+    const topViewedNotes = await notesModal.find()
+      .sort({ viewCount: -1 })
+      .limit(3);
+
+    // Extract the userIds from the top viewed notes
+    const userIds = topViewedNotes.map(note => note.userId);
+console.log(userIds);
+    // Retrieve the users based on the userIds
+    const users = await userModal.find({ _id: { $in: userIds } });
+console.log(users);
+    // Map the users to an object with userId as key
+    const usersMap = users.reduce((map, user) => {
+      map[user._id.toString()] = user;
+      return map;
+    }, {});
+console.log(usersMap);
+    // Add the user object to each note
+    const topViewedNotesWithUser = topViewedNotes.map(note => ({
+      ...notesModal.toObject(),
+      user: usersMap[note.userId]
+    }));
+
+    res.json(topViewedNotesWithUser);
+  } catch (err) {
+    res.status(500).json({ error: 'An error occurred' });
   }
 };
