@@ -32,7 +32,7 @@ const appdata = createSlice({
 		builder.addCase(_onBoard.fulfilled, (state, action: any) => {
 			const response = action.payload;
 			state.user = {
-				userId: response.data.userId,
+				_id: response.data.userId,
 				email: response.data.userEmail,
 				fullname: response.data.userFullName,
 				isMentor:response.data.isMentor,

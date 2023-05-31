@@ -93,7 +93,6 @@ function Community() {
 			isMentor: user?.isMentor,
 			uid: user?._id,
 		});
-		console.log(res);
 
 		setMessage('');
 	}

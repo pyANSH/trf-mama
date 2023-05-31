@@ -91,6 +91,7 @@ exports.user_get = async (req, res) => {
   if (!token) {
     return res.status(400).json({ response: 'Please fill all the fields' });
   }
+
   jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
     const getALlGlobalCount = async () => {
       const isMentorCount = await userModal.countDocuments({ isMentor: true });
