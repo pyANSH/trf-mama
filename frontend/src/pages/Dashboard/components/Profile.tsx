@@ -13,6 +13,7 @@ import { _updateUserDetails } from '../../../Store/Thunk/users';
 import { showToast } from '../../../Store/Reducers/onboard';
 import img from '../../../assets/SweetGirl.png';
 import Avvvatars from 'avvvatars-react';
+import { enqueueSnackbar } from 'notistack';
 
 const Container = styled.div`
   display: flex;
@@ -384,7 +385,7 @@ function Profile() {
 				gender: gender,
 			}),
 		).then(() => {
-			dispatch(showToast('Profile Updated Successfully'));
+			enqueueSnackbar('Profile Updated Successfully');
 		});
 	};
 
