@@ -51,6 +51,7 @@ exports.login = async (req, res) => {
       isMentor: userExists.isMentor,
       interests: userExists.interests,
       profileImg: userExists.profileImg,
+      userFullName:userExists.userFullName
     });
   }
   const user = new userModal({
@@ -79,6 +80,7 @@ exports.login = async (req, res) => {
       isMentor: dbUpdate.isMentor,
       interests: dbUpdate.interests,
       profileImg: profileImg,
+      userFullName:userFullName
     });
   } catch (err) {
     res.statusCode = 400;

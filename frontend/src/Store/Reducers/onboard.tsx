@@ -34,7 +34,7 @@ const appdata = createSlice({
 			state.user = {
 				_id: response.data.userId,
 				email: response.data.userEmail,
-				fullname: response.data.userFullName,
+				userFullName: response.data.userFullName,
 				isMentor:response.data.isMentor,
 				interests:response.data.interests,
 				totalRes: response.data,
