@@ -23,3 +23,12 @@ export const getMentors =async ( ) => {
 	});
 	return response;
 };
+
+
+export const getRanking =async ( ) => {
+	const response =  await commonAPI({
+		path: '/search/top',
+		method: 'GET'
+	});
+	return response;
+};
