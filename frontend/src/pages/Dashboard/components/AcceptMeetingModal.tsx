@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { appTypography } from '../../../config/styles';
 import { _AcceptInvite } from '../../../Store/Thunk/meeting';
 import { useDispatch } from 'react-redux';
+import { enqueueSnackbar } from 'notistack';
 const Backdrop = styled.div(({ theme }) => ({
 	position: 'fixed',
 	height: '100vh',
@@ -120,6 +121,8 @@ function AcceptMeetingModal({setIsMeetingModalOpen,meetingId}:{setIsMeetingModal
 		const res = await dispatch(_AcceptInvite({body}));
 		if(res?.meta?.requestStatus==='fulfilled'){
 			setIsMeetingModalOpen(false);
+			enqueueSnackbar('Meeting scheduled successfully');
+
 		}else{
 			setIsMeetingModalOpen(false);
 		}

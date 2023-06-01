@@ -8,6 +8,7 @@ import { addTags, initTags, removeTags } from '../../../Store/Reducers/notes';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase';
 import { _uploadNotes } from '../../../Store/Thunk/notes';
+import { enqueueSnackbar } from 'notistack';
 
 const Backdrop = styled.div(({ theme }) => ({
 	position: 'fixed',
@@ -294,8 +295,11 @@ function SellDocumentModal({setUploadFiles,uploadFiles,setIsDetailsModal}:{setUp
 					const res = await dispatch(_uploadNotes({title,file:uploadFiles,fileUrl:downloadURL,userId:userDetails._id,description,category:interestArr,tags:tagArr}));
 					if(res?.meta?.requestStatus==='fulfilled'){
 						setIsDetailsModal(false);
+						enqueueSnackbar('Document added to notebank successfully');
 					}else{
 						setIsDetailsModal(false);
+						enqueueSnackbar('An erro occured, please try again later');
+
 					}
 				});
 			}

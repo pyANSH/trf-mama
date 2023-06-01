@@ -4,6 +4,7 @@ import { appTypography } from '../../../config/styles';
 import { X } from 'phosphor-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { _scheduleMeeting } from '../../../Store/Thunk/meeting';
+import { enqueueSnackbar } from 'notistack';
 const Backdrop = styled.div(({ theme }) => ({
 	position: 'fixed',
 	height: '100vh',
@@ -152,6 +153,8 @@ function MentorMeetingModal({setOpenMeeting,mentorId}:{setOpenMeeting:any,mentor
 		console.log(res);
 		if(res?.meta?.requestStatus==='fulfilled'){
 			setOpenMeeting(false);
+			enqueueSnackbar('Meeting scheduled successfully');
+
 		}else{
 			setOpenMeeting(false);
 
