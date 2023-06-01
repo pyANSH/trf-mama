@@ -13,7 +13,7 @@ export const _getUserDetails = createAsyncThunk(
 	},
 );
 export const _updateUserDetails = createAsyncThunk(
-	'user/getUserDetails',
+	'user/updateUser',
 	async (
 		{
 			college,
