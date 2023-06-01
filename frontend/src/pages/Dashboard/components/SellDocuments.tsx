@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { _deleteNotes, _getNotes } from '../../../Store/Thunk/notes';
 import { appTypography } from '../../../config/styles';
 import { getRanking } from '../../../serverCom/user';
+import Avvvatars from 'avvvatars-react';
 
 const Container = styled.div`
   display: flex;
@@ -354,7 +355,7 @@ const NoteTitle = styled.p(({ theme }) => ({
 function SellDocuments() {
 	const [uploadFiles, setUploadFiles] = useState();
 	const [isDetailsModal, setIsDetailsModal] = useState(false);
-	const [ranking, setRanking] = useState();
+	const [ranking, setRanking] = useState<any[]>([]);
 	const user = useSelector((state: any) => state?.appdata?.user);
 	const uploadRef: any = useRef();
 	const dispatch: any = useDispatch();
@@ -394,6 +395,7 @@ function SellDocuments() {
 		getRankings();
   
 	}, []);
+
   
 	return (
 		<MainContainer>
@@ -503,33 +505,76 @@ function SellDocuments() {
 				<RightContainer>
 					<RankingContainer>
 						<PlaceContainer>
-							<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
-							<ProfileName>Dianna</ProfileName>
+							<Avvvatars
+							// value={userId}
+								value={ranking[1]?.user?.userFullName
+									? (ranking[1]?.user?.userFullName)
+										.split(' ')
+										.map((n: any) => n[0])
+										.join('')
+									: 'NA'}
+								// style={'shape'}
+								shadow={true}
+								// border={true}
+								size={48}
+							// borderColor='black'
+							// radius={8}
+							/>
+							<ProfileName>{ranking[1]?.user?.userFullName}</ProfileName>
 							<SecondPlaceBar>
 								<PlaceText>2nd</PlaceText>
-								<PlaceTextDesc>43 PTS 60$</PlaceTextDesc>
+								<PlaceTextDesc>{ranking[1]?.totalViewCount}</PlaceTextDesc>
 							</SecondPlaceBar>
 						</PlaceContainer>
 
 						{/* //first place */}
 						<PlaceContainer>
-							<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
-							<ProfileName>Wade</ProfileName>
+							<Avvvatars
+							// value={userId}
+								value={ranking[0]?.user?.userFullName
+									? (ranking[0]?.user?.userFullName)
+										.split(' ')
+										.map((n: any) => n[0])
+										.join('')
+									: 'NA'}
+								// style={'shape'}
+								shadow={true}
+								// border={true}
+								size={48}
+							// borderColor='black'
+							// radius={8}
+							/>
+							<ProfileName>{ranking[0]?.user?.userFullName}</ProfileName>
 							<FirstPlaceBar>
 								<PlaceText>1st</PlaceText>
-								<PlaceTextDesc>61 PTS 100$</PlaceTextDesc>
+								<PlaceTextDesc>{ranking[0]?.totalViewCount}</PlaceTextDesc>
 							</FirstPlaceBar>
 						</PlaceContainer>
 
 						{/* third place  */}
 
 						<PlaceContainer>
-							<ProfilePic src="https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg" />
-							<ProfileName>Prantosh</ProfileName>
+							<Avvvatars
+							// value={userId}
+								value={ranking[2]?.user?.userFullName
+									? (ranking[2]?.user?.userFullName)
+										.split(' ')
+										.map((n: any) => n[0])
+										.join('')
+									: 'NA'}
+								// style={'shape'}
+								shadow={true}
+								// border={true}
+								size={48}
+							// borderColor='black'
+							// radius={8}
+							/>
+							<ProfileName>{ranking[2]?.user?.userFullName}</ProfileName>
 							<ThirdPlaceBar>
 								<PlaceText>3rd</PlaceText>
-								<PlaceTextDesc>29 PTS 60$</PlaceTextDesc>
+								<PlaceTextDesc>{ranking[2]?.totalViewCount}</PlaceTextDesc>
 							</ThirdPlaceBar>
+
 						</PlaceContainer>
 					</RankingContainer>
 
