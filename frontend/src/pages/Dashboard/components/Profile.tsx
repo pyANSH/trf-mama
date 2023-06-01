@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { Check, CaretDown, CaretUp } from 'phosphor-react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-	addInterest,
-	initUpdate,
-	removeInterest,
+  addInterest,
+  initUpdate,
+  removeInterest,
 } from '../../../Store/Reducers/Profile';
 import { X } from 'phosphor-react';
 import { _updateUser } from '../../../Store/Thunk/Onboard';
@@ -215,307 +215,314 @@ const SaveBtn = styled.div`
   cursor: pointer;
 `;
 function Profile() {
-	const imageUpload = useRef<HTMLInputElement>(null);
-	const interestArr: string[] = useSelector(
-		(state: any) => state.profile.interest,
-	);
-	const [saveProfile, setSaveProfile] = useState(false);
-	const dispatch: any = useDispatch();
-	const handleDeleteInterest = (index: any) => {
-		dispatch(removeInterest(index));
-	};
-	const handleAddInterest = (interest: any) => {
-		dispatch(addInterest(interest));
-	};
+  const imageUpload = useRef<HTMLInputElement>(null);
+  const interestArr: string[] = useSelector(
+    (state: any) => state.profile.interest,
+  );
+  const [saveProfile, setSaveProfile] = useState(false);
+  const dispatch: any = useDispatch();
+  const handleDeleteInterest = (index: any) => {
+    dispatch(removeInterest(index));
+  };
+  const handleAddInterest = (interest: any) => {
+    dispatch(addInterest(interest));
+  };
 
-	const [email, setEmail] = useState('');
-	const [name, setName] = useState('');
-	const [college, setCollege] = useState('');
-	const [gender, setGender] = useState('Gender');
-	const [interest, setInterest] = useState('Education 🎓');
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [college, setCollege] = useState('');
+  const [gender, setGender] = useState('Gender');
+  const [interest, setInterest] = useState('Education 🎓');
 
-	const [isGenderDropDownOpen, setIsGenderDropDownOpen] = useState(false);
-	const [isInterestDropDownOpen, setIsInterestDropDownOpen] = useState(false);
-	const [_it, set_it] = useState(false);
-	const user = useSelector((state: any) => state.appdata.user);
+  const [isGenderDropDownOpen, setIsGenderDropDownOpen] = useState(false);
+  const [isInterestDropDownOpen, setIsInterestDropDownOpen] = useState(false);
+  const [_it, set_it] = useState(false);
+  const user = useSelector((state: any) => state.appdata.user);
 
-	const InputFeeds = [
-		{
-			label: 'Email Address',
-			placeholderText: 'Email',
-			onInputChange: (e: any) => setEmail(e.target.value),
-			stateName: email,
-		},
-		{
-			label: 'Name',
-			placeholderText: 'Name',
-			onInputChange: (e: any) => setName(e.target.value),
-			stateName: name,
-		},
-		{
-			label: 'College',
-			placeholderText: 'College',
-			onInputChange: (e: any) => setCollege(e.target.value),
-			stateName: college,
-		},
-	];
+  const InputFeeds = [
+    {
+      label: 'Email Address',
+      placeholderText: 'Email',
+      onInputChange: (e: any) => setEmail(e.target.value),
+      stateName: email,
+    },
+    {
+      label: 'Name',
+      placeholderText: 'Name',
+      onInputChange: (e: any) => setName(e.target.value),
+      stateName: name,
+    },
+    {
+      label: 'College',
+      placeholderText: 'College',
+      onInputChange: (e: any) => setCollege(e.target.value),
+      stateName: college,
+    },
+  ];
 
-	const dropdownFeeds = [
-		{
-			text: 'Male',
-			onclickOption: () => {
-				setIsGenderDropDownOpen(false);
-				setGender('Male');
-			},
-		},
-		{
-			text: 'Female',
-			onclickOption: () => {
-				setIsGenderDropDownOpen(false);
-				setGender('Female');
-			},
-		},
-		{
-			text: 'Gender Diverse',
-			onclickOption: () => {
-				setIsGenderDropDownOpen(false);
-				setGender('Gender Diverse');
-			},
-		},
-		{
-			text: 'Prefer Not to Say',
-			onclickOption: () => {
-				setIsGenderDropDownOpen(false);
-				setGender('Prefer Not to Say');
-			},
-		},
-	];
+  const dropdownFeeds = [
+    {
+      text: 'Male',
+      onclickOption: () => {
+        setIsGenderDropDownOpen(false);
+        setGender('Male');
+      },
+    },
+    {
+      text: 'Female',
+      onclickOption: () => {
+        setIsGenderDropDownOpen(false);
+        setGender('Female');
+      },
+    },
+    {
+      text: 'Gender Diverse',
+      onclickOption: () => {
+        setIsGenderDropDownOpen(false);
+        setGender('Gender Diverse');
+      },
+    },
+    {
+      text: 'Prefer Not to Say',
+      onclickOption: () => {
+        setIsGenderDropDownOpen(false);
+        setGender('Prefer Not to Say');
+      },
+    },
+  ];
 
-	const interestDropdownFeeds = [
-		{
-			text: 'Education 🎓',
-			onclickOption: () => {
-				setIsInterestDropDownOpen(false);
-				setInterest('Education 🎓');
-				handleAddInterest('Education 🎓');
-			},
-		},
-		{
-			text: 'Yeeeah, science! ⚗️',
-			onclickOption: () => {
-				setIsInterestDropDownOpen(false);
+  const interestDropdownFeeds = [
+    {
+      text: 'Education 🎓',
+      onclickOption: () => {
+        setIsInterestDropDownOpen(false);
+        setInterest('Education 🎓');
+        handleAddInterest('Education 🎓');
+      },
+    },
+    {
+      text: 'Yeeeah, science! ⚗️',
+      onclickOption: () => {
+        setIsInterestDropDownOpen(false);
 
-				setInterest('Yeeeah, science! ⚗️');
-				handleAddInterest('Yeeeah, science! ⚗️');
-			},
-		},
-		{
-			text: 'Art 🎭',
-			onclickOption: () => {
-				setIsInterestDropDownOpen(false);
-				setInterest('Art 🎭');
-				handleAddInterest('Art 🎭');
-			},
-		},
-		{
-			text: 'Sport ⚽',
-			onclickOption: () => {
-				setIsInterestDropDownOpen(false);
-				setInterest('Sport ⚽');
-				handleAddInterest('Sport ⚽');
-			},
-		},
-		{
-			text: 'Games 🎮',
-			onclickOption: () => {
-				setIsInterestDropDownOpen(false);
-				setInterest('Games 🎮');
-				handleAddInterest('Games 🎮');
-			},
-		},
-		{
-			text: 'Health 🏥',
-			onclickOption: () => {
-				setIsInterestDropDownOpen(false);
-				setInterest('Health 🏥');
-				handleAddInterest('Health 🏥');
-			},
-		},
-	];
-	const handleSave = () => {
-		dispatch(
-			_updateUser({
-				interests: interestArr,
-				isMentor: user.isMentor,
-			}),
-		);
-	};
-	React.useEffect(() => {
-		if (interestArr.length === 0) {
-			if (user.interests && user.interests.length > 0) {
-				set_it(true);
-				dispatch(initUpdate(user.interests));
-			}
-		}
-		setEmail(user?.userEmail);
-		setName(user?.userFullName);
-		setCollege(user?.college);
-		if (user?.gender === '') {
-			setGender('Gender');
-		}
-		if (user?.gender === 'male') {
-			setGender('Male');
-		}
+        setInterest('Yeeeah, science! ⚗️');
+        handleAddInterest('Yeeeah, science! ⚗️');
+      },
+    },
+    {
+      text: 'Art 🎭',
+      onclickOption: () => {
+        setIsInterestDropDownOpen(false);
+        setInterest('Art 🎭');
+        handleAddInterest('Art 🎭');
+      },
+    },
+    {
+      text: 'Sport ⚽',
+      onclickOption: () => {
+        setIsInterestDropDownOpen(false);
+        setInterest('Sport ⚽');
+        handleAddInterest('Sport ⚽');
+      },
+    },
+    {
+      text: 'Games 🎮',
+      onclickOption: () => {
+        setIsInterestDropDownOpen(false);
+        setInterest('Games 🎮');
+        handleAddInterest('Games 🎮');
+      },
+    },
+    {
+      text: 'Health 🏥',
+      onclickOption: () => {
+        setIsInterestDropDownOpen(false);
+        setInterest('Health 🏥');
+        handleAddInterest('Health 🏥');
+      },
+    },
+  ];
+  const handleSave = () => {
+    dispatch(
+      _updateUser({
+        interests: interestArr,
+        isMentor: user.isMentor,
+      }),
+    );
+  };
+  React.useEffect(() => {
+    if (interestArr.length === 0) {
+      if (user.interests && user.interests.length > 0) {
+        set_it(true);
+        dispatch(initUpdate(user.interests));
+      }
+    }
+    setEmail(user?.userEmail);
+    setName(user?.userFullName);
+    setCollege(user?.college);
+    if (user?.gender === '') {
+      setGender('Gender');
+    }
+    if (user?.gender === 'male') {
+      setGender('Male');
+    }
 
-		if (user?.gender === 'female') {
-			setGender('Female');
-		}
-		if (user?.gender === 'not-specified') {
-			setGender('Gender Diverse');
-		}
-	}, [user]);
-	React.useEffect(() => {
-		setSaveProfile(true);
-	}, [email, college, name, gender]);
-	const handleProfileSave = async () => {
-		await dispatch(
-			_updateUserDetails({
-				userFullName: name,
-				college: college,
-				gender: gender,
-			}),
-		).then(() => {
-			enqueueSnackbar('Profile Updated Successfully');
-		});
-	};
+    if (user?.gender === 'female') {
+      setGender('Female');
+    }
+    if (user?.gender === 'not-specified') {
+      setGender('Gender Diverse');
+    }
+  }, [user]);
+  React.useEffect(() => {
+    setSaveProfile(true);
+  }, [email, college, name, gender]);
+  const handleProfileSave = async () => {
+    await dispatch(
+      _updateUserDetails({
+        userFullName: name,
+        college: college,
+        gender: gender,
+      }),
+    ).then(() => {
+      enqueueSnackbar('Profile Updated Successfully');
+    });
+  };
 
-	const [profilePic, setProfilePic] = useState('');
-	const userNameInitials = user?.userFullName ? (user?.userFullName).split(' ').map((n: any) => n[0]).join(''): 'NA';
+  const [profilePic, setProfilePic] = useState('');
+  const userNameInitials = user?.userFullName
+    ? (user?.userFullName)
+        .split(' ')
+        .map((n: any) => n[0])
+        .join('')
+    : 'NA';
 
-	return (
-		<Container>
-			<Header>
-				<Topic>{'User Information'}</Topic>
-				<Caption>{'Here you can edit public information about yourself. Changes made may take some time to reflect'}</Caption>
-			</Header>
-			<MainContainer>
-				<LeftContainer>
-					{InputFeeds.map((feed,index) => (
-						<CommonInputContainer key={index}>
-							<CommonInputText>{feed.label}</CommonInputText>
-							<CommonInput
-								value={feed.stateName}
-								placeholder={feed.placeholderText}
-								onChange={feed.onInputChange}
-							/>
-						</CommonInputContainer>
-					))}
+  return (
+    <Container>
+      <Header>
+        <Topic>{'User Information'}</Topic>
+        <Caption>
+          {
+            'Here you can edit public information about yourself. Changes made may take some time to reflect'
+          }
+        </Caption>
+      </Header>
+      <MainContainer>
+        <LeftContainer>
+          {InputFeeds.map((feed, index) => (
+            <CommonInputContainer key={index}>
+              <CommonInputText>{feed.label}</CommonInputText>
+              <CommonInput
+                value={feed.stateName}
+                placeholder={feed.placeholderText}
+                onChange={feed.onInputChange}
+              />
+            </CommonInputContainer>
+          ))}
 
-					<CommonInputContainer>
-						<CommonInputText>Gender</CommonInputText>
-						<DropDownAns
-							onClick={() => setIsGenderDropDownOpen(!isGenderDropDownOpen)}
-						>
-							<GenderText>{gender}</GenderText>
-							{isGenderDropDownOpen ? <UpArrowIcon /> : <DownArrowIcon />}
-						</DropDownAns>
-						{isGenderDropDownOpen && (
-							<DropDownMainContainer>
-								{dropdownFeeds.map((feed,index) => (
-									<DropDownOption key={index}
-										// isActive={gender===feed.text}
-										onClick={feed.onclickOption}
-									>
-										<DropDownOptionText>{feed.text}</DropDownOptionText>
-										{gender === feed.text && <TickIcon />}
-									</DropDownOption>
-								))}
-							</DropDownMainContainer>
-						)}
-					</CommonInputContainer>
-					{saveProfile && (
-						<SaveBtn onClick={handleProfileSave}>Update Profile</SaveBtn>
-					)}
-				</LeftContainer>
+          <CommonInputContainer>
+            <CommonInputText>Gender</CommonInputText>
+            <DropDownAns
+              onClick={() => setIsGenderDropDownOpen(!isGenderDropDownOpen)}
+            >
+              <GenderText>{gender}</GenderText>
+              {isGenderDropDownOpen ? <UpArrowIcon /> : <DownArrowIcon />}
+            </DropDownAns>
+            {isGenderDropDownOpen && (
+              <DropDownMainContainer>
+                {dropdownFeeds.map((feed, index) => (
+                  <DropDownOption
+                    key={index}
+                    // isActive={gender===feed.text}
+                    onClick={feed.onclickOption}
+                  >
+                    <DropDownOptionText>{feed.text}</DropDownOptionText>
+                    {gender === feed.text && <TickIcon />}
+                  </DropDownOption>
+                ))}
+              </DropDownMainContainer>
+            )}
+          </CommonInputContainer>
+          {saveProfile && (
+            <SaveBtn onClick={handleProfileSave}>Update Profile</SaveBtn>
+          )}
+        </LeftContainer>
 
-				<RightContainer>
-					<ProfilePhotoContainer>
-						{
-							profilePic && 
-							<ProfilePic src={profilePic}/>
-						}
+        <RightContainer>
+          <ProfilePhotoContainer>
+            {profilePic && <ProfilePic src={profilePic} />}
 
-						
-						<Avvvatars
-							// value={userId} 
-							value={userNameInitials} 
-							// style={'shape'}  
-							shadow={true}   
-							// border={true} 
-							size={120} 
-							// borderColor='black'
-							// radius={8} 
-							
-						/>
-						
+            <Avvvatars
+              // value={userId}
+              value={userNameInitials}
+              // style={'shape'}
+              shadow={true}
+              // border={true}
+              size={120}
+              // borderColor='black'
+              // radius={8}
+            />
 
-						<ProfilePicText>Profile Picture</ProfilePicText>
+            <ProfilePicText>Profile Picture</ProfilePicText>
 
-						<input
-							style={{ display: 'none' }}
-							ref={imageUpload}
-							type={'file'}
-						/>
-						<UploadProfilePictureBtn
+            <input
+              style={{ display: 'none' }}
+              ref={imageUpload}
+              type={'file'}
+            />
+            <div></div>
+            <div></div>
+            {/* <UploadProfilePictureBtn
 							onClick={() => imageUpload.current && imageUpload.current.click()}
 						>
               Change Avatar
-						</UploadProfilePictureBtn>
-					</ProfilePhotoContainer>
+						</UploadProfilePictureBtn> */}
+          </ProfilePhotoContainer>
 
-					<CommonInputContainer>
-						<CommonInputText>Choose your main interest</CommonInputText>
-						<InterestListContainer>
-							{interestArr.map((interest: string, index: number) => (
-								<InterestBtn key={index}>
-									{interest}{' '}
-									{interestArr.length > 1 && (
-										<X
-											onClick={() => {
-												handleDeleteInterest(index);
-											}}
-										/>
-									)}
-								</InterestBtn>
-							))}
-						</InterestListContainer>
-						<DropDownAns
-							onClick={() => setIsInterestDropDownOpen(!isInterestDropDownOpen)}
-						>
-							<GenderText>{interest}</GenderText>
-							{isInterestDropDownOpen ? <UpArrowIcon /> : <DownArrowIcon />}
-						</DropDownAns>
+          <CommonInputContainer>
+            <CommonInputText>Choose your main interest</CommonInputText>
+            <InterestListContainer>
+              {interestArr.map((interest: string, index: number) => (
+                <InterestBtn key={index}>
+                  {interest}{' '}
+                  {interestArr.length > 1 && (
+                    <X
+                      onClick={() => {
+                        handleDeleteInterest(index);
+                      }}
+                    />
+                  )}
+                </InterestBtn>
+              ))}
+            </InterestListContainer>
+            <DropDownAns
+              onClick={() => setIsInterestDropDownOpen(!isInterestDropDownOpen)}
+            >
+              <GenderText>{interest}</GenderText>
+              {isInterestDropDownOpen ? <UpArrowIcon /> : <DownArrowIcon />}
+            </DropDownAns>
 
-						{isInterestDropDownOpen && (
-							<DropDownMainContainer>
-								{interestDropdownFeeds.map((feed,index) => (
-									<DropDownOption key={index}
-										// isActive={gender===feed.text}
-										onClick={feed.onclickOption}
-									>
-										<DropDownOptionText>{feed.text}</DropDownOptionText>
-										{interest === feed.text && <TickIcon />}
-									</DropDownOption>
-								))}
-							</DropDownMainContainer>
-						)}
-						{/* function to find that user.interest === interestArr */}
-						{<SaveBtn onClick={handleSave}>Save</SaveBtn>}
-					</CommonInputContainer>
-				</RightContainer>
-			</MainContainer>
-		</Container>
-	);
+            {isInterestDropDownOpen && (
+              <DropDownMainContainer>
+                {interestDropdownFeeds.map((feed, index) => (
+                  <DropDownOption
+                    key={index}
+                    // isActive={gender===feed.text}
+                    onClick={feed.onclickOption}
+                  >
+                    <DropDownOptionText>{feed.text}</DropDownOptionText>
+                    {interest === feed.text && <TickIcon />}
+                  </DropDownOption>
+                ))}
+              </DropDownMainContainer>
+            )}
+            {/* function to find that user.interest === interestArr */}
+            {<SaveBtn onClick={handleSave}>Save</SaveBtn>}
+          </CommonInputContainer>
+        </RightContainer>
+      </MainContainer>
+    </Container>
+  );
 }
 
 export default Profile;

@@ -102,7 +102,7 @@ function Conversations() {
   useEffect(() => {
     const q = query(
       collection(firebaseDb, 'messages'),
-      orderBy('createdAt'),
+      orderBy('createdAt', 'desc'),
       limit(50),
     );
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {

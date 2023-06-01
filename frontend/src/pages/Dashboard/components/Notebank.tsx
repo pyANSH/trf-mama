@@ -292,7 +292,6 @@ function Notebank() {
             <DeleteBtn>
               <div>Views: {note.viewCount}</div>
               <div>Readability score: {note.readabilityScore}</div>
-              <div>Quality: {note.quality}</div>
             </DeleteBtn>
           </SingleDocCard>
         ))}

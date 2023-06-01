@@ -384,8 +384,6 @@ function SellDocuments() {
 	async function handleDelete(noteId: any) {
 		const res = await dispatch(_deleteNotes({ noteId, userId: user?._id }));
 	}
-
-
 	useEffect(() => {
 		async function getRankings() {
 			const res= await getRanking();
@@ -397,16 +395,13 @@ function SellDocuments() {
   
 	}, []);
   
-
 	return (
 		<MainContainer>
 			<ContentHeader>
 				<ContentHeader>
 					<ContentTitle>{'Sell Documents'}</ContentTitle>
 					<ContentCaption>
-						{
-							'In this dashboard you can find various things blah blah blah! fix this text @anmol'
-						}
+						{'Upload your documents and earn credits'}
 					</ContentCaption>
 				</ContentHeader>
 			</ContentHeader>

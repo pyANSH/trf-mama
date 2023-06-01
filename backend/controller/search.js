@@ -42,7 +42,7 @@ exports.top_users = async (req, res) => {
                 totalCount += notes[j].viewCount;
             }
         }
-        AllUsers.push({ userId: users[i]._id.toString(), totalViewCount: totalCount });
+        AllUsers.push({ user: users[i], totalViewCount: totalCount });
     }
 
     AllUsers.sort((a, b) => b.totalViewCount - a.totalViewCount);

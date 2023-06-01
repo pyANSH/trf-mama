@@ -78,53 +78,50 @@ const ContentCaption = styled.p`
 `;
 
 function Community() {
-	const [message, setMessage] = useState('');
-	const user = useSelector((state: any) => state?.appdata.user);
-	async function handleSendMessage() {
-		if (message.trim() === '') {
-			alert('Enter valid message');
-			return;
-		}
+  const [message, setMessage] = useState('');
+  const user = useSelector((state: any) => state?.appdata.user);
+  async function handleSendMessage() {
+    if (message.trim() === '') {
+      alert('Enter valid message');
+      return;
+    }
 
-		const res = await addDoc(collection(firebaseDb, 'messages'), {
-			text: message,
-			name: user?.userFullName,
-			createdAt: serverTimestamp(),
-			isMentor: user?.isMentor,
-			uid: user?._id,
-		});
+    const res = await addDoc(collection(firebaseDb, 'messages'), {
+      text: message,
+      name: user?.userFullName,
+      createdAt: serverTimestamp(),
+      isMentor: user?.isMentor,
+      uid: user?._id,
+    });
 
-		setMessage('');
-	}
+    setMessage('');
+  }
 
-	function handleKeyDown(event: any) {
-		if (event.key === 'Enter') {
-			handleSendMessage();
-			setMessage('');
-		}
-	}
+  function handleKeyDown(event: any) {
+    if (event.key === 'Enter') {
+      handleSendMessage();
+      setMessage('');
+    }
+  }
 
-	return (
-		<MainContainer>
-			<ContentHeader>
-				<ContentTitle>{'Community'}</ContentTitle>
-				<ContentCaption>
-          In this Community you can find various things blah blah blah! fix this
-          text @anmol
-				</ContentCaption>
-			</ContentHeader>
-			<Conversations />
-			<BottomContainer>
-				<MessageInput
-					onKeyDown={handleKeyDown}
-					value={message}
-					onChange={(e: any) => setMessage(e.target.value)}
-					placeholder="type your message here"
-				/>
-				<SendBtn onClick={handleSendMessage}>Send</SendBtn>
-			</BottomContainer>
-		</MainContainer>
-	);
+  return (
+    <MainContainer>
+      <ContentHeader>
+        <ContentTitle>{'Community'}</ContentTitle>
+        <ContentCaption>{'Chat with other mentors and mentees'}</ContentCaption>
+      </ContentHeader>
+      <Conversations />
+      <BottomContainer>
+        <MessageInput
+          onKeyDown={handleKeyDown}
+          value={message}
+          onChange={(e: any) => setMessage(e.target.value)}
+          placeholder="type your message here"
+        />
+        <SendBtn onClick={handleSendMessage}>Send</SendBtn>
+      </BottomContainer>
+    </MainContainer>
+  );
 }
 
 export default Community;

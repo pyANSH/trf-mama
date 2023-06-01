@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { appTypography } from '../../config/styles';
 import { _onBoard } from '../../Store/Thunk/Onboard';
@@ -37,15 +37,16 @@ const Header = styled.div`
 `;
 
 const Logo = styled.div(({ theme }) => ({
-	...appTypography.h5.bold,
-	color: theme.app.typography['900'],
-	width: 'fit-content',
-	cursor: 'pointer',
+  ...appTypography.h5.bold,
+  color: theme.app.typography['900'],
+  width: 'fit-content',
+  cursor: 'pointer',
 }));
 
 const MainContent = styled.div<{ isUserLoggedIn?: boolean }>`
   display: flex;
-  align-items: ${({ isUserLoggedIn }) => (isUserLoggedIn ? 'flex-start' : 'center')};
+  align-items: ${({ isUserLoggedIn }) =>
+    isUserLoggedIn ? 'flex-start' : 'center'};
   justify-content: center;
   gap: ${({ isUserLoggedIn }) => (isUserLoggedIn ? '24px' : '54px')};
   flex-direction: column;
@@ -65,11 +66,9 @@ const LoginOptionsContainer = styled.div`
   width: 100%;
 `;
 
-
-
 const LoginText = styled.p(({ theme }) => ({
-	...appTypography.h1.bold,
-	color: theme.app.typography['900'],
+  ...appTypography.h1.bold,
+  color: theme.app.typography['900'],
 }));
 
 const CatContainer = styled.div`
@@ -85,17 +84,17 @@ const CatImage = styled.img`
 `;
 
 const DashBoardBtn = styled.div`
-padding: 8px 16px;
+  padding: 8px 16px;
 
-border:none;
-border-radius: 100px;
-background:${({ theme }) => theme.app.primary['500']};
-color:${({ theme }) => theme.app.shades.white};
+  border: none;
+  border-radius: 100px;
+  background: ${({ theme }) => theme.app.primary['500']};
+  color: ${({ theme }) => theme.app.shades.white};
 
-cursor:pointer;
+  cursor: pointer;
 `;
 
-const ContinueWithGoogleContainer = styled.div<{isUserType?:boolean}>`
+const ContinueWithGoogleContainer = styled.div<{ isUserType?: boolean }>`
   display: flex;
   /* opacity:  ${({ isUserType }) => (isUserType ? '1' : '0')}; */
   /* visibility: ${({ isUserType }) => (isUserType ? 'visible' : 'hidden')}; */
@@ -112,10 +111,9 @@ const ContinueWithGoogleContainer = styled.div<{isUserType?:boolean}>`
   cursor: pointer;
   /* border: 1px solid ${({ theme }) => theme.app.shades.grey}; */
   &:hover {
-	background: ${({ theme }) => theme.app.shades.grey};
-	  }
+    background: ${({ theme }) => theme.app.shades.grey};
+  }
 `;
-
 
 const CommonInputContainer = styled.div`
   position: relative;
@@ -214,170 +212,171 @@ const DownArrowIcon = styled(CaretDown)`
   line-height: 24px;
 `;
 
-
 function SignUp() {
-	const dispatch: any = useDispatch();
-	const navigate = useNavigate();
+  const dispatch: any = useDispatch();
+  const navigate = useNavigate();
 
-	const [cookies, setCookie] = useCookies();
-	function decodeJwtResponse(token: string) {
-		const base64Url = token.split('.')[1];
-		const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-		const jsonPayload = decodeURIComponent(
-			atob(base64)
-				.split('')
-				.map(function (c) {
-					return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-				})
-				.join(''),
-		);
-		return JSON.parse(jsonPayload);
-	}
+  const [cookies, setCookie] = useCookies();
+  function decodeJwtResponse(token: string) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join(''),
+    );
+    return JSON.parse(jsonPayload);
+  }
 
-	useEffect(() => {
-		window.google.accounts.id.initialize({
-			client_id:
-				'6951006710-td58cqht8oke2isd8fl5c9uv2t1r7bka.apps.googleusercontent.com',
-			callback: handleCredentialResponse,
-		});
-		window.google.accounts.id.renderButton(
-			document.getElementById('buttonDiv'),
-			{
-				theme: 'outline',
-				size: 'large',
-				text: 'Continue with Google',
-				shape: 'rectangular',
-				logo_alignment: 'center',
-				width: '320',
-				height: 100,
-				outerHeight: 100,
-				innerHeight: 100,
-			},
-		);
-	}, []);
-	const [interestModal, setInterestModal] = React.useState(false);
-	async function handleCredentialResponse(response: { credential: string }) {
-		const responsePayload = decodeJwtResponse(response.credential);
-		console.log('Encoded JWT ID token: ' + responsePayload);
-		console.log(
-			responsePayload.name,
-			responsePayload.sub,
-			responsePayload.email,
-		);
-		const body = {
-			userFullName: responsePayload.name,
-			socialRefererId: responsePayload.sub,
-			userEmail: responsePayload.email,
-			interests: [],
-		};
-		const res = await dispatch(_onBoard({ body }));
-		console.log(res.payload.data);
+  useEffect(() => {
+    window.google.accounts.id.initialize({
+      client_id:
+        '6951006710-td58cqht8oke2isd8fl5c9uv2t1r7bka.apps.googleusercontent.com',
+      callback: handleCredentialResponse,
+    });
+    window.google.accounts.id.renderButton(
+      document.getElementById('buttonDiv'),
+      {
+        theme: 'outline',
+        size: 'large',
+        text: 'Continue with Google',
+        shape: 'rectangular',
+        logo_alignment: 'center',
+        width: '320',
+        height: 100,
+        outerHeight: 100,
+        innerHeight: 100,
+      },
+    );
+  }, []);
+  const [interestModal, setInterestModal] = React.useState(false);
+  async function handleCredentialResponse(response: { credential: string }) {
+    const responsePayload = decodeJwtResponse(response.credential);
+    console.log('Encoded JWT ID token: ' + responsePayload);
+    console.log(
+      responsePayload.name,
+      responsePayload.sub,
+      responsePayload.email,
+    );
+    const body = {
+      userFullName: responsePayload.name,
+      socialRefererId: responsePayload.sub,
+      userEmail: responsePayload.email,
+      interests: [],
+    };
+    const res = await dispatch(_onBoard({ body }));
+    console.log(res.payload.data);
 
-		if (res.meta.requestStatus === 'fulfilled') {
-			initAPI({ token: res.payload.data.token });
-			setCookie('token', res.payload.data.token);
+    if (res.meta.requestStatus === 'fulfilled') {
+      initAPI({ token: res.payload.data.token });
+      setCookie('token', res.payload.data.token);
 
-			if (res.payload.data.interests.length === 0) {
-				setInterestModal(true);
-			} else {
-				navigate('/dashboard');
-				window.location.reload();
+      if (res.payload.data.interests.length === 0) {
+        setInterestModal(true);
+      } else {
+        navigate('/dashboard');
+        window.location.reload();
+      }
+    }
+    console.warn(res.payload.data);
+  }
+  function handleHomeRoute() {
+    navigate('/');
+  }
 
-			}
-		}
-		console.warn(res.payload.data);
-	}
-	function handleHomeRoute() {
-		navigate('/');
-	}
+  const [userType, setUserType] = useState('');
+  const [isUserTypeDropDownOpen, setIsUserTypeDropDownOpen] = useState(false);
 
-	const [userType,setUserType] = useState('');
-	const [isUserTypeDropDownOpen, setIsUserTypeDropDownOpen] = useState(false);
+  const dropdownFeeds = [
+    {
+      text: 'Student 🧑‍🎓',
+      onclickOption: () => {
+        setIsUserTypeDropDownOpen(false);
+        setUserType('Student');
+      },
+    },
+    {
+      text: 'Mentor 👩‍🏫',
+      onclickOption: () => {
+        setIsUserTypeDropDownOpen(false);
+        setUserType('Mentor');
+      },
+    },
+  ];
 
-	const dropdownFeeds = [
-		{
-			text: 'Student 🧑‍🎓',
-			onclickOption: () => {
-				setIsUserTypeDropDownOpen(false);
-				setUserType('Student');
-			},
-		},
-		{
-			text: 'Mentor 👩‍🏫',
-			onclickOption: () => {
-				setIsUserTypeDropDownOpen(false);
-				setUserType('Mentor');
-			},
-		},
-		
-	];
+  const userDetails = useSelector((state: any) => state?.appdata?.user);
 
-	const userDetails = useSelector((state: any) => state?.appdata?.user);
+  const isUserLoggedIn: boolean = userDetails?._id || false;
+  return (
+    <Container>
+      <LeftContainer>
+        <Header>
+          <Logo onClick={handleHomeRoute}>mama.</Logo>
+        </Header>
 
-	const isUserLoggedIn:boolean = userDetails?._id || false;
-	return (
-		<Container>
-			<LeftContainer>
-				<Header>
-					<Logo onClick={handleHomeRoute}>mama.</Logo>
-				</Header>
+        {isUserLoggedIn ? (
+          <MainContent isUserLoggedIn={isUserLoggedIn}>
+            <LoginText>
+              {`Welcome ${userDetails?.userFullName} 👋`}
+              <br />
+              {"\nYou're all set to go! 🚀"}
+            </LoginText>
+            <DashBoardBtn onClick={() => navigate('/dashboard')}>
+              {'Lets Go !'}
+            </DashBoardBtn>
+          </MainContent>
+        ) : (
+          <MainContent>
+            <LoginText>{'Login'}</LoginText>
 
-				{isUserLoggedIn ?
-					<MainContent isUserLoggedIn={isUserLoggedIn}>
-						<LoginText>
-							{`Welcome ${userDetails?.userFullName.split(' ')[0]} 👋`}
-							<br />
-							{'\nYou\'re all set to go! 🚀'}
-						</LoginText>
-						<DashBoardBtn onClick={() => navigate('/dashboard')}>{'Lets Go !'}</DashBoardBtn>
-					</MainContent>
-					: <MainContent>
-						<LoginText>{'Login'}</LoginText>
+            <LoginOptionsContainer>
+              {
+                // <CommonInputContainer>
+                // 	{/* <CommonInputText>{'Who are you 🤔'}</CommonInputText> */}
+                // 	<DropDownAns
+                // 		onClick={() => setIsUserTypeDropDownOpen(!isUserTypeDropDownOpen)}
+                // 	>
+                // 		<GenderText>{userType || 'Who are you?'}</GenderText>
+                // 		{isUserTypeDropDownOpen ? <UpArrowIcon /> : <DownArrowIcon />}
+                // 	</DropDownAns>
+                // 	{isUserTypeDropDownOpen && (
+                // 		<DropDownMainContainer>
+                // 			{dropdownFeeds.map((feed,index) => (
+                // 				<DropDownOption key={index}
+                // 					// isActive={gender===feed.text}
+                // 					onClick={feed.onclickOption}
+                // 				>
+                // 					<DropDownOptionText>{feed.text}</DropDownOptionText>
+                // 					{userType === feed.text && <TickIcon />}
+                // 				</DropDownOption>
+                // 			))}
+                // 		</DropDownMainContainer>
+                // 	)}
+                // </CommonInputContainer>
+              }
 
-						<LoginOptionsContainer>
-							{
-								// <CommonInputContainer>
-								// 	{/* <CommonInputText>{'Who are you 🤔'}</CommonInputText> */}
-								// 	<DropDownAns
-								// 		onClick={() => setIsUserTypeDropDownOpen(!isUserTypeDropDownOpen)}
-								// 	>
-								// 		<GenderText>{userType || 'Who are you?'}</GenderText>
-								// 		{isUserTypeDropDownOpen ? <UpArrowIcon /> : <DownArrowIcon />}
-								// 	</DropDownAns>
-								// 	{isUserTypeDropDownOpen && (
-								// 		<DropDownMainContainer>
-								// 			{dropdownFeeds.map((feed,index) => (
-								// 				<DropDownOption key={index}
-								// 					// isActive={gender===feed.text}
-								// 					onClick={feed.onclickOption}
-								// 				>
-								// 					<DropDownOptionText>{feed.text}</DropDownOptionText>
-								// 					{userType === feed.text && <TickIcon />}
-								// 				</DropDownOption>
-								// 			))}
-								// 		</DropDownMainContainer>
-								// 	)}
-								// </CommonInputContainer>
-							}
-							
-							{	
-								<ContinueWithGoogleContainer 
-								// isUserType={userType ? true : false} 
-								>
-									<div id="buttonDiv" />
-								</ContinueWithGoogleContainer>
-							}
-						</LoginOptionsContainer>
-					</MainContent>}
-			</LeftContainer>
-			<RightContainer>
-				<CatContainer>
-					<CatImage src={billiBKL} />
-				</CatContainer>
-			</RightContainer>
-			{interestModal && <InterestModal />}
-		</Container>
-	);
+              {
+                <ContinueWithGoogleContainer
+                // isUserType={userType ? true : false}
+                >
+                  <div id="buttonDiv" />
+                </ContinueWithGoogleContainer>
+              }
+            </LoginOptionsContainer>
+          </MainContent>
+        )}
+      </LeftContainer>
+      <RightContainer>
+        <CatContainer>
+          <CatImage src={billiBKL} />
+        </CatContainer>
+      </RightContainer>
+      {interestModal && <InterestModal />}
+    </Container>
+  );
 }
 
 export default SignUp;

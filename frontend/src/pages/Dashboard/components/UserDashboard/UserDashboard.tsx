@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useLayoutEffect } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import IndividualMentorsList from './IndividualMentorsList';
 import AcceptMeetingModal from '../AcceptMeetingModal';
@@ -9,12 +9,11 @@ import { _getMentorList } from '../../../../Store/Thunk/users';
 import MeetingInfo from './MeetingInfo';
 import { appTypography } from '../../../../config/styles';
 
-
-const MainContainer =  styled.div`
-display: flex;
-flex-direction: column;
-gap: 60px;
-padding-block-end: 24px;
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  padding-block-end: 24px;
 `;
 
 const ContentHeader = styled.div`
@@ -42,73 +41,69 @@ const ContentCaption = styled.p`
 `;
 
 const MentorsListContainer = styled.div`
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 0px;
-gap: 16px;
-width: 100%;
-box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
-
-const InfoText =styled.p(({theme})=>({
-	...appTypography.paraMed.regular,
-	color:theme.app.typography['700']
+const InfoText = styled.p(({ theme }) => ({
+  ...appTypography.paraMed.regular,
+  color: theme.app.typography['700'],
 }));
 
-
-
-
-
 function UserDashboard() {
+  const dispatch: any = useDispatch();
+  const userDetails = useSelector((state: any) => state?.appdata?.user?._id);
+  const user = useSelector((state: any) => state?.appdata?.user);
+  useEffect(() => {
+    dispatch(_getMentorList({ type: 'as' }));
+  }, []);
 
-	
-	const dispatch:any = useDispatch();
-	const userDetails = useSelector((state:any)=>state?.appdata?.user?._id);
-	const user =useSelector((state:any)=>state?.appdata?.user);
-	useEffect(() => {
-		dispatch(_getMentorList({type:'as'}));
-  
-	}, []);
+  useLayoutEffect(() => {
+    dispatch(_getMeetings({ userId: userDetails }));
+  }, [userDetails]);
+  useEffect(() => {
+    dispatch(_getMeetings({ userId: userDetails }));
+  }, [userDetails]);
 
-	useLayoutEffect(() => {
-		dispatch(_getMeetings({userId:userDetails}));
-	}, [userDetails]);
-	useEffect(() => {
-		dispatch(_getMeetings({userId:userDetails}));
-	}, [userDetails]);
+  const mentors = useSelector((state: any) => state.mentors.mentorList);
+  const meetings = useSelector((state: any) => state.meetings.meetingDetails);
 
-	const mentors = useSelector((state:any)=>state.mentors.mentorList);
-	const meetings = useSelector((state:any)=>state.meetings.meetingDetails);
+  console.log('mentors : ', mentors);
+  return (
+    <MainContainer>
+      <ContentHeader>
+        <ContentHeader>
+          <ContentTitle>{'Dashboard'}</ContentTitle>
+          <ContentCaption>
+            {!user.isMentor
+              ? 'Schedule a meeting with your mentor to discuss your progress and get help with your doubts'
+              : 'Your students can schedule a meeting with you to discuss their progress and get help with their doubts'}
+          </ContentCaption>
+        </ContentHeader>
+      </ContentHeader>
 
-	console.log('mentors : ',mentors);
-	return (
-		<MainContainer>
-			<ContentHeader>
-				<ContentHeader>
-					<ContentTitle>{'Dashboard'}</ContentTitle>
-					<ContentCaption>{'In this dashboard you can find various things blah blah blah! fix this text @anmol'}</ContentCaption>
-				</ContentHeader>
-			</ContentHeader>
-			
-			<MentorsListContainer>
-				{meetings?.length>0 &&<>
-					<InfoText>Your Scheduled Meetings</InfoText>
-					{meetings?.map((men:any,index:any)=>(
-						<MeetingInfo key={index} men={men} />
-					))}
+      <MentorsListContainer>
+        {meetings?.length > 0 && (
+          <>
+            <InfoText>Your Scheduled Meetings</InfoText>
+            {meetings?.map((men: any, index: any) => (
+              <MeetingInfo key={index} men={men} />
+            ))}
+          </>
+        )}
 
-				</>}
-				
-				{user?.isMentor===false && <InfoText>Schedule call</InfoText>}
-				{ user?.isMentor===false &&	mentors.map((men:any,index:any)=>(
-					<IndividualMentorsList key={index} men={men} />
-				))
-				}
-				
+        {user?.isMentor === false && <InfoText>Schedule call</InfoText>}
+        {user?.isMentor === false &&
+          mentors.map((men: any, index: any) => (
+            <IndividualMentorsList key={index} men={men} />
+          ))}
 
-				{/* {
+        {/* {
 					mentors.map((men:any,index:number) => {
 						return (
 							<IndividualMentorsList
@@ -118,10 +113,9 @@ function UserDashboard() {
 						);
 					})
 				} */}
-			</MentorsListContainer>
-
-		</MainContainer>
-	);
+      </MentorsListContainer>
+    </MainContainer>
+  );
 }
 
 export default UserDashboard;
