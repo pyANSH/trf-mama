@@ -11,6 +11,7 @@ import {
   Trash,
   Eye,
   Coin,
+  Export,
 } from 'phosphor-react';
 import SellDocumentModal from './SellDocumentModal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -63,7 +64,7 @@ const UploadContainer = styled.div`
 const RecentUploadDiv = styled.div`
   border: 1px dashed #c8c8c8;
   border-radius: 40px;
-  padding: 8px;
+  padding: 12px;
 `;
 
 const StatsContainer = styled.div`
@@ -467,9 +468,13 @@ function SellDocuments() {
                           style={{
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '8px',
+                            gap: '12px',
                           }}
                         >
+                          <Export
+                            // download note
+                            onClick={() => window.open(note?.fileUrl, '_blank')}
+                          />
                           <Eye size={14} />{' '}
                           <span style={{ marginRight: '16px' }}>
                             {note?.viewCount}
