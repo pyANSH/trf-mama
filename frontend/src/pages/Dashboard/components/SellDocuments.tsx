@@ -389,9 +389,7 @@ function SellDocuments() {
         <ContentHeader>
           <ContentTitle>{'Sell Documents'}</ContentTitle>
           <ContentCaption>
-            {
-              'In this dashboard you can find various things blah blah blah! fix this text @anmol'
-            }
+            {'Upload your documents and earn credits'}
           </ContentCaption>
         </ContentHeader>
       </ContentHeader>
