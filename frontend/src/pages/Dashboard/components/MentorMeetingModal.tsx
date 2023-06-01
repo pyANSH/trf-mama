@@ -154,7 +154,7 @@ function MentorMeetingModal({setOpenMeeting,mentorId}:{setOpenMeeting:any,mentor
 		if(res?.meta?.requestStatus==='fulfilled'){
 			setOpenMeeting(false);
 			enqueueSnackbar('Meeting scheduled successfully');
-
+			window.location.reload();
 		}else{
 			setOpenMeeting(false);
 
