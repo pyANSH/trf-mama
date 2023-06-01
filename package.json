@@ -21,6 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/bad-words": "^3.0.1",
     "concurrently": "^7.6.0",
     "nanoid": "^4.0.2",
     "react-animated-cursor": "^2.5.2",

@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
-	Monitor,
-	UploadSimple,
-	CheckSquareOffset,
-	FireSimple,
-	Medal,
-	GraduationCap,
-	MagicWand,
-	Trash,
-	Eye,
-	Coin,
+  Monitor,
+  UploadSimple,
+  CheckSquareOffset,
+  FireSimple,
+  Medal,
+  GraduationCap,
+  MagicWand,
+  Trash,
+  Eye,
+  Coin,
+  Export,
 } from 'phosphor-react';
 import SellDocumentModal from './SellDocumentModal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -65,7 +66,7 @@ const UploadContainer = styled.div`
 const RecentUploadDiv = styled.div`
   border: 1px dashed #c8c8c8;
   border-radius: 40px;
-  padding: 8px;
+  padding: 12px;
 `;
 
 const StatsContainer = styled.div`
@@ -212,6 +213,7 @@ const ProfileName = styled.p`
   font-weight: 500;
   font-size: 12px;
   line-height: 14px;
+  margin-bottom: 1rem;
 `;
 
 const PlaceText = styled.p`
@@ -330,8 +332,8 @@ const AllDocs = styled.div`
 `;
 
 const NONoteText = styled.p(({ theme }) => ({
-	...appTypography.paraSmall.regular,
-	color: theme.app.typography['500'],
+  ...appTypography.paraSmall.regular,
+  color: theme.app.typography['500'],
 }));
 
 const Note = styled.div`
@@ -341,286 +343,292 @@ const Note = styled.div`
 `;
 
 const DeleteIcon = styled(Trash)(({ theme }) => ({
-	width: '18px',
-	height: '18px',
-	color: theme.app.error['500'],
-	cursor: 'pointer',
+  width: '18px',
+  height: '18px',
+  color: theme.app.error['500'],
+  cursor: 'pointer',
 }));
 
 const NoteTitle = styled.p(({ theme }) => ({
-	...appTypography.paraMed.regular,
-	color: theme.app.typography['900'],
+  ...appTypography.paraMed.regular,
+  color: theme.app.typography['900'],
 }));
 
 function SellDocuments() {
-	const [uploadFiles, setUploadFiles] = useState();
-	const [isDetailsModal, setIsDetailsModal] = useState(false);
-	const [ranking, setRanking] = useState<any[]>([]);
-	const user = useSelector((state: any) => state?.appdata?.user);
-	const uploadRef: any = useRef();
-	const dispatch: any = useDispatch();
+  const [uploadFiles, setUploadFiles] = useState();
+  const [isDetailsModal, setIsDetailsModal] = useState(false);
+  const [ranking, setRanking] = useState<any[]>([]);
+  const user = useSelector((state: any) => state?.appdata?.user);
+  const uploadRef: any = useRef();
+  const dispatch: any = useDispatch();
 
-	function handleUploadClick() {
-		uploadRef.current.click();
-	}
+  function handleUploadClick() {
+    uploadRef.current.click();
+  }
 
-	function handleUpload(e: any) {
-		e.preventDefault;
-		setUploadFiles(e.target.files[0]);
-	}
+  function handleUpload(e: any) {
+    e.preventDefault;
+    setUploadFiles(e.target.files[0]);
+  }
 
-	useEffect(() => {
-		if (uploadFiles) {
-			setIsDetailsModal(true);
-		}
-	}, [uploadFiles]);
+  useEffect(() => {
+    if (uploadFiles) {
+      setIsDetailsModal(true);
+    }
+  }, [uploadFiles]);
 
-	useEffect(() => {
-		dispatch(_getNotes({ userId: user?._id }));
-	}, []);
-	console.log(uploadFiles);
+  useEffect(() => {
+    dispatch(_getNotes({ userId: user?._id }));
+  }, []);
+  console.log(uploadFiles);
 
-	const getNotes = useSelector((state: any) => state?.notes?.notes);
+  const getNotes = useSelector((state: any) => state?.notes?.notes);
 
-	async function handleDelete(noteId: any) {
-		const res = await dispatch(_deleteNotes({ noteId, userId: user?._id }));
-	}
-	useEffect(() => {
-		async function getRankings() {
-			const res= await getRanking();
-			setRanking(res.data);
+  async function handleDelete(noteId: any) {
+    const res = await dispatch(_deleteNotes({ noteId, userId: user?._id }));
+  }
+  useEffect(() => {
+    async function getRankings() {
+      const res = await getRanking();
+      setRanking(res.data);
+    }
 
-		}
+    getRankings();
+  }, []);
 
-		getRankings();
-  
-	}, []);
+  return (
+    <MainContainer>
+      <ContentHeader>
+        <ContentHeader>
+          <ContentTitle>{'Sell Documents'}</ContentTitle>
+          <ContentCaption>
+            {'Upload your documents and earn credits'}
+          </ContentCaption>
+        </ContentHeader>
+      </ContentHeader>
+      <Container>
+        <LeftContainer>
+          <UploadDocumentContainer>
+            {/* <CommonTitleText>Upload Document</CommonTitleText> */}
+            <UploadContainer onClick={handleUploadClick}>
+              <UploadIcon size={22} />
+              <UploadText>Upload Document</UploadText>
 
-  
-	return (
-		<MainContainer>
-			<ContentHeader>
-				<ContentHeader>
-					<ContentTitle>{'Sell Documents'}</ContentTitle>
-					<ContentCaption>
-						{'Upload your documents and earn credits'}
-					</ContentCaption>
-				</ContentHeader>
-			</ContentHeader>
-			<Container>
-				<LeftContainer>
-					<UploadDocumentContainer>
-						{/* <CommonTitleText>Upload Document</CommonTitleText> */}
-						<UploadContainer onClick={handleUploadClick}>
-							<UploadIcon size={22} />
-							<UploadText>Upload Document</UploadText>
+              <NoInput type="file" ref={uploadRef} onChange={handleUpload} />
+            </UploadContainer>
 
-							<NoInput type="file" ref={uploadRef} onChange={handleUpload} />
-						</UploadContainer>
+            {isDetailsModal && (
+              <SellDocumentModal
+                uploadFiles={uploadFiles}
+                setUploadFiles={setUploadFiles}
+                setIsDetailsModal={setIsDetailsModal}
+              />
+            )}
+          </UploadDocumentContainer>
 
-						{isDetailsModal && (
-							<SellDocumentModal
-								uploadFiles={uploadFiles}
-								setUploadFiles={setUploadFiles}
-								setIsDetailsModal={setIsDetailsModal}
-							/>
-						)}
-					</UploadDocumentContainer>
+          <StatsContainer>
+            <CommonTitleText>Statistics</CommonTitleText>
 
-					<StatsContainer>
-						<CommonTitleText>Statistics</CommonTitleText>
+            <StatsCardContainer>
+              <StatsCard>
+                <StatIconContainer>
+                  <MonitorIcon />
+                </StatIconContainer>
+                <StatsInfo>
+                  <StatsTitle>Total Documents</StatsTitle>
 
-						<StatsCardContainer>
-							<StatsCard>
-								<StatIconContainer>
-									<MonitorIcon />
-								</StatIconContainer>
-								<StatsInfo>
-									<StatsTitle>Total Documents</StatsTitle>
+                  <StatsNumber>{user?.notesCount}</StatsNumber>
+                </StatsInfo>
+              </StatsCard>
+              <StatsCard>
+                <StatIconContainer>
+                  <StudentsIcon />
+                </StatIconContainer>
+                <StatsInfo>
+                  <StatsTitle>Total Students</StatsTitle>
 
-									<StatsNumber>{user?.notesCount}</StatsNumber>
-								</StatsInfo>
-							</StatsCard>
-							<StatsCard>
-								<StatIconContainer>
-									<StudentsIcon />
-								</StatIconContainer>
-								<StatsInfo>
-									<StatsTitle>Total Students</StatsTitle>
+                  <StatsNumber>{user?.studentCount}</StatsNumber>
+                </StatsInfo>
+              </StatsCard>
+              <StatsCard>
+                <StatIconContainer>
+                  <Coin size={28} />
+                </StatIconContainer>
+                <StatsInfo>
+                  <StatsTitle>Coins Earned</StatsTitle>
 
-									<StatsNumber>{user?.studentCount}</StatsNumber>
-								</StatsInfo>
-							</StatsCard>
-							<StatsCard>
-								<StatIconContainer>
-									<Coin size={28} />
-								</StatIconContainer>
-								<StatsInfo>
-									<StatsTitle>Coins Earned</StatsTitle>
+                  <StatsNumber>
+                    {user?.totalViewCount?.length > 0
+                      ? user?.totalViewCount[0]?.total
+                      : 0}
+                  </StatsNumber>
+                </StatsInfo>
+              </StatsCard>
+            </StatsCardContainer>
+          </StatsContainer>
 
-									<StatsNumber>
-										{user?.totalViewCount?.length > 0
-											? user?.totalViewCount[0]?.total
-											: 0}
-									</StatsNumber>
-								</StatsInfo>
-							</StatsCard>
-						</StatsCardContainer>
-					</StatsContainer>
-
-					<RecentUploadContainer>
-						<CommonTitleText>Recent Uploads</CommonTitleText>
-						<RecentUploadDiv>
-							<AllDocs>
-								{getNotes?.length > 0 ? (
-									<>
-										{getNotes.map((note: any, index: any) => (
-											<Note key={index}>
-												<NoteTitle>{note?.noteTitle}</NoteTitle>
-												<div
-													style={{
-														display: 'flex',
-														alignItems: 'center',
-														gap: '8px',
-													}}
-												>
-													<Eye size={14} />{' '}
-													<span style={{ marginRight: '16px' }}>
-														{note?.viewCount}
-													</span>
-													<DeleteIcon onClick={() => handleDelete(note._id)} />
-												</div>
-											</Note>
-										))}
-									</>
-								) : (
-									<NONoteText>
+          <RecentUploadContainer>
+            <CommonTitleText>Recent Uploads</CommonTitleText>
+            <RecentUploadDiv>
+              <AllDocs>
+                {getNotes?.length > 0 ? (
+                  <>
+                    {getNotes.map((note: any, index: any) => (
+                      <Note key={index}>
+                        <NoteTitle>{note?.noteTitle}</NoteTitle>
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px',
+                          }}
+                        >
+                          <Export
+                            // download note
+                            onClick={() => window.open(note?.fileUrl, '_blank')}
+                          />
+                          <Eye size={14} />{' '}
+                          <span style={{ marginRight: '16px' }}>
+                            {note?.viewCount}
+                          </span>
+                          <DeleteIcon onClick={() => handleDelete(note._id)} />
+                        </div>
+                      </Note>
+                    ))}
+                  </>
+                ) : (
+                  <NONoteText>
                     Upload notes to see you recent notes here
-									</NONoteText>
-								)}
-							</AllDocs>
-						</RecentUploadDiv>
-					</RecentUploadContainer>
-				</LeftContainer>
-				<RightContainer>
-					<RankingContainer>
-						<PlaceContainer>
-							<Avvvatars
-							// value={userId}
-								value={ranking[1]?.user?.userFullName
-									? (ranking[1]?.user?.userFullName)
-										.split(' ')
-										.map((n: any) => n[0])
-										.join('')
-									: 'NA'}
-								// style={'shape'}
-								shadow={true}
-								// border={true}
-								size={48}
-							// borderColor='black'
-							// radius={8}
-							/>
-							<ProfileName>{ranking[1]?.user?.userFullName}</ProfileName>
-							<SecondPlaceBar>
-								<PlaceText>2nd</PlaceText>
-								<PlaceTextDesc>{ranking[1]?.totalViewCount}</PlaceTextDesc>
-							</SecondPlaceBar>
-						</PlaceContainer>
+                  </NONoteText>
+                )}
+              </AllDocs>
+            </RecentUploadDiv>
+          </RecentUploadContainer>
+        </LeftContainer>
+        <RightContainer>
+          <RankingContainer>
+            <PlaceContainer>
+              <Avvvatars
+                // value={userId}
+                value={
+                  ranking[1]?.user?.userFullName
+                    ? (ranking[1]?.user?.userFullName)
+                        .split(' ')
+                        .map((n: any) => n[0])
+                        .join('')
+                    : 'NA'
+                }
+                // style={'shape'}
+                shadow={true}
+                // border={true}
+                size={48}
+                // borderColor='black'
+                // radius={8}
+              />
+              <ProfileName>{ranking[1]?.user?.userFullName}</ProfileName>
+              <SecondPlaceBar>
+                <PlaceText>2nd</PlaceText>
+                <PlaceTextDesc>{ranking[1]?.totalViewCount}</PlaceTextDesc>
+              </SecondPlaceBar>
+            </PlaceContainer>
 
-						{/* //first place */}
-						<PlaceContainer>
-							<Avvvatars
-							// value={userId}
-								value={ranking[0]?.user?.userFullName
-									? (ranking[0]?.user?.userFullName)
-										.split(' ')
-										.map((n: any) => n[0])
-										.join('')
-									: 'NA'}
-								// style={'shape'}
-								shadow={true}
-								// border={true}
-								size={48}
-							// borderColor='black'
-							// radius={8}
-							/>
-							<ProfileName>{ranking[0]?.user?.userFullName}</ProfileName>
-							<FirstPlaceBar>
-								<PlaceText>1st</PlaceText>
-								<PlaceTextDesc>{ranking[0]?.totalViewCount}</PlaceTextDesc>
-							</FirstPlaceBar>
-						</PlaceContainer>
+            {/* //first place */}
+            <PlaceContainer>
+              <Avvvatars
+                // value={userId}
+                value={
+                  ranking[0]?.user?.userFullName
+                    ? (ranking[0]?.user?.userFullName)
+                        .split(' ')
+                        .map((n: any) => n[0])
+                        .join('')
+                    : 'NA'
+                }
+                // style={'shape'}
+                shadow={true}
+                // border={true}
+                size={48}
+                // borderColor='black'
+                // radius={8}
+              />
+              <ProfileName>{ranking[0]?.user?.userFullName}</ProfileName>
+              <FirstPlaceBar>
+                <PlaceText>1st</PlaceText>
+                <PlaceTextDesc>{ranking[0]?.totalViewCount}</PlaceTextDesc>
+              </FirstPlaceBar>
+            </PlaceContainer>
 
-						{/* third place  */}
+            {/* third place  */}
 
-						<PlaceContainer>
-							<Avvvatars
-							// value={userId}
-								value={ranking[2]?.user?.userFullName
-									? (ranking[2]?.user?.userFullName)
-										.split(' ')
-										.map((n: any) => n[0])
-										.join('')
-									: 'NA'}
-								// style={'shape'}
-								shadow={true}
-								// border={true}
-								size={48}
-							// borderColor='black'
-							// radius={8}
-							/>
-							<ProfileName>{ranking[2]?.user?.userFullName}</ProfileName>
-							<ThirdPlaceBar>
-								<PlaceText>3rd</PlaceText>
-								<PlaceTextDesc>{ranking[2]?.totalViewCount}</PlaceTextDesc>
-							</ThirdPlaceBar>
+            <PlaceContainer>
+              <Avvvatars
+                // value={userId}
+                value={
+                  ranking[2]?.user?.userFullName
+                    ? (ranking[2]?.user?.userFullName)
+                        .split(' ')
+                        .map((n: any) => n[0])
+                        .join('')
+                    : 'NA'
+                }
+                // style={'shape'}
+                shadow={true}
+                // border={true}
+                size={48}
+                // borderColor='black'
+                // radius={8}
+              />
+              <ProfileName>{ranking[2]?.user?.userFullName}</ProfileName>
+              <ThirdPlaceBar>
+                <PlaceText>3rd</PlaceText>
+                <PlaceTextDesc>{ranking[2]?.totalViewCount}</PlaceTextDesc>
+              </ThirdPlaceBar>
+            </PlaceContainer>
+          </RankingContainer>
 
-						</PlaceContainer>
-					</RankingContainer>
-
-					<HowWorksContainer>
-						<HowItWorksTitle>How it works</HowItWorksTitle>
-						<HowWorksSingleMainContainer>
-							<HowWorksSingleContainer>
-								<IconContainer>
-									<UploadIcon size={24} />
-								</IconContainer>
-								<HowWorksSingleCaption>
+          <HowWorksContainer>
+            <HowItWorksTitle>How it works</HowItWorksTitle>
+            <HowWorksSingleMainContainer>
+              <HowWorksSingleContainer>
+                <IconContainer>
+                  <UploadIcon size={24} />
+                </IconContainer>
+                <HowWorksSingleCaption>
                   Upload your work. You can share class notes, study guides and
                   much more.
-								</HowWorksSingleCaption>
-							</HowWorksSingleContainer>
-							<HowWorksSingleContainer>
-								<IconContainer>
-									<CheckIcon />
-								</IconContainer>
-								<HowWorksSingleCaption>
+                </HowWorksSingleCaption>
+              </HowWorksSingleContainer>
+              <HowWorksSingleContainer>
+                <IconContainer>
+                  <CheckIcon />
+                </IconContainer>
+                <HowWorksSingleCaption>
                   Our systems and mentors will review it for quality checks.
-								</HowWorksSingleCaption>
-							</HowWorksSingleContainer>
-							<HowWorksSingleContainer>
-								<IconContainer>
-									<FlameIcon />
-								</IconContainer>
-								<HowWorksSingleCaption>
+                </HowWorksSingleCaption>
+              </HowWorksSingleContainer>
+              <HowWorksSingleContainer>
+                <IconContainer>
+                  <FlameIcon />
+                </IconContainer>
+                <HowWorksSingleCaption>
                   Your work is made available to students around the globe.
-								</HowWorksSingleCaption>
-							</HowWorksSingleContainer>
-							<HowWorksSingleContainer>
-								<IconContainer>
-									<BadgeIcon />
-								</IconContainer>
-								<HowWorksSingleCaption>
+                </HowWorksSingleCaption>
+              </HowWorksSingleContainer>
+              <HowWorksSingleContainer>
+                <IconContainer>
+                  <BadgeIcon />
+                </IconContainer>
+                <HowWorksSingleCaption>
                   Your work will earn you credits which can be redeemed for
                   exciting rewards.
-								</HowWorksSingleCaption>
-							</HowWorksSingleContainer>
-						</HowWorksSingleMainContainer>
-					</HowWorksContainer>
-				</RightContainer>
-			</Container>
-		</MainContainer>
-	);
+                </HowWorksSingleCaption>
+              </HowWorksSingleContainer>
+            </HowWorksSingleMainContainer>
+          </HowWorksContainer>
+        </RightContainer>
+      </Container>
+    </MainContainer>
+  );
 }
 
 export default SellDocuments;
