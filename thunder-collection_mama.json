@@ -1,0 +1,506 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "mama",
+    "dateExported": "2023-04-22T08:54:21.339Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "a0927eca-1944-404a-8805-601affd377d5",
+            "name": "user",
+            "containerId": "",
+            "created": "2023-02-15T22:38:45.860Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "eb0348ac-ddea-4d60-a88c-438b7f5e5299",
+            "name": "meeting",
+            "containerId": "",
+            "created": "2023-02-25T07:39:38.043Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "6911d550-e8ce-4df7-87ca-50fbec79adf7",
+            "name": "notes",
+            "containerId": "",
+            "created": "2023-02-25T18:14:23.591Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "0dad94b8-7c9e-4487-8fbb-f7e9ee72120f",
+            "name": "search",
+            "containerId": "",
+            "created": "2023-02-25T21:18:01.493Z",
+            "sortNum": 50000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "110ed8b0-f86f-4de5-bab7-4b72fef91c11",
+            "colId": "642db600-39e6-46cc-9f19-179bee96821e",
+            "containerId": "a0927eca-1944-404a-8805-601affd377d5",
+            "name": "register / login",
+            "url": "localhost:8000/user/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-02-15T21:50:30.097Z",
+            "modified": "2023-04-22T08:29:29.007Z",
+            "headers": [
+                {
+                    "name": "X-API-KEY",
+                    "value": "1234567890123456"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{ \n  \"userEmail\":\"test1@test.commmm\",\n\n  \"userFullName\":\"test user mentor\",\n  \"socialRefererId\":\"1234567879011111\",\n  \"isMentor\":\"true\"\n  \n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0f2ba3d3-621d-46b1-9f33-b91d0ebded39",
+            "colId": "642db600-39e6-46cc-9f19-179bee96821e",
+            "containerId": "eb0348ac-ddea-4d60-a88c-438b7f5e5299",
+            "name": "get schedule",
+            "url": "localhost:8000/meeting/get?meetingId=63fa4dd9f920942d8fb24f90",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-02-25T07:39:03.345Z",
+            "modified": "2023-02-26T04:33:49.032Z",
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "X-API-KEY",
+                    "value": "1234567890123456"
+                },
+                {
+                    "name": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0ZXM1NDRAdGVzdC5jb20iLCJzb2NpYWxSZWZlcmVySWQiOiIxMjM0NTY3ODc5MCIsImlhdCI6MTY3NzMxMzQ0NH0.BvsGFMtsOPX6ePFjaNfHZ4YRt__y9uNxja47NbYztEw"
+                }
+            ],
+            "params": [
+                {
+                    "name": "meetingId",
+                    "value": "63fa4dd9f920942d8fb24f90",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "e35b0566-2476-422b-9718-5e2223e97c9b",
+            "colId": "642db600-39e6-46cc-9f19-179bee96821e",
+            "containerId": "6911d550-e8ce-4df7-87ca-50fbec79adf7",
+            "name": "upload notes",
+            "url": "localhost:8000/notes/upload",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-02-25T18:53:53.790Z",
+            "modified": "2023-02-25T19:25:29.125Z",
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "X-API-KEY",
+                    "value": "1234567890123456"
+                },
+                {
+                    "name": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0ZXM1NDRAdGVzdC5jb20iLCJzb2NpYWxSZWZlcmVySWQiOiIxMjM0NTY3ODc5MCIsImlhdCI6MTY3NzMxMzQ0NH0.BvsGFMtsOPX6ePFjaNfHZ4YRt__y9uNxja47NbYztEw"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n     \"fileUrl\":\"https://exampleurl.com/\",\n            \"userId\":\"63fa4913cc0914a44d073828\",\n            \"fileName\":\"test file name\",\n            \"fileSize\":\"4KB\",\n            \"noteTitle\":\"test Title\",\n            \"fileType\":\"PDF\",\n            \"category\":\"testCategory\",\n            \"description\":\"test description2\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "9d635572-feb5-41b2-bca0-c9bccc765468",
+            "colId": "642db600-39e6-46cc-9f19-179bee96821e",
+            "containerId": "eb0348ac-ddea-4d60-a88c-438b7f5e5299",
+            "name": "get all meeting by user",
+            "url": "localhost:8000/meeting/getall?userId=63fa4913cc0914a44d073828",
+            "method": "GET",
+            "sortNum": 12500,
+            "created": "2023-02-25T10:54:41.396Z",
+            "modified": "2023-02-25T18:07:38.373Z",
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "X-API-KEY",
+                    "value": "1234567890123456"
+                },
+                {
+                    "name": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0ZXM1NDRAdGVzdC5jb20iLCJzb2NpYWxSZWZlcmVySWQiOiIxMjM0NTY3ODc5MCIsImlhdCI6MTY3NzMxMzQ0NH0.BvsGFMtsOPX6ePFjaNfHZ4YRt__y9uNxja47NbYztEw"
+                }
+            ],
+            "params": [
+                {
+                    "name": "userId",
+                    "value": "63fa4913cc0914a44d073828",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "2a3d5aac-91ea-4ad0-985e-cde34abe4300",
+            "colId": "642db600-39e6-46cc-9f19-179bee96821e",
+            "containerId": "eb0348ac-ddea-4d60-a88c-438b7f5e5299",
+            "name": "update schedule ",
+            "url": "localhost:8000/meeting/update",
+            "method": "PUT",
+            "sortNum": 15000,
+            "created": "2023-02-25T08:47:54.799Z",
+            "modified": "2023-02-25T18:06:51.235Z",
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "X-API-KEY",
+                    "value": "1234567890123456"
+                },
+                {
+                    "name": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0ZXM1NDRAdGVzdC5jb20iLCJzb2NpYWxSZWZlcmVySWQiOiIxMjM0NTY3ODc5MCIsImlhdCI6MTY3NzMxMzQ0NH0.BvsGFMtsOPX6ePFjaNfHZ4YRt__y9uNxja47NbYztEw"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"meetingId\":\"63fa4dd9f920942d8fb24f90\",\n  \"meetingStatus\":\"accepted\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a8f5e739-00f9-4b21-bef7-97a5282134b1",
+            "colId": "642db600-39e6-46cc-9f19-179bee96821e",
+            "containerId": "eb0348ac-ddea-4d60-a88c-438b7f5e5299",
+            "name": "schedule meeting",
+            "url": "localhost:8000/meeting/schedule",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-02-25T08:35:07.535Z",
+            "modified": "2023-02-25T18:05:13.229Z",
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "X-API-KEY",
+                    "value": "1234567890123456"
+                },
+                {
+                    "name": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0ZXM1NDRAdGVzdC5jb20iLCJzb2NpYWxSZWZlcmVySWQiOiIxMjM0NTY3ODc5MCIsImlhdCI6MTY3NzMxMzQ0NH0.BvsGFMtsOPX6ePFjaNfHZ4YRt__y9uNxja47NbYztEw"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n   \"mentorId\": \"63fa4928cc0914a44d07382c\",\n  \"menteeId\": \"63fa4913cc0914a44d073828\",\n  \"meetingDate\": \"string\",\n  \"meetingTime\": \"string\",\n  \"meetingDuration\": \"string\",\n  \"meetingTopic\": \"string\",\n  \"meetingDescription\": \"string\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "757c8ad7-e124-4c47-963d-77f6eb3ca05e",
+            "colId": "642db600-39e6-46cc-9f19-179bee96821e",
+            "containerId": "a0927eca-1944-404a-8805-601affd377d5",
+            "name": "update user interest",
+            "url": "localhost:8000/user/update/status",
+            "method": "PUT",
+            "sortNum": 20000,
+            "created": "2023-02-25T16:53:54.845Z",
+            "modified": "2023-04-22T08:49:54.904Z",
+            "headers": [
+                {
+                    "name": "X-API-KEY",
+                    "value": "1234567890123456"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmE0OTEzY2MwOTE0YTQ0ZDA3MzgyOCIsInVzZXJFbWFpbCI6InRlc3QxQHRlc3QuY29tbW1tIiwic29jaWFsUmVmZXJlcklkIjoiMTIzNDU2Nzg3OTAxMTExMSIsImlhdCI6MTY3NzM4NTAzNn0.dkZ2AhJVtDylcmNLmTKJVRdVMiTxprP9rsxUx6_5eUk"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"interests\":[\"science\"],\n  \"isMentor\": true\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f60a9565-cfb4-40b9-8a9f-963bdadcab96",
+            "colId": "642db600-39e6-46cc-9f19-179bee96821e",
+            "containerId": "6911d550-e8ce-4df7-87ca-50fbec79adf7",
+            "name": "get notes",
+            "url": "localhost:8000/notes/getNotes?userId=63fa4913cc0914a44d073828",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-02-25T19:24:04.437Z",
+            "modified": "2023-02-25T21:00:21.177Z",
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "X-API-KEY",
+                    "value": "1234567890123456"
+                },
+                {
+                    "name": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0ZXM1NDRAdGVzdC5jb20iLCJzb2NpYWxSZWZlcmVySWQiOiIxMjM0NTY3ODc5MCIsImlhdCI6MTY3NzMxMzQ0NH0.BvsGFMtsOPX6ePFjaNfHZ4YRt__y9uNxja47NbYztEw"
+                }
+            ],
+            "params": [
+                {
+                    "name": "category",
+                    "value": "testCategory",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "userId",
+                    "value": "63fa4913cc0914a44d073828",
+                    "isPath": false
+                },
+                {
+                    "name": "noteId",
+                    "value": "63fa5f194ad3f7ab8c57bcba",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "f5c06fe0-a173-4821-8ad3-4660f5e3f130",
+            "colId": "642db600-39e6-46cc-9f19-179bee96821e",
+            "containerId": "0dad94b8-7c9e-4487-8fbb-f7e9ee72120f",
+            "name": "find users",
+            "url": "localhost:8000/search/user?p=test",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-02-25T21:18:01.494Z",
+            "modified": "2023-02-25T21:19:21.596Z",
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "X-API-KEY",
+                    "value": "1234567890123456"
+                },
+                {
+                    "name": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJ0ZXM1NDRAdGVzdC5jb20iLCJzb2NpYWxSZWZlcmVySWQiOiIxMjM0NTY3ODc5MCIsImlhdCI6MTY3NzMxMzQ0NH0.BvsGFMtsOPX6ePFjaNfHZ4YRt__y9uNxja47NbYztEw"
+                }
+            ],
+            "params": [
+                {
+                    "name": "p",
+                    "value": "test",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "35740b6b-7f79-4577-8f63-c73baaa30f31",
+            "colId": "642db600-39e6-46cc-9f19-179bee96821e",
+            "containerId": "a0927eca-1944-404a-8805-601affd377d5",
+            "name": "update userProfile",
+            "url": "localhost:8000/user/update/profile",
+            "method": "PUT",
+            "sortNum": 22500,
+            "created": "2023-04-22T08:37:10.011Z",
+            "modified": "2023-04-22T08:53:53.774Z",
+            "headers": [
+                {
+                    "name": "X-API-KEY",
+                    "value": "1234567890123456"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmE0OTEzY2MwOTE0YTQ0ZDA3MzgyOCIsInVzZXJFbWFpbCI6InRlc3QxQHRlc3QuY29tbW1tIiwic29jaWFsUmVmZXJlcklkIjoiMTIzNDU2Nzg3OTAxMTExMSIsImlhdCI6MTY3NzM4NTAzNn0.dkZ2AhJVtDylcmNLmTKJVRdVMiTxprP9rsxUx6_5eUk"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"college\": \"dasjkdbnfjkla\",\n  \"userFullName\":\"asdfasdf\",\n  \"gender\":\"afsdfasddf\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "8fe4a4df-5209-4cae-94f9-ea845ad9f5a6",
+            "colId": "642db600-39e6-46cc-9f19-179bee96821e",
+            "containerId": "a0927eca-1944-404a-8805-601affd377d5",
+            "name": "get user info",
+            "url": "localhost:8000/user?userId=63fa4928cc0914a44d07382c&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmE0OTI4Y2MwOTE0YTQ0ZDA3MzgyYyIsInVzZXJFbWFpbCI6InRlc3QxQHRlc3QuY29tbW1tIiwic29jaWFsUmVmZXJlcklkIjoiMTIzNDU2Nzg3OTAxMTExMTEiLCJpYXQiOjE2NzczNDcxMTJ9.YKjmVe9HY80Wt_008y6MHjx16udzGUCyLq3mO4M4SM0",
+            "method": "GET",
+            "sortNum": 25000,
+            "created": "2023-02-15T22:55:51.165Z",
+            "modified": "2023-02-25T17:49:10.976Z",
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "X-API-KEY",
+                    "value": "1234567890123456"
+                }
+            ],
+            "params": [
+                {
+                    "name": "userId",
+                    "value": "63fa4928cc0914a44d07382c",
+                    "isPath": false
+                },
+                {
+                    "name": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmE0OTI4Y2MwOTE0YTQ0ZDA3MzgyYyIsInVzZXJFbWFpbCI6InRlc3QxQHRlc3QuY29tbW1tIiwic29jaWFsUmVmZXJlcklkIjoiMTIzNDU2Nzg3OTAxMTExMTEiLCJpYXQiOjE2NzczNDcxMTJ9.YKjmVe9HY80Wt_008y6MHjx16udzGUCyLq3mO4M4SM0",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "80c13446-1563-4970-af85-9d73dcb4f26d",
+            "colId": "642db600-39e6-46cc-9f19-179bee96821e",
+            "containerId": "6911d550-e8ce-4df7-87ca-50fbec79adf7",
+            "name": "update notes",
+            "url": "localhost:8000/notes/updateNotes",
+            "method": "PUT",
+            "sortNum": 25000,
+            "created": "2023-02-25T20:40:28.230Z",
+            "modified": "2023-02-25T21:33:45.934Z",
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "X-API-KEY",
+                    "value": "1234567890123456"
+                },
+                {
+                    "name": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmE0OTEzY2MwOTE0YTQ0ZDA3MzgyOCIsInVzZXJFbWFpbCI6InRlc3QxQHRlc3QuY29tbW1tIiwic29jaWFsUmVmZXJlcklkIjoiMTIzNDU2Nzg3OTAxMTExMSIsImlhdCI6MTY3NzM1NzU4NX0.DCWFJLAt9VaY88R34e7pb7BAShU2D7ZQZTLdqdjl1GI"
+                }
+            ],
+            "params": [
+                {
+                    "name": "category",
+                    "value": "testCategory",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "noteId",
+                    "value": "63fa5f194ad3f7ab8c57bcba",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": " { \n   \"noteId\":\"63fa60a9e02d9d37728a81aa\", \n \"userId\":\"63fa4913cc0914a44d073828\",\n \"noteTitle\":\"test Title\",\n \"category\":[\"changed titles\"], \n \"description\":\"changed description\" \n }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3987a6aa-bb36-47c6-ac67-5f2de4014d63",
+            "colId": "642db600-39e6-46cc-9f19-179bee96821e",
+            "containerId": "6911d550-e8ce-4df7-87ca-50fbec79adf7",
+            "name": "delete notes",
+            "url": "localhost:8000/notes/deleteNotes",
+            "method": "DELETE",
+            "sortNum": 30000,
+            "created": "2023-02-25T20:04:23.479Z",
+            "modified": "2023-02-25T21:00:55.601Z",
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "X-API-KEY",
+                    "value": "1234567890123456"
+                },
+                {
+                    "name": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmE0OTEzY2MwOTE0YTQ0ZDA3MzgyOCIsInVzZXJFbWFpbCI6InRlc3QxQHRlc3QuY29tbW1tIiwic29jaWFsUmVmZXJlcklkIjoiMTIzNDU2Nzg3OTAxMTExMSIsImlhdCI6MTY3NzM1NzU4NX0.DCWFJLAt9VaY88R34e7pb7BAShU2D7ZQZTLdqdjl1GI"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{ \n  \"noteId\":\"63fa609fe02d9d37728a81a7\", \n  \"userId\":\"63fa4913cc0914a44d07382\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
