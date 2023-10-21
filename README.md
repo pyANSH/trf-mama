@@ -6,7 +6,7 @@ Follow these steps to run the Mama: An AI-based Learning and Resources Platform:
 
 2. Extract the zip file or navigate to the project directory in your terminal.
 
-3. Open a terminal or command prompt.
+3. Open a terminal or command prompt. test
 
 4. Install the project dependencies by running the following command:
 
